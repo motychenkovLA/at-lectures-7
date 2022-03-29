@@ -17,6 +17,7 @@ public class Tracker {
 
         System.out.println(summary+", "+critical+", "+countDay+", Исправление займет больше рабочей недели: "+(countDay > 5));
 
+
         scanner.close();
     }
 }
