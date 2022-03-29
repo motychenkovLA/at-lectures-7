@@ -28,5 +28,6 @@ public class Main {
         }
 
         System.out.println("Name: "+name+" Priority: "+priority+" Days: "+days+" More work week?: "+daysOfWeek);
+        bugReport.close();
     }
 }
