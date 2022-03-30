@@ -15,10 +15,10 @@ public class Main {
 
         //check: 1 week include number of days for fix or not
         int week = 7;
-        boolean result = numberOfDays > week;
+        boolean daysForFixMoreThenWeek = numberOfDays > week;
 
         System.out.println("Description: " + description + "\nSeverity: " +
                 severity + "\nWorkload in days: " + numberOfDays +
-                "\nNumber of days for fix more then one week: " + result);
+                "\nNumber of days for fix more then one week: " + daysForFixMoreThenWeek);
     }
 }
