@@ -22,10 +22,10 @@ public class Main {
 
         System.out.println(
                 "Итог:" +
-                        "\n Описание дефекта:" + resumeBag +
-                        "\n Критичность:" + critical +
-                        "\n Количество дней на исправление:" + daysCorrection +
-                        "\n Будет исправлен за рабочую неделю:" + (daysCorrection <= WORKING_DAYS_IN_WEEK)
+                        "\n Описание дефекта: " + resumeBag +
+                        "\n Критичность: " + critical +
+                        "\n Количество дней на исправление: " + daysCorrection +
+                        "\n Будет исправлен за рабочую неделю: " + (daysCorrection <= WORKING_DAYS_IN_WEEK)
         );
 
     }
