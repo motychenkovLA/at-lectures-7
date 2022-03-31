@@ -4,15 +4,16 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите описание дефекта");
         String description = scanner.nextLine();
 
         System.out.println("Выберите кричтичность дефектов из:\n" +
-                "-Blocker\n"  +
-                "-Critical\n"  +
-                "-Major\n"  +
-                "-Minor\n"  +
+                "-Blocker\n" +
+                "-Critical\n" +
+                "-Major\n" +
+                "-Minor\n" +
                 "-Trivial\n");
         String Severity = scanner.nextLine();
 
@@ -21,5 +22,10 @@ public class Main {
         scanner.nextLine();
 
         System.out.println("На исправление дефекта " + description + " с критичностью " + Severity + " необходимо " + number + " дней ");
+
+        boolean week = number > 5;
+
+        System.out.println("Это займет больше недели?:" + week);
     }
 }
+
