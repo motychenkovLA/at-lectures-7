@@ -15,6 +15,7 @@ public class Main {
                 "-Major\n" +
                 "-Minor\n" +
                 "-Trivial\n");
+        // todo 1 - форматирование названия переменной
         String Severity = scanner.nextLine();
 
         System.out.println("Дни на исправление дефекта:");
@@ -23,6 +24,7 @@ public class Main {
 
         System.out.println("На исправление дефекта " + description + " с критичностью " + Severity + " необходимо " + number + " дней ");
 
+        // todo 3 - 5 лучше вынести в именованную константу
         boolean week = number > 5;
 
         System.out.println("Это займет больше недели?:" + week);
