@@ -15,17 +15,18 @@ public class Main {
                 "-Major\n" +
                 "-Minor\n" +
                 "-Trivial\n");
-        String Severity = scanner.nextLine();
+        String severity = scanner.nextLine();
 
         System.out.println("Дни на исправление дефекта:");
         int number = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.println("На исправление дефекта " + description + " с критичностью " + Severity + " необходимо " + number + " дней ");
+        System.out.println("На исправление дефекта " + description + " с критичностью " + severity + " необходимо " + number + " дней ");
 
-        boolean week = number > 5;
+        final int week = 5;
+        boolean comparisonDays = number > week;
 
-        System.out.println("Это займет больше недели?:" + week);
+        System.out.println("Это займет больше недели?:" + comparisonDays);
     }
 }
 
