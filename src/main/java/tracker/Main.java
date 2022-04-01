@@ -14,6 +14,8 @@ public class Main {
         System.out.println("Введите ожидаемое кол-во дней на исправление дефекта");
         int countDay = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("Информация о заведенном дефекте:\n"+"Название - " +name+"\n"+"Критичность - "+critical+"\n"+"Дней на исправление - "+countDay+"\n"+"Исправление займет больше рабочей недели - "+(countDay>WORK_WEEK));
+        System.out.println("Информация о заведенном дефекте:\n"+"Название - " +name+"\n"+"Критичность - "
+                +critical+"\n"+"Дней на исправление - "+countDay+"\n"+"Исправление займет больше рабочей недели - "
+                +(countDay>WORK_WEEK));
     }
 }
