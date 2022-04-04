@@ -1,44 +1,42 @@
 package tracker;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        // todo 1 - ни о чем не говорящее название
-        // todo 3 - размер почему-то 2, дефект это не строка, это две строки и число
-        String[] array = new String[2];
+        String[] arrayDefect = new String[10];
+        String[] arrayDefect1 = new String[10];
+        int[] arrayDefect2 = new int[10];
         Scanner scanner = new Scanner(System.in);
         int i = 0;
         while (true) {
-            System.out.println("Выберите действие:\n" + "(Добавить новый дефект - add, Вывести список - list, " +
+            System.out.println("Выберите действие:\n" + "Добавить новый дефект - add, Вывести список - list, " +
                     "Выйти из программы - quit");
             switch (scanner.nextLine()) {
                 case "add":
-                    if (i >= array.length) {
+                    if (i >= arrayDefect.length) {
                         System.out.println("Размер дефектов превышен");
                         break;
                     }
-                    final int WORK_WEEK = 5; // todo 0 - "больше недели" можно убрать
                     System.out.println("//Создание баг-репорта//");
                     System.out.println("Введите название дефекта");
                     String name = scanner.nextLine();
                     System.out.println("Введите критичность дефекта:\n" + "(trivial, minor, major, critical, blocker)");
                     String critical = scanner.nextLine();
                     System.out.println("Введите ожидаемое кол-во дней на исправление дефекта");
-                    int countDay = scanner.nextInt(); // todo 3 - перенос курсора
-                    System.out.println("Исправление займет больше рабочей недели - " + (countDay > WORK_WEEK));
-                    String defect = "Информация о заведенном дефекте:\nНомер дефекта - " + i +
-                            "\nНазвание - " + name + "\nКритичность - " + critical +
-                            "\nДней на исправление - " + countDay +
-                            "\nИсправление займет больше рабочей недели - " + (countDay > WORK_WEEK);
-                    array[i] = defect;
+                    int countDay = scanner.nextInt();
+                    System.out.println();
+                    arrayDefect[i] = name;
+                    arrayDefect1[i] = critical;
+                    arrayDefect2[i] = countDay;
                     i++;
                     break;
                 case "list":
-                    // todo 3 - дефекты наезжают друг на друга при выводе
-                    System.out.println(Arrays.toString(array));
+                    for (int a = 0; a < arrayDefect.length; a++) {
+                        System.out.println("Номер дефекта: " + a + ", Название: " + arrayDefect[a] + ", Критичность: "
+                                + arrayDefect1[a] + ", Кол-во дней: " + arrayDefect2[a]);
+                    }
                     System.out.println();
                     break;
                 case "quit":
