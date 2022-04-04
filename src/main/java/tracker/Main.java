@@ -1,6 +1,7 @@
 package tracker;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -13,7 +14,6 @@ public class Main {
         String[] severity = new String[MAX_COUNT];
         String[] daysToFix = new String[MAX_COUNT];
 
-
         boolean isRun = true;
         while(isRun) {
 
@@ -22,56 +22,38 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
             switch (scanner.nextLine()) {
                 case "add": {
-                    System.out.println("Введите резюме дефекта");
-                    resumes[currentDefectNum] = scanner.nextLine();
-                    System.out.println("Введите критичность дефекта (Blocker, Critical, Major, Minor, Trivial)");
-                    severity[currentDefectNum] = scanner.nextLine();
-                    System.out.println("Введите ожидаемое количество дней на исправление дефекта");
-                    daysToFix[currentDefectNum] = scanner.nextLine();
+                    if (currentDefectNum < MAX_COUNT) {
+                        System.out.println("Введите резюме дефекта");
+                        resumes[currentDefectNum] = scanner.nextLine();
+                        System.out.println("Введите критичность дефекта (Blocker, Critical, Major, Minor, Trivial)");
+                        severity[currentDefectNum] = scanner.nextLine();
+                        System.out.println("Введите ожидаемое количество дней на исправление дефекта");
+                        daysToFix[currentDefectNum] = scanner.nextLine();
 
-                    currentDefectNum++;
+                        currentDefectNum++;
+                    }
+                    else {
+                        System.out.println("Нельзя ввести больше 10 дефектов!");
+                    }
                     break;
                 }
 
                 case "list": {
-
-
+                    for (currentDefectNum = 0; currentDefectNum < MAX_COUNT; currentDefectNum++){
+                        if (resumes[currentDefectNum] == null) continue;
+                        System.out.println(currentDefectNum + " | " + resumes[currentDefectNum] + " | " +
+                                severity[currentDefectNum] + " | " + daysToFix[currentDefectNum]);
+                    }
                     break;
                 }
-
 
                 case "quit": {
                     isRun = false;
                     break;
                 }
-
-
-
             }
-
-
         }
-
-
     }
 }
 
-
-
-
-
-
-
-//        int daysInWorkWeek = 5;
-//        Scanner scanner = new Scanner(System.in);
-//
-//        System.out.println("Введите резюме дефекта");
-//        String defectDescription = scanner.nextLine();
-//        System.out.println("Введите критичность дефекта (Blocker, Critical, Major, Minor, Trivial)");
-//        String defectSeverity = scanner.nextLine();
-//        System.out.println("Введите ожидаемое количество дней на исправление дефекта");
-//        int daysToFix = scanner.nextInt();
-//        System.out.println("Описание дефекта: " + "\n" + defectDescription + "\n" + "Критичность дефекта:" + "\n" +
-//                defectSeverity + "\n" + "Количество дней на исправление дефекта: " + daysToFix + "\n" +
-//                "Займет больше рабочей недели: " + (daysToFix > daysInWorkWeek));
 
