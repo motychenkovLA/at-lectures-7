@@ -5,39 +5,46 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        String[] array = new String[3];
-        String[] array1 = new String[1];
-        for (int i = 0; i < 3; i++) {
+
+        final int MAX_COUNT = 10;
+        int currentDefectNum = 0;
+
+        String[] resumes = new String[MAX_COUNT];
+        String[] severity = new String[MAX_COUNT];
+        String[] daysToFix = new String[MAX_COUNT];
+
+
+        boolean isRun = true;
+        while(isRun) {
 
             System.out.println("Выберите действие: " + "\n" + "add - добавить новый дефект" + "\n" +
                     "list - вывести список" + "\n" + "quit - выйти из программы");
             Scanner scanner = new Scanner(System.in);
             switch (scanner.nextLine()) {
-                case "add":
+                case "add": {
+                    System.out.println("Введите резюме дефекта");
+                    resumes[currentDefectNum] = scanner.nextLine();
+                    System.out.println("Введите критичность дефекта (Blocker, Critical, Major, Minor, Trivial)");
+                    severity[currentDefectNum] = scanner.nextLine();
+                    System.out.println("Введите ожидаемое количество дней на исправление дефекта");
+                    daysToFix[currentDefectNum] = scanner.nextLine();
 
-                    for (i = 0; i < 1; i++) {
-                        System.out.println("Введите резюме дефекта");
-                        array1[i] = scanner.nextLine();
-                        System.out.println("Введите критичность дефекта (Blocker, Critical, Major, Minor, Trivial)");
-                        array1[i] = array1[i] + ", " + scanner.nextLine();
-                        System.out.println("Введите ожидаемое количество дней на исправление дефекта");
-                        array1[i] = array1[i] + ", " + scanner.nextLine();
+                    currentDefectNum++;
+                    break;
+                }
 
-                        array[i] = array1[i] + "\n";
-                    }
+                case "list": {
 
 
                     break;
+                }
 
 
-                case "list":
-                    for ( i = 0; i < 3; i++) {
-                        System.out.println(array[i]);
-                    }
-
+                case "quit": {
+                    isRun = false;
                     break;
-                case "quit":
-                    break;
+                }
+
 
 
             }
