@@ -20,7 +20,7 @@ public class Main {
             System.out.println("Введите одно из действий:" +
                     "\n add - Завести новый дефект" +
                     "\n list - Показать перечень дефектов" +
-                    "\n quit - Возврат в главное меню");
+                    "\n quit - Выход из программы");
 
             switch (scanner.nextLine()) {
 
