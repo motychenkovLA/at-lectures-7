@@ -5,11 +5,12 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        int[] number = new int[10];
+        // todo 3 - 10 это константа
+        int[] number = new int[10]; // todo 1 - не говорящее название
         String[] description = new String[10];
         String[] severity = new String[10];
 
-        int i = 0;
+        int i = 0; // todo 1 - не говорящее название
 
         Scanner scanner = new Scanner(System.in);
         /* Главное меню */
@@ -20,7 +21,7 @@ public class Main {
 
             switch (operation) {
                 case "add":
-                    if (i > description.length - 1) {
+                    if (i > description.length - 1) { // todo 0 - "a > b - 1" и "a >= b" это то же самое но второе попроще читать
                         System.out.println("Не возможно добавить дефект");
                         break;
                     }
@@ -42,6 +43,7 @@ public class Main {
                     break;
 
                 case "list":
+                    // todo 5 - выводятся незаполненные дефекты
                     for (int j = 0; j < description.length; j++) {
                         System.out.println("\tНомер дефекта: " + j + "\tОписание: " + description[i] +
                                 "\tКритичность: " + severity[i] + "\tКол-во дней на исправление: " + number[i]);
@@ -55,6 +57,7 @@ public class Main {
 
                 default:
                     System.out.println("Такой операции не существует\n");
+                    // todo 1 - по хорошему надо тоже break для одинаковости веток
             }
         }
     }
