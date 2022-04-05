@@ -17,7 +17,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("Введите число одного из действий:" +
+            System.out.println("Введите одно из действий:" +
                     "\n add - Завести новый дефект" +
                     "\n list - Показать перечень дефектов" +
                     "\n quit - Возврат в главное меню");
