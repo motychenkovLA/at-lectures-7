@@ -3,6 +3,12 @@ package tracker;
 import java.util.Scanner;
 
 public class Main {
+
+//    нейминг переменных
+//    магическое число 7
+//    выход за границу левого поля
+//    выравнивание
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите резюме дефекта");
