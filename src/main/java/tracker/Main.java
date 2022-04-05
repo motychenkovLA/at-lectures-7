@@ -17,7 +17,7 @@ public class Main {
         System.out.println("Enter days: ");
         days = scanner.nextInt();
 
-        System.out.println("Info about bug:\n" + "Name: " + name + "\nPriority: "
+        System.out.println("Defect information:\n" + "Name: " + name + "\nPriority: "
                 + priority + "\nDays: " + days + "\nMore work week?: " + (days > 5));
         scanner.close();
     }
