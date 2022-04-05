@@ -8,25 +8,65 @@ public class Main {
 
         final int WORKING_DAYS_IN_WEEK = 5;     // Рабочая неделя
 
+        String[] arrayResumeBag = new String[10];
+        String[] arrayCritical = new String[10];
+        int[] arrayDaysCorrection = new int[10];
+
+        int i = 0;
+
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Введите резюме по дефекту:");
-        String resumeBag = scanner.nextLine();
+        while (true) {
+            System.out.println("Введите число одного из действий:" +
+                    "\n add - Завести новый дефект" +
+                    "\n list - Показать перечень дефектов" +
+                    "\n quit - Возврат в главное меню");
 
-        System.out.println("Введите критичность дефекта (Низкий, Средний, Высокий, Блокирующий):");
-        String critical = scanner.nextLine();
+            switch (scanner.nextLine()) {
 
-        System.out.println("Введите количество дней на исправление:");
-        int daysCorrection = scanner.nextInt();
-        scanner.nextLine();
+                case "add":
+                    if (i >= arrayResumeBag.length) {
+                        System.out.println("Уже заведено 10 дефектов");
+                        break;
+                    }
 
-        System.out.println(
-                "Итог:" +
-                        "\n Описание дефекта: " + resumeBag +
-                        "\n Критичность: " + critical +
-                        "\n Количество дней на исправление: " + daysCorrection +
-                        "\n Будет исправлен за рабочую неделю: " + (daysCorrection <= WORKING_DAYS_IN_WEEK)
-        );
+                    System.out.println("Введите резюме по дефекту:");
+                    arrayResumeBag[i] = scanner.nextLine();
+
+                    System.out.println("Введите критичность дефекта (Низкий, Средний, Высокий, Блокирующий):");
+                    arrayCritical[i] = scanner.nextLine();
+
+                    System.out.println("Введите количество дней на исправление:");
+                    arrayDaysCorrection[i] = scanner.nextInt();
+                    scanner.nextLine();
+
+                    i++;
+                    break;
+
+                case "list":
+                    int r = 0;
+                    while (i > r) {
+                        System.out.println(
+                                "Номер дефекта " + r + ":" +
+                                        "\n Описание дефекта: " + arrayResumeBag[r] +
+                                        "\n Критичность: " + arrayCritical[r] +
+                                        "\n Количество дней на исправление: " + arrayDaysCorrection[r] +
+                                        "\n Будет исправлен за рабочую неделю: " + (arrayDaysCorrection[r] <= WORKING_DAYS_IN_WEEK) +
+                                        "\n________________________________________________________"
+                        );
+                        r++;
+                    }
+                    break;
+
+                case "quit":
+                    System.out.println("Quit");
+                    return;
+
+                default:
+                    System.out.println("Возврат в главное меню");
+                    break;
+            }
+        }
 
     }
 
