@@ -39,10 +39,9 @@ public class Main {
                 }
 
                 case "list": {
-                    for (currentDefectNum = 0; currentDefectNum < MAX_COUNT; currentDefectNum++){
-                        if (resumes[currentDefectNum] == null) continue;
-                        System.out.println(currentDefectNum + " | " + resumes[currentDefectNum] + " | " +
-                                severity[currentDefectNum] + " | " + daysToFix[currentDefectNum]);
+                    for (int i = 0; i < currentDefectNum; i++){
+                        System.out.println(i + " | " + resumes[i] + " | " +
+                                severity[i] + " | " + daysToFix[i]);
                     }
                     break;
                 }
