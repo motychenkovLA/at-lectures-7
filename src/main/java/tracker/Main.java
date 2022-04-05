@@ -5,9 +5,9 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        int[] number = new int[2];
-        String[] description = new String[2];
-        String[] severity = new String[2];
+        int[] number = new int[10];
+        String[] description = new String[10];
+        String[] severity = new String[10];
 
         int i = 0;
 
