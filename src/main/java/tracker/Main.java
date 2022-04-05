@@ -5,13 +5,12 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        // todo 1 - форматирование не как у константы
-        final int arrayMax = 10;
-        int[] amountOfDays = new int[arrayMax];
-        String[] description = new String[arrayMax];
-        String[] severity = new String[arrayMax];
+        final int ARRAYMAX = 10;
+        int[] amountOfDays = new int[ARRAYMAX];
+        String[] description = new String[ARRAYMAX];
+        String[] severity = new String[ARRAYMAX];
 
-        int initialValue = 0; // todo 1 - все еще не говорящее название. что такое "начальное значение"? значение чего?
+        int count = 0;
 
         Scanner scanner = new Scanner(System.in);
         /* Главное меню */
@@ -22,13 +21,13 @@ public class Main {
 
             switch (operation) {
                 case "add":
-                    if (initialValue >= arrayMax) {
+                    if (count >= ARRAYMAX) {
                         System.out.println("Не возможно добавить дефект");
                         break;
                     }
 
                     System.out.println("Введите описание дефекта");
-                    description[initialValue] = scanner.nextLine();
+                    description[count] = scanner.nextLine();
 
                     System.out.println("Выберите кричтичность дефектов из:\n" +
                             "-Blocker\n" +
@@ -36,31 +35,21 @@ public class Main {
                             "-Major\n" +
                             "-Minor\n" +
                             "-Trivial\n");
-                    severity[initialValue] = scanner.nextLine();
+                    severity[count] = scanner.nextLine();
 
                     System.out.println("Дни на исправление дефекта:");
-                    amountOfDays[initialValue] = scanner.nextInt(); // todo 3 - нет переноса курсора на чтение
-                    initialValue++;
+                    amountOfDays[count] = scanner.nextInt();
+                    scanner.nextLine();
+                    count++;
                     break;
 
                 case "list":
-                    for (int j = 0; j < initialValue; j++) {
+                    for (int j = 0; j < count; j++) {
                         System.out.println("\tНомер дефекта: " + j + "\tОписание: " + description[j] +
                                 "\tКритичность: " + severity[j] + "\tКол-во дней на исправление: " + amountOfDays[j]);
                     }
-
-                    // todo 0 - закомменченные куски кода лучше не оставлять в коммитах
-                    /*Второй вариант*/
-//                    for (int j = 0; j < description.length; j++) {
-//                        if (description[j]==null) {
-//                            break;
-//                        }
-//                        System.out.println("\tНомер дефекта: " + j + "\tОписание: " + description[j] +
-//                                "\tКритичность: " + severity[j] + "\tКол-во дней на исправление: " + amountOfDays[j]);
-//                    }
                     System.out.println();
                     break;
-
 
                 case "quit":
                     System.out.println("Выход из системы");
