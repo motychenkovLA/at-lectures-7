@@ -40,17 +40,25 @@ public class Main {
 
                     System.out.println("Дни на исправление дефекта:");
                     amountOfDays[initialValue] = scanner.nextInt();
+                    initialValue++;
                     break;
 
                 case "list":
                     // todo 5 - выводятся незаполненные дефекты - выводится одна строка
-                    for (int j = 0; j < description.length; j++) {
-                        if (description[j]==null) {
-                            break;
-                        }
+
+                    for (int j = 0; j < initialValue; j++) {
                         System.out.println("\tНомер дефекта: " + j + "\tОписание: " + description[j] +
                                 "\tКритичность: " + severity[j] + "\tКол-во дней на исправление: " + amountOfDays[j]);
                     }
+
+                    /*Второй вариант*/
+//                    for (int j = 0; j < description.length; j++) {
+//                        if (description[j]==null) {
+//                            break;
+//                        }
+//                        System.out.println("\tНомер дефекта: " + j + "\tОписание: " + description[j] +
+//                                "\tКритичность: " + severity[j] + "\tКол-во дней на исправление: " + amountOfDays[j]);
+//                    }
                     System.out.println();
                     break;
 
