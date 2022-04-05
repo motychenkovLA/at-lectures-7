@@ -1,25 +1,53 @@
 package tracker;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Введите резюме дефекта:");
+
         Scanner scanner = new Scanner(System.in);
-        String summary = scanner.nextLine();
+        String choise;
+        int count=0;     //текущий номер дефекта, считает с 0
+        int maxCount=10; //максимальное количество дефектов
+        String [] summary = new String[maxCount];
+        String [] severity= new String[maxCount];
+        int [] day = new int [maxCount];
+        do {
+            System.out.println("--------------"+"\n"+
+                    "Для добавления дефекта введите add"+"\n"
+                    +"Для вывода списка дефектов введите list"+"\n"
+                    +"Для выхода из программы введите quit");
+       choise=scanner.nextLine();
+        switch (choise) {
 
-        System.out.println("Введите критичность дефекта. Возможные варианты:" + "\n" +
-                "блокирующий" + "\n" + "высокий" + "\n" + "средний" + "\n" + "низкий");
-        String severity = scanner.nextLine();
+            case "add": {
+                if (count < maxCount) {
+                    System.out.println("Введите резюме дефекта:");
+                    summary[count] = scanner.nextLine();
+                    System.out.println("Введите критичность дефекта. Возможные варианты: блокирующий, высокий, средний, низкий");
+                    severity[count] = scanner.nextLine();
 
-        System.out.println("Введите ожидаемое количество дней на исправление:");
-        int day = scanner.nextInt();
-        scanner.nextLine();
+                    System.out.println("Введите ожидаемое количество дней на исправление:");
+                    day [count] = scanner.nextInt();
+                    scanner.nextLine();
+                    count++;
+                }
+                else System.out.println("Зарегистрировано максимально возможное количество дефектов");
+                break;
 
-        System.out.println("Зарегистрирован дефект:");
-        System.out.println("Резюме: " + summary);
-        System.out.println("Критичность: " + severity);
-        System.out.println("Количество дней на исправление: " + day +
-                "\n" + "Займет больше рабочей недели: " + (day > 5));
+            }
+            case "list": {for (int i=0;i<count;i++)
+            {
+                System.out.println( i+" | "+ summary[i]+" | "
+                        + severity[i] +" | "+ day[i]);
+
+            }
+            }break;
+        }
+
+        }
+      while (!choise.equals("quit"));
+
     }
 }
