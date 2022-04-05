@@ -27,7 +27,8 @@ public class Main {
                     arrayCriticalDefect[counter] = scanner.nextLine();
                     System.out.println("Введите ожидаемое кол-во дней на исправление дефекта");
                     arrayCountDayDefect[counter] = scanner.nextInt();
-                    System.out.println("\n");
+                    scanner.nextLine();
+                    System.out.println();
                     counter++;
                     break;
                 case "list":
