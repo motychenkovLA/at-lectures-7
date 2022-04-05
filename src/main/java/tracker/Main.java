@@ -14,6 +14,8 @@ public class Main {
         System.out.println("Введите, сколько дней потребуется для устранения:");
         int days = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("Резюме: " + resume +  "\nКритичность: " + crit + "\nСрок устранения: " + days);
+        System.out.println("Резюме: " + resume +  "\nКритичность: " + crit + "\nСрок устранения: " + days+ "\nУстранение займет больше рабочей недели?");
+       int week = 5;
+       System.out.println(days>week);
     }
 }
