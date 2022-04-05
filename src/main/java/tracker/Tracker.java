@@ -2,6 +2,7 @@ package tracker;
 
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Tracker {
@@ -20,10 +21,18 @@ public class Tracker {
                 case "list":
 //                    System.out.println(Arrays.toString(ListDefect.arrayDefect));
 
+
 //                    for (Defect def: ListDefect.arrayDefect)
 //                        System.out.println(def);
 
+
+//                  Применять к массиву, а не списку
+//                    ListDefect.arrayDefect.stream().filter(Objects::nonNull).forEach(System.out::println);
+
                     for (int i = 0; i < ListDefect.arrayDefect.length; i++) {
+                        if(ListDefect.arrayDefect[i] == null) {
+                            break;
+                        }
                         System.out.println(ListDefect.arrayDefect[i]);
                         System.out.println("---------------------------");
                     }
@@ -56,18 +65,4 @@ public class Tracker {
         ListDefect.addDef(defect);
     }
 }
-
-//    Scanner scanner = new Scanner(System.in);
-//
-//    System.out.println("Введите резюме дефекта");
-//    String summary = scanner.nextLine();
-//
-//    System.out.println("Введите критичность дефекта из списка\n"+"trivial, minor, major, critical, blocker");
-//    String criticality = scanner.nextLine();
-//
-//    System.out.println("Введите количество дней на исправление");
-//    int countDay = scanner.nextInt();
-//
-//    System.out.println("Резюме: "+summary+"\nКритичност: "+criticality+"\nКоличество дней на исправление: "+countDay+
-//            "\nИсправление займет больше рабочей недели: "+(countDay > 5));
 

@@ -12,6 +12,4 @@ public class ListDefect {
         arrayDefect[countDefect] = defect;
         countDefect++;
     }
-
-
 }
