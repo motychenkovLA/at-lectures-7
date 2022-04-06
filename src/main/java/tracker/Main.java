@@ -14,7 +14,10 @@ public class Main {
         System.out.println("Введите, сколько дней потребуется для устранения:");
         int days = scanner.nextInt();
         scanner.nextLine();
+        // todo 1 - week это константа
         int week = 5;
+        // todo 1 - желательно это все в один sout собрать
+        // todo 1 - нужно чтоб оно не вылезало за белую линию и экран
         System.out.println("Резюме: " + resume + "\nКритичность: " + crit + "\nСрок устранения: " + days + "\nУстранение займет больше рабочей недели?");
         System.out.println(days > week);
     }
