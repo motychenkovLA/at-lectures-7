@@ -32,12 +32,7 @@ public class Main {
                     counter++;
                     break;
                 case "list":
-                    // todo 3 - это конечно работает, но слишком обходным путем.
-                    //  количество заведенных дефектов уже известно, почему просто не вывести ровно его без проверок на нулл?
-                    for (int a = 0; a < arrayNameDefect.length; a++) {
-                        if (arrayNameDefect[a] == null) {
-                            break;
-                        }
+                    for (int a = 0; a < counter; a++) {
                         System.out.println("Номер дефекта: " + a + ", Название: "
                                 + arrayNameDefect[a] + ", Критичность: "
                                 + arrayCriticalDefect[a] + ", Кол-во дней: " + arrayCountDayDefect[a]);
