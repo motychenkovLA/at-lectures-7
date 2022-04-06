@@ -1,7 +1,5 @@
 package tracker;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -13,9 +11,9 @@ public class Main {
         int currentDefectNumber = 0;
 
         int [] id = new int[MAX_CAPACITY];
-        String[] descriptionArray = new String[MAX_CAPACITY];
-        String[] severityArray = new String[MAX_CAPACITY];
-        String [] summaryArray = new String[MAX_CAPACITY];
+        String[] allSummary= new String[MAX_CAPACITY];
+        String[] allSeverity = new String[MAX_CAPACITY];
+        int [] allDeadline = new int[MAX_CAPACITY];
 
         while (true) {
             System.out.println("Select a command: \"add\", \"list\", \"quit\"");
@@ -23,21 +21,23 @@ public class Main {
             choiceCommand = scanner.nextLine();
 
             if (choiceCommand.equals("add")) {
-                if (currentDefectNumber != 10 ) {
+
+                if (currentDefectNumber <= (MAX_CAPACITY - 1)) {
+
                     id[currentDefectNumber] = currentDefectNumber;
 
                     System.out.println("Enter a resume of the problem");
                     String description = scanner.nextLine();
-                    descriptionArray[currentDefectNumber] = "Resume: " + description;
+                    allSummary[currentDefectNumber] = description;
 
                     System.out.println("Please, enter a severity of the problem:\nS1 - Blocker;\nS2 - Critical;" +
                             "\nS3 - Major;\nS4 - Minor;\nS5 - Trivial");
                     String severity = scanner.nextLine();
-                    severityArray[currentDefectNumber] = "Severity: " + severity;
+                    allSeverity[currentDefectNumber] = severity;
 
                     System.out.println("How many days do you need to fix the problem?");
                     int numberOfDays = scanner.nextInt();
-                    summaryArray[currentDefectNumber] = "Days for fix: " + numberOfDays;
+                    allDeadline[currentDefectNumber] = numberOfDays;
 
                 } else {
                     System.out.println("There is no place in array!");
@@ -49,8 +49,8 @@ public class Main {
             } if (choiceCommand.equals("list")) {
 
                for (int i = 0; i < currentDefectNumber; i++) {
-                   System.out.println(id[i] + " | " + descriptionArray[i] + " | " + severityArray[i] +
-                          " | " + summaryArray[i] );
+                   System.out.println(id[i] + " | " + "Resume: " + allSummary[i] + " | " + "Severity: " + allSeverity[i] +
+                          " | " + "Days for fix: " + allDeadline[i] );
                }
 
             } if (choiceCommand.equals("quit")) {
