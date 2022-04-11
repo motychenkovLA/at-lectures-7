@@ -2,6 +2,7 @@ package tracker;
 
 import java.util.Scanner;
 
+// todo 1 - Main
 public class Main2 {
 
     public static void main(String[] args) {
@@ -21,7 +22,7 @@ public class Main2 {
             String action = scanner.nextLine();
             switch (action) {
                 case ("Add"): {
-                    if (countReq > NUM_BUG - 1) {
+                    if (countReq > NUM_BUG - 1) { // todo (a > b - 1) то же самое (a >= b) но второй проще читать
                         System.out.println("Невозможно добавить больше 10 дефектов");
 
                         break;
@@ -35,6 +36,7 @@ public class Main2 {
                     System.out.println("Введите, сколько дней потребуется для устранения:");
                     int days = scanner.nextInt();
                     scanner.nextLine();
+                    // todo 1 - можно сразу в массивы класть, без дополнительных переменных
                     bugResume[countReq] = resume;
                     bugCrit[countReq] = crit;
                     bugDays[countReq] = days;
@@ -42,7 +44,7 @@ public class Main2 {
                     break;
                 }
                 case "List":
-                    // System.out.println(Arrays.toString(listbug));
+                    // System.out.println(Arrays.toString(listbug)); // todo 0 - лучше не оставлять закомменченный код
                     for (int i = 0; i < countReq; i++) {
                         System.out.println("|" + i + "|" + bugResume[i] + "|" + bugCrit[i] + "|" + bugDays[i] + "|");
                     }
