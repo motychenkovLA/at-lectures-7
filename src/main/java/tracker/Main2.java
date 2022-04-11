@@ -1,13 +1,13 @@
 package tracker;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
-// todo 1 - Main
 public class Main2 {
 
     public static void main(String[] args) {
 
-        final int NUM_BUG = 10;
+        final int NUM_BUG = 3;
         String[] bugResume = new String[NUM_BUG];
         String[] bugCrit = new String[NUM_BUG];
 
@@ -22,29 +22,24 @@ public class Main2 {
             String action = scanner.nextLine();
             switch (action) {
                 case ("Add"): {
-                    if (countReq > NUM_BUG - 1) { // todo (a > b - 1) то же самое (a >= b) но второй проще читать
-                        System.out.println("Невозможно добавить больше 10 дефектов");
+                    if (countReq >= NUM_BUG) {
+                        System.out.println("Невозможно добавить больше 3 дефектов");
 
                         break;
                     }
                     System.out.println("Введите резюме дефекта:");
-                    String resume = scanner.nextLine();
+                    bugResume[countReq] = scanner.nextLine();
 
                     System.out.println("Укажите критичность, \nHigh   Medium    Low:");
-                    String crit = scanner.nextLine();
+                    bugCrit[countReq] = scanner.nextLine();
 
                     System.out.println("Введите, сколько дней потребуется для устранения:");
-                    int days = scanner.nextInt();
+                    bugDays[countReq] = scanner.nextInt();
                     scanner.nextLine();
-                    // todo 1 - можно сразу в массивы класть, без дополнительных переменных
-                    bugResume[countReq] = resume;
-                    bugCrit[countReq] = crit;
-                    bugDays[countReq] = days;
                     countReq = countReq + 1;
                     break;
                 }
                 case "List":
-                    // System.out.println(Arrays.toString(listbug)); // todo 0 - лучше не оставлять закомменченный код
                     for (int i = 0; i < countReq; i++) {
                         System.out.println("|" + i + "|" + bugResume[i] + "|" + bugCrit[i] + "|" + bugDays[i] + "|");
                     }
