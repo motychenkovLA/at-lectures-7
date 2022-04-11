@@ -52,7 +52,7 @@ public class Main2 {
                     break;
                 default:
                     System.out.println("Операции не существует");
-                    break;
+
             }
         }
     }
