@@ -30,7 +30,7 @@ public class Tracker {
 //                    ListDefect.arrayDefect.stream().filter(Objects::nonNull).forEach(System.out::println);
 
                     for (int i = 0; i < ListDefect.arrayDefect.length; i++) {
-                        if(ListDefect.arrayDefect[i] == null) {
+                        if(ListDefect.arrayDefect[i].equals(null)) {
                             break;
                         }
                         System.out.println(ListDefect.arrayDefect[i]);

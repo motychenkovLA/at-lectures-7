@@ -2,8 +2,8 @@ package tracker;
 
 public class Defect {
     private final int WEEK = 5;
-    private int numberDefect;
-    private static int i = 0;
+    private int idDefect;
+    private static int numberDefects = 1;
     private String summary;
     private String criticality;
     private int countDay;
@@ -12,11 +12,11 @@ public class Defect {
         this.summary = summary;
         this.criticality = criticality;
         this.countDay = countDay;
-        numberDefect = i++;
+        idDefect = numberDefects++;
     }
 
     public int getNumberDefect() {
-        return numberDefect;
+        return idDefect;
     }
 
     public String getSummary() {
@@ -33,7 +33,7 @@ public class Defect {
 
     @Override
     public String toString() {
-        return "Defect:"+"\nНомер = "+numberDefect+"\nРезюме = "+summary+"\nКритичность = "+criticality+"\ncountDay = "+countDay+
+        return "Defect:"+"\nНомер = "+idDefect+"\nРезюме = "+summary+"\nКритичность = "+criticality+"\ncountDay = "+countDay+
                 "\nИсправление займет больше рабочей недели = "+(countDay > WEEK);
     }
 }

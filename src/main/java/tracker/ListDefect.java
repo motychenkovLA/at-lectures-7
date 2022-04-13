@@ -1,7 +1,7 @@
 package tracker;
 
 public class ListDefect {
-    private static int countDefect = 0;
+    private static int countDefect = 1;
     static Defect[] arrayDefect = new Defect[10];
 
     public static void addDef (Defect defect) {
