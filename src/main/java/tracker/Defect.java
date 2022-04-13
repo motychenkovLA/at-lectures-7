@@ -33,7 +33,7 @@ public class Defect {
 
     @Override
     public String toString() {
-        return "Defect:"+"\nНомер = "+idDefect+"\nРезюме = "+summary+"\nКритичность = "+criticality+"\ncountDay = "+countDay+
+        return "Defect:"+"\nid = "+idDefect+"\nРезюме = "+summary+"\nКритичность = "+criticality+"\ncountDay = "+countDay+
                 "\nИсправление займет больше рабочей недели = "+(countDay > WEEK);
     }
 }

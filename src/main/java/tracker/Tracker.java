@@ -1,8 +1,5 @@
 package tracker;
 
-
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Tracker {
@@ -19,21 +16,8 @@ public class Tracker {
                     System.out.println();
                     break;
                 case "list":
-//                    System.out.println(Arrays.toString(ListDefect.arrayDefect));
-
-
-//                    for (Defect def: ListDefect.arrayDefect)
-//                        System.out.println(def);
-
-
-//                  Применять к массиву, а не списку
-//                    ListDefect.arrayDefect.stream().filter(Objects::nonNull).forEach(System.out::println);
-
-                    for (int i = 0; i < ListDefect.arrayDefect.length; i++) {
-                        if(ListDefect.arrayDefect[i].equals(null)) {
-                            break;
-                        }
-                        System.out.println(ListDefect.arrayDefect[i]);
+                    for(Defect def: Repository.arrayDefect) {
+                        System.out.println(def);
                         System.out.println("---------------------------");
                     }
                     System.out.println();
@@ -55,14 +39,26 @@ public class Tracker {
         String summary = scanner.nextLine();
 
         System.out.println("Введите критичность дефекта из списка:" + "\ntrivial, minor, major, critical, blocker");
-        String criticality = scanner.nextLine();
+        String critic = "";
+        while (true) {
+            String criticality = scanner.nextLine();
+            if (criticality.equals("trivial") || criticality.equals("minor") ||
+                    criticality.equals("major") || criticality.equals("critical") ||
+                    criticality.equals("blocker")) {
+                critic = criticality;
+                break;
+
+            } else {
+                System.out.println("Введены не корректые значения критичности\nПопробуйте еще раз");
+            }
+        }
 
         System.out.println("Введите количество дней на исправление");
         int countDay = scanner.nextInt();
 
-        Defect defect = new Defect(summary, criticality, countDay);
+        Defect defect = new Defect(summary, critic, countDay);
 
-        ListDefect.addDef(defect);
+        Repository.addDef(defect);
     }
 }
 
