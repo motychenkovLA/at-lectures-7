@@ -15,7 +15,6 @@ public class Defect {
         idDefect = numberDefects++;
     }
 
-
     public int getNumberDefect() {
         return idDefect;
     }
