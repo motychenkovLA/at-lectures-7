@@ -35,7 +35,7 @@ public class Main {
             System.out.println("Размер дефектов превышен");
             return;
         }
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in); // todo 3 - лучше не создавать несколько сканеров
         System.out.println("//Создание баг-репорта//");
         System.out.println("Введите название дефекта");
         String nameDefect = scanner.nextLine();

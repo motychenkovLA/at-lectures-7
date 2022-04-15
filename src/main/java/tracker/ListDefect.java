@@ -1,5 +1,6 @@
 package tracker;
 
+// todo 3 - пока что смысла в этом классе нет
 public class ListDefect {
     static final int ARRAY_SIZE = 10;
     static Defect[] listDefect = new Defect[ARRAY_SIZE];
