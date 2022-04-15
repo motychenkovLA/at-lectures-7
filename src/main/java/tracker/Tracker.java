@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class Tracker {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
         while (true) {
             System.out.println("Введите операцию из списка:\nadd - добавить новый дефект\nlist - вывести список дефектов\nquit - выход");
             System.out.println();
