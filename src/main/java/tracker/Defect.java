@@ -9,8 +9,6 @@ public class Defect {
     int day;
     Scanner scanner = new Scanner(System.in);
 
-    public Defect() {
-    }
 
     public Defect(long id) {
 
@@ -24,40 +22,10 @@ public class Defect {
         scanner.nextLine();
     }
 
-    public long getId() {
-        return id;
-    }
-
-//    public void setId(long id) {
-//        this.id = id;
-//    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-//    public void setSummary(String summary) {
-//        this.summary = summary;
-//    }
-
-    public String getSeverity() {
-        return severity;
-    }
-
-//    public void setSeverity(String severity) {
-//        this.severity = severity;
-//    }
-
-    public int getDay() {
-        return day;
-    }
-
-//    public void setDay(int day) {
-//        this.day = day;
-//    }
 
     void printDefect() {
         System.out.println(id + " | " + summary + " | "
                 + severity + " | " + day);
     }
+
 }
