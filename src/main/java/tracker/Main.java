@@ -3,8 +3,8 @@ package tracker;
 import java.util.Scanner;
 
 public class Main {
-    static long counter = 1;
-    static final int MAX_DEFECT_COUNT = 1;
+    static long counter = 1; // todo 3 - в начале 0 дефектов
+    static final int MAX_DEFECT_COUNT = 1; // todo 0 - чего 1 то?
     static Defect[] defects = new Defect[MAX_DEFECT_COUNT];
 
     public static Defect addDefect() {
@@ -65,13 +65,13 @@ public class Main {
         defect.setSeverity(severity);
 
         System.out.println("Дни на исправление дефекта:");
-        int amountOfDays = scanner.nextInt();
+        int amountOfDays = scanner.nextInt(); // todo 3 - перенос курсора на чтение после nextInt
         defect.setAmountOfDays(amountOfDays);
     }
 
     private static void printDefects() {
         for (Defect defect : defects) {
-            if (defect != null) {
+            if (defect != null) { // todo 3 - сложный способ перебрать все дефекты, мы заранее знаем их число
                 System.out.println("id дефекта:\t" + defect.getIdDefect() + "|" + " описание дефекта:\t" +
                         defect.getDescription() + "|" + " критичность дефекта:\t" + defect.getSeverity() + "|"
                         + " количество дней на исправлени:\t" + defect.getAmountOfDays());

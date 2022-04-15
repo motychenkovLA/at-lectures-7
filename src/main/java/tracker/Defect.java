@@ -1,12 +1,14 @@
 package tracker;
 
+// todo 0 - комменты дублируют код
 public class Defect {
 
     int amountOfDays;
     String description;
     String severity;
-    long idDefect = 1L;
+    long idDefect = 1L; // todo 1 - лишний код
 
+    // todo 3 - дефект существует в невалидном виде: без резюме и критичности, с нулевым временем на исправление
     /*Создание экземпляров класса Defect*/
     public Defect(long id) {
 
