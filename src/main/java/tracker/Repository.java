@@ -1,12 +1,13 @@
 package tracker;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Repository {
-    static List<Defect> arrayDefect = new ArrayList<>();
+    static final int LENGTH_ARRAY = 2;
+    static Defect[] listDefect = new Defect[LENGTH_ARRAY];
+    static int counterArray = 0;
 
     public static void addDef(Defect defect) {
-        arrayDefect.add(defect);
+        listDefect[counterArray] = defect;
+        counterArray++;
+
     }
 }

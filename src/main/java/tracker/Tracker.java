@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Tracker {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
         while (true) {
             System.out.println("Введите операцию из списка:\nadd - добавить новый дефект\nlist - вывести список дефектов\nquit - выход");
             System.out.println();
@@ -15,8 +16,8 @@ public class Tracker {
                     System.out.println();
                     break;
                 case "list":
-                    for(Defect def: Repository.arrayDefect) {
-                        System.out.println(def);
+                    for(int i = 0; i < Repository.counterArray; i++) {
+                        System.out.println(Repository.listDefect[i]);
                         System.out.println("---------------------------");
                     }
                     System.out.println();
@@ -32,6 +33,10 @@ public class Tracker {
     }
 
     public static void addDefect() {
+        if(Repository.counterArray >= Repository.listDefect.length) {
+            throw new IndexOutOfBoundsException("Обращение к индексу выше размера массива");
+        }
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Введите резюме дефекта");
