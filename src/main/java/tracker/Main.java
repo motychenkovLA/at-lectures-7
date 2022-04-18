@@ -29,7 +29,8 @@ public class Main {
                         System.out.println("Введите ожидаемое количество дней на исправление:");
                         int day = scanner.nextInt();
                         scanner.nextLine();
-                        Defect defect = new Defect(count + 1, summary, severity, day);
+                        //Defect defect = new Defect(count + 1,summary, severity, day);
+                        Defect defect = new Defect(summary, severity, day);
 
                         defects[count] = defect;
                         count++;
@@ -39,10 +40,8 @@ public class Main {
                 }
                 case "list": {
                     if (count != 0) {
-                        //сделать for each не получилось - если заполнено меньше максимального кол-ва дефектов,
-                        // вывод на экран возвращает ошибку, когда доходит до незаполненных элементов массива
-                        for (int i = 0; i < count; i++) {
-                            defects[i].printDefect();
+                        for (Defect d1 : defects) {
+                            if (d1 != null) d1.printDefect();
                         }
                     }
                     break;

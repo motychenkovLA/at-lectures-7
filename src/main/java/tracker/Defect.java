@@ -7,11 +7,15 @@ public class Defect {
     private String summary;
     private String severity;
     private int day;
-    private long num;
+    static long num = 0L;
     Scanner scanner = new Scanner(System.in);
 
-    public Defect(long id, String summary, String severity, int day) {
-        this.id = id;
+
+    //public Defect(long id,String summary, String severity, int day) {
+    public Defect(String summary, String severity, int day) {
+        //this.id = id;
+        num++;
+        this.id = num;
         this.summary = summary;
         this.severity = severity;
         this.day = day;
