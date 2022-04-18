@@ -9,7 +9,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String choise;
         int count = 0;     //счетчик дефектов
-        int maxCount = 3; //максимальное количество дефектов
+        int maxCount = 10; //максимальное количество дефектов
         Defect[] defects = new Defect[maxCount];
         do {
             System.out.println("--------------" + "\n" +
