@@ -2,28 +2,21 @@ package tracker;
 
 public class Defect {
     private long id;
-    // todo 1 - поля и так в дефекте, нет смысла указывать в названии defect
-    private String nameDefect;
-    private String criticalDefect;
-    private int countDayDefect;
+    private String name;
+    private String critical;
+    private int countDay;
     private static long counter = 1;
 
-    // todo 3 - дефект создается в невалидном состоянии: без резюме и критичности, с 0 дней на исправление
-    public Defect(String nameDefect) {
-        this.nameDefect = nameDefect;
+    public Defect(String name, String critical, int countDay) {
+        this.name = name;
+        this.critical = critical;
+        this.countDay = countDay;
         id = counter;
         counter++;
     }
 
-    public void setCriticalDefect(String criticalDefect) {
-        this.criticalDefect = criticalDefect;
-    }
-
-    public void setCountDayDefect(int countDayDefect) {
-        this.countDayDefect = countDayDefect;
-    }
     public String toString() {
-        return "Номер дефекта: " + id + ", Название: " + nameDefect + ", Критичность: "
-                + criticalDefect + ", Кол-во дней: " + countDayDefect;
+        return "Номер дефекта: " + id + ", Название: " + name + ", Критичность: "
+                + critical + ", Кол-во дней: " + countDay;
     }
 }

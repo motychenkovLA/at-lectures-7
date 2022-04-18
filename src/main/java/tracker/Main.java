@@ -4,19 +4,28 @@ import java.util.Scanner;
 
 public class Main {
 
+    static final int MAX_DEFECT_SIZE = 10;
+    static Defect[] listDefect = new Defect[MAX_DEFECT_SIZE];
+    static int counter = 0;
+
+    public static void list(Defect defect) {
+        listDefect[counter] = defect;
+        counter++;
+    }
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         while (true) {
+            Scanner scanner = new Scanner(System.in);
             System.out.println("Выберите действие:\n" + "Добавить новый дефект - add, Вывести список - list, " +
                     "Выйти из программы - quit");
             switch (scanner.nextLine()) {
                 case "add":
-                    addDefect();
+                    addDefect(scanner);
                     break;
                 case "list":
-                    for (int a=0; a<ListDefect.counter; a++) {
-                        System.out.println(ListDefect.listDefect[a]);
-                        System.out.println("_________________________________________________________");
+                    for (int a = 0; a < counter; a++) {
+                        System.out.println(listDefect[a]);
+                        System.out.println("_____________________________________________________________________");
                     }
                     System.out.println();
                     break;
@@ -30,25 +39,26 @@ public class Main {
             }
         }
     }
-    public static void addDefect() {
-        if (ListDefect.counter >= ListDefect.listDefect.length) {
+
+    private static void addDefect(Scanner scanner) {
+        if (counter >= listDefect.length) {
             System.out.println("Размер дефектов превышен");
             return;
         }
-        Scanner scanner = new Scanner(System.in); // todo 3 - лучше не создавать несколько сканеров
+
         System.out.println("//Создание баг-репорта//");
         System.out.println("Введите название дефекта");
-        String nameDefect = scanner.nextLine();
-        Defect defect = new Defect(nameDefect);
+        String name = scanner.nextLine();
 
         System.out.println("Введите критичность дефекта:\n" + "(trivial, minor, major, critical, blocker)");
-        String criticalDefect = scanner.nextLine();
-        defect.setCriticalDefect(criticalDefect);
+        String critical = scanner.nextLine();
 
         System.out.println("Введите ожидаемое кол-во дней на исправление дефекта");
-        int countDayDefect = scanner.nextInt();
+        int countDay = scanner.nextInt();
         scanner.nextLine();
-        defect.setCountDayDefect(countDayDefect);
-        ListDefect.list(defect);
+
+        Defect defect = new Defect(name, critical, countDay);
+        list(defect);
+
     }
 }
