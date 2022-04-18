@@ -8,38 +8,51 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         String choise;
-        int count=0;     //счетчик дефектов
-        int maxCount=10; //максимальное количество дефектов
-        Defect [] defects = new Defect[maxCount];
+        int count = 0;     //счетчик дефектов
+        int maxCount = 3; //максимальное количество дефектов
+        Defect[] defects = new Defect[maxCount];
         do {
-            System.out.println("--------------"+"\n"+
-                    "Для добавления дефекта введите add"+"\n"
-                    +"Для вывода списка дефектов введите list"+"\n"
-                    +"Для выхода из программы введите quit");
-       choise=scanner.nextLine();
-        switch (choise) {
+            System.out.println("--------------" + "\n" +
+                    "Для добавления дефекта введите add" + "\n"
+                    + "Для вывода списка дефектов введите list" + "\n"
+                    + "Для выхода из программы введите quit");
+            choise = scanner.nextLine();
+            switch (choise) {
 
-            case "add": {
-                if (count < maxCount) {
+                case "add": {
+                    if (count < maxCount) {
 
-                    defects[count] = new Defect(count+1);
+                        System.out.println("Введите резюме дефекта:");
+                        String summary = scanner.nextLine();
+                        System.out.println("Введите критичность дефекта. Возможные варианты: блокирующий, высокий, средний, низкий");
+                        String severity = scanner.nextLine();
+                        System.out.println("Введите ожидаемое количество дней на исправление:");
+                        int day = scanner.nextInt();
+                        scanner.nextLine();
+                        Defect defect = new Defect(count + 1, summary, severity, day);
 
-                    count++;
+                        defects[count] = defect;
+                        count++;
+                    } else System.out.println("Зарегистрировано максимально возможное количество дефектов");
+                    break;
+
                 }
-                else System.out.println("Зарегистрировано максимально возможное количество дефектов");
-                break;
-
-            }
-            case "list": {  if (count != 0) {
-                for (int i = 0; i < count; i++) {
-                   defects[i].printDefect();
+                case "list": {
+                    if (count != 0) {
+                        //сделать for each не получилось - если заполнено меньше максимального кол-ва дефектов,
+                        // вывод на экран возвращает ошибку, когда доходит до незаполненных элементов массива
+                        for (int i = 0; i < count; i++) {
+                            defects[i].printDefect();
+                        }
+                    }
+                    break;
                 }
             }
-            }break;
-        }
 
         }
-      while (!choise.equals("quit"));
+        while (!choise.equals("quit"));
 
     }
+
+
 }

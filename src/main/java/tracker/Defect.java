@@ -3,25 +3,19 @@ package tracker;
 import java.util.Scanner;
 
 public class Defect {
-    long id;
-    String summary;
-    String severity;
-    int day;
+    private long id;
+    private String summary;
+    private String severity;
+    private int day;
+    private long num;
     Scanner scanner = new Scanner(System.in);
 
-
-    public Defect(long id) {
-
+    public Defect(long id, String summary, String severity, int day) {
         this.id = id;
-        System.out.println("Введите резюме дефекта:");
-        this.summary = scanner.nextLine();
-        System.out.println("Введите критичность дефекта. Возможные варианты: блокирующий, высокий, средний, низкий");
-        this.severity = scanner.nextLine();
-        System.out.println("Введите ожидаемое количество дней на исправление:");
-        this.day = scanner.nextInt();
-        scanner.nextLine();
+        this.summary = summary;
+        this.severity = severity;
+        this.day = day;
     }
-
 
     void printDefect() {
         System.out.println(id + " | " + summary + " | "
