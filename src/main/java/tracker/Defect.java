@@ -3,6 +3,9 @@ package tracker;
 public class Defect {
     private static long numberDefects = 1;
     private final long ID_DEFECT;
+    {
+        ID_DEFECT = numberDefects++;
+    }
     private final int WEEK = 5;
     private String summary;
     private String criticality;
@@ -10,7 +13,6 @@ public class Defect {
 
     public Defect(String summary) {
         this.summary = summary;
-        ID_DEFECT = numberDefects++;
     }
 
     public void setCriticality(String criticality) {
