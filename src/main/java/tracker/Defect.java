@@ -1,40 +1,36 @@
 package tracker;
 
-// todo 0 - комменты дублируют код
 public class Defect {
 
     int amountOfDays;
     String description;
     String severity;
-    long idDefect = 1L; // todo 1 - лишний код
+    long idDefect;
+    static long counter = 1;
 
-    // todo 3 - дефект существует в невалидном виде: без резюме и критичности, с нулевым временем на исправление
-    /*Создание экземпляров класса Defect*/
-    public Defect(long id) {
-
-        this.idDefect = id;
+    public Defect(String description, String severity, int amountOfDays) {
+        this.description = description;
+        this.severity = severity;
+        this.amountOfDays = amountOfDays;
+        this.idDefect = counter;
+        counter++;
     }
 
-    /*метод для возвращения кол-ва дней на исправление*/
     public int getAmountOfDays() {
         return amountOfDays;
     }
 
-    /*метод для возвращения описания*/
     public String getDescription() {
         return description;
     }
 
-    /*метод для возвращения критичности*/
     public String getSeverity() {
         return severity;
     }
 
-    /*метод для возвращения id*/
     public long getIdDefect() {
         return idDefect;
     }
-
 
     public void setAmountOfDays(int amountOfDays) {
         this.amountOfDays = amountOfDays;
@@ -50,5 +46,10 @@ public class Defect {
 
     public void setIdDefect(long idDefect) {
         this.idDefect = idDefect;
+    }
+
+    public String toString() {
+        return "Номер дефекта: " + idDefect + ", Название: " + description + ", Критичность: "
+                + severity + ", Кол-во дней: " + amountOfDays;
     }
 }
