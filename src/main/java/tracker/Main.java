@@ -16,15 +16,15 @@ public class Main {
             switch (scanner.nextLine()) {
                 case "add": {
                     if (currentDefectNum < MAX_COUNT) {
-                        Defect defect = new Defect(1, null, null, null);
-                        defects[currentDefectNum] = defect;
                         System.out.println("Введите резюме дефекта");
-                        defect.setResume(scanner.nextLine());
+                        String resume = scanner.nextLine();
                         System.out.println("Введите критичность дефекта (Blocker, Critical, Major, Minor, Trivial)");
-                        defect.setSeverity(scanner.nextLine());
+                        String severity = scanner.nextLine();
                         System.out.println("Введите ожидаемое количество дней на исправление дефекта");
-                        defect.setDaysToFix(scanner.nextLine());
-                        defect.setId(currentDefectNum+1);
+                        String daysToFix = scanner.nextLine();
+                        long id = currentDefectNum+1;
+
+                        defects[currentDefectNum] = new Defect(id, resume, severity, daysToFix);
 
                         currentDefectNum++;
                     }   else {
@@ -35,12 +35,10 @@ public class Main {
 
                 case "list": {
                     System.out.println("Список дефектов:");
-                    for (Defect defect : defects){
-                        if (defect.defectID <= MAX_COUNT) {
-                            System.out.println("ID: " + defect.getDefectID() + " | " +
-                                    "Резюме: " + defect.getResume() + " | " + "Критичность: " + defect.getSeverity() +
-                                    " | " + "Дни: " + defect.getDaysToFix());
-                        }
+                    for (int i = 0; i < currentDefectNum; i++) {
+                        System.out.println("ID: " + defects[i].getID() + " | " + "Резюме: " +
+                                defects[i].getResume() + " | " + "Критичность: " + defects[i].getSeverity() + " | " +
+                                "Дни: " + defects[i].getDaysToFix());
                     }
                     break;
                 }
