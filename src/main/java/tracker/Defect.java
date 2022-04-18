@@ -2,8 +2,8 @@ package tracker;
 
 public class Defect {
     private final int WEEK = 5;
-    private int idDefect;
-    private static int numberDefects = 1;
+    private long idDefect;
+    private static long numberDefects = 1;
     private String summary;
     private String criticality;
     private int countDay;
@@ -15,7 +15,7 @@ public class Defect {
         idDefect = numberDefects++;
     }
 
-    public int getNumberDefect() {
+    public long getNumberDefect() {
         return idDefect;
     }
 

@@ -12,7 +12,7 @@ public class Tracker {
 
             switch (sc.nextLine()) {
                 case "add":
-                    addDefect();
+                    addDefect(sc);
                     System.out.println();
                     break;
                 case "list":
@@ -32,12 +32,15 @@ public class Tracker {
         }
     }
 
-    public static void addDefect() {
+    public static void addDefect(Scanner scanner) {
         if(Repository.counterArray >= Repository.listDefect.length) {
-            throw new IndexOutOfBoundsException("Обращение к индексу выше размера массива");
+            try {
+                throw new IndexOutOfBoundsException();
+            } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+                return;
+            }
         }
-
-        Scanner scanner = new Scanner(System.in);
 
         System.out.println("Введите резюме дефекта");
         String summary = scanner.nextLine();
