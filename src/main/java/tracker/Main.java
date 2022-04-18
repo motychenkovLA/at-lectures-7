@@ -5,11 +5,11 @@ import java.util.Scanner;
 public class Main {
 
     static final int MAX_DEFECT_SIZE = 10;
-    static Defect[] listDefect = new Defect[MAX_DEFECT_SIZE];
+    static Defect[] addDefect = new Defect[MAX_DEFECT_SIZE];
     static int counter = 0;
 
-    public static void list(Defect defect) {
-        listDefect[counter] = defect;
+    public static void add(Defect defect) {
+        addDefect[counter] = defect;
         counter++;
     }
 
@@ -24,7 +24,7 @@ public class Main {
                     break;
                 case "list":
                     for (int a = 0; a < counter; a++) {
-                        System.out.println(listDefect[a]);
+                        System.out.println(addDefect[a]);
                         System.out.println("_____________________________________________________________________");
                     }
                     System.out.println();
@@ -41,7 +41,7 @@ public class Main {
     }
 
     private static void addDefect(Scanner scanner) {
-        if (counter >= listDefect.length) {
+        if (counter >= addDefect.length) {
             System.out.println("Размер дефектов превышен");
             return;
         }
@@ -58,7 +58,7 @@ public class Main {
         scanner.nextLine();
 
         Defect defect = new Defect(name, critical, countDay);
-        list(defect);
+        add(defect);
 
     }
 }
