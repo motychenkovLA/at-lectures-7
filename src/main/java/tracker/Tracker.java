@@ -16,11 +16,7 @@ public class Tracker {
                     System.out.println();
                     break;
                 case "list":
-                    for(int i = 0; i < Repository.counterArray; i++) {
-                        System.out.println(Repository.listDefect[i]);
-                        System.out.println("---------------------------");
-                    }
-                    System.out.println();
+                    Repository.getAll();
                     break;
                 case "quit":
                     System.out.println("Выход из системы");
@@ -44,26 +40,15 @@ public class Tracker {
 
         System.out.println("Введите резюме дефекта");
         String summary = scanner.nextLine();
+        Defect defect = new Defect(summary);
 
         System.out.println("Введите критичность дефекта из списка:" + "\ntrivial, minor, major, critical, blocker");
-        String critic = "";
-        while (true) {
-            String criticality = scanner.nextLine();
-            if (criticality.equals("trivial") || criticality.equals("minor") ||
-                    criticality.equals("major") || criticality.equals("critical") ||
-                    criticality.equals("blocker")) {
-                critic = criticality;
-                break;
+        defect.setCriticality(scanner.nextLine());
 
-            } else {
-                System.out.println("Введены не корректые значения критичности\nПопробуйте еще раз");
-            }
-        }
 
         System.out.println("Введите количество дней на исправление");
-        int countDay = scanner.nextInt();
-
-        Defect defect = new Defect(summary, critic, countDay);
+        defect.setCountDay(scanner.nextInt());
+        scanner.nextLine();
 
         Repository.addDef(defect);
     }
