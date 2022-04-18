@@ -18,13 +18,17 @@ public class Defect {
                 criticality.equals("major") || criticality.equals("critical") ||
                 criticality.equals("blocker")) {
             this.criticality = criticality;
-        }else {
+        } else {
             this.criticality = "minor";
         }
     }
 
     public void setCountDay(int countDay) {
-        this.countDay = countDay;
+        if (countDay <= 0) {
+            this.countDay = 1;
+        } else {
+            this.countDay = countDay;
+        }
     }
 
     public String info() {
