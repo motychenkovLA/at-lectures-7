@@ -14,8 +14,8 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         while (true) {
-            Scanner scanner = new Scanner(System.in);
             System.out.println("Выберите действие:\n" + "Добавить новый дефект - add, Вывести список - list, " +
                     "Выйти из программы - quit");
             switch (scanner.nextLine()) {
