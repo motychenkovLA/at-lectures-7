@@ -2,9 +2,9 @@ package tracker;
 
 public class Defect {
     private static long numberDefects = 1;
-    private final long ID_DEFECT;
+    private final long ID;
     {
-        ID_DEFECT = numberDefects++;
+        ID = numberDefects++;
     }
     private final int WEEK = 5;
     private String summary;
@@ -34,7 +34,7 @@ public class Defect {
     }
 
     public String info() {
-        return "Defect:"+"\nid = "+ ID_DEFECT +"\nРезюме = "+summary+"\nКритичность = "+criticality+"\ncountDay = "+countDay+
+        return "Defect:"+"\nid = "+ ID +"\nРезюме = "+summary+"\nКритичность = "+criticality+"\ncountDay = "+countDay+
                "\nИсправление займет больше рабочей недели = "+(countDay > WEEK);
     }
 }
