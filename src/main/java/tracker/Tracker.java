@@ -16,7 +16,10 @@ public class Tracker {
                     System.out.println();
                     break;
                 case "list":
-                    Repository.getAll();
+                    for(int i = 0; i < Repository.getCounterArray(); i++) {
+                        System.out.println(Repository.getAll()[i].info());
+                        System.out.println("________________________");
+                }
                     break;
                 case "quit":
                     System.out.println("Выход из системы");
@@ -29,26 +32,23 @@ public class Tracker {
     }
 
     public static void addDefect(Scanner scanner) {
-        if(Repository.counterArray >= Repository.listDefect.length) {
-            try {
-                throw new IndexOutOfBoundsException();
-            } catch (IndexOutOfBoundsException e) {
-                e.printStackTrace();
-                return;
-            }
+        if(Repository.getCounterArray() >= Repository.getListDefect().length) {
+            System.out.println("Обращение к индексу больше размера массива");
+            return;
         }
 
         System.out.println("Введите резюме дефекта");
         String summary = scanner.nextLine();
-        Defect defect = new Defect(summary);
+
 
         System.out.println("Введите критичность дефекта из списка:" + "\ntrivial, minor, major, critical, blocker");
-        defect.setCriticality(scanner.nextLine());
-
+        String criticality = scanner.nextLine();
 
         System.out.println("Введите количество дней на исправление");
-        defect.setCountDay(scanner.nextInt());
+        int countDay = scanner.nextInt();
         scanner.nextLine();
+
+        Defect defect = new Defect(summary, criticality, countDay);
 
         Repository.addDef(defect);
     }

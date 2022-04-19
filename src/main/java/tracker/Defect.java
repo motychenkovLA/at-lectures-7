@@ -3,34 +3,16 @@ package tracker;
 public class Defect {
     private static long numberDefects = 1;
     private final long ID;
-    {
-        ID = numberDefects++;
-    }
     private final int WEEK = 5;
     private String summary;
     private String criticality;
     private int countDay;
 
-    public Defect(String summary) {
+    public Defect(String summary, String criticality, int countDay) {
         this.summary = summary;
-    }
-
-    public void setCriticality(String criticality) {
-        if (criticality.equals("trivial") || criticality.equals("minor") ||
-                criticality.equals("major") || criticality.equals("critical") ||
-                criticality.equals("blocker")) {
-            this.criticality = criticality;
-        } else {
-            this.criticality = "minor";
-        }
-    }
-
-    public void setCountDay(int countDay) {
-        if (countDay <= 0) {
-            this.countDay = 1;
-        } else {
-            this.countDay = countDay;
-        }
+        this.criticality = criticality;
+        this.countDay = countDay;
+        this.ID = numberDefects++;
     }
 
     public String info() {

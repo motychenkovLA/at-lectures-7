@@ -1,9 +1,17 @@
 package tracker;
 
 public class Repository {
-    static final int LENGTH_ARRAY = 10;
-    static Defect[] listDefect = new Defect[LENGTH_ARRAY];
-    static int counterArray = 0;
+    private static final int LENGTH_ARRAY = 10;
+    private static Defect[] listDefect = new Defect[LENGTH_ARRAY];
+    private static int counterArray = 0;
+
+    public static Defect[] getListDefect() {
+        return listDefect;
+    }
+
+    public static int getCounterArray() {
+        return counterArray;
+    }
 
     public static void addDef(Defect defect) {
         listDefect[counterArray] = defect;
@@ -11,10 +19,7 @@ public class Repository {
     }
 
     public static Defect[] getAll() {
-        for(int i = 0; i < Repository.counterArray; i++) {
-            System.out.println(listDefect[i].info());
-            System.out.println("---------------------------");
-        }
         return listDefect;
+
     }
 }
