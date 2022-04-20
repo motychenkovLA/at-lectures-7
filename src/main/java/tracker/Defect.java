@@ -5,7 +5,7 @@ public class Defect {
     private int amountOfDays;
     private String description;
     private String severity;
-    private final long idDefect;
+    private final long idDefect; // todo 1 - он и так в дефекте, не нужно уточнять что это айди именно дефекта
     private static long counter = 1;
 
     public Defect(String description, String severity, int amountOfDays) {

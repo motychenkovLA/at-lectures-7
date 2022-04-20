@@ -14,6 +14,7 @@ public class Main {
 
             switch (operation) {
                 case "add":
+                    // todo 3 - почему это не сделать одним методом у репо?
                     if (Repository.getCounter() >= Repository.getMassivDefects().length) {
                         System.out.println("Не возможно добавить дефект");
                         break;
