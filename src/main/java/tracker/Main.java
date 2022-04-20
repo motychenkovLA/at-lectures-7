@@ -4,15 +4,6 @@ import java.util.Scanner;
 
 public class Main {
 
-    static final int MAX_DEFECT_COUNT = 10;
-    static Defect[] massivDefects = new Defect[MAX_DEFECT_COUNT];
-    static int counter = 0;
-
-    public static void addDefect(Defect defect) {
-        massivDefects[counter] = defect;
-        counter++;
-    }
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -23,16 +14,17 @@ public class Main {
 
             switch (operation) {
                 case "add":
-                    if (counter >= massivDefects.length) {
+                    if (Repository.getCounter() >= Repository.getMassivDefects().length) {
                         System.out.println("Не возможно добавить дефект");
                         break;
                     }
-                    processDefect(scanner);
+                    writeDefect(scanner);
                     break;
 
                 case "list":
-                    for (int i = 0; i < counter; i++) {
-                        System.out.println(massivDefects[i]);
+                    for (int i = 0; i < Repository.getCounter(); i++) {
+                        System.out.println(Repository.getMassivDefects()[i]);
+                        System.out.println("________________________");
                     }
                     break;
 
@@ -47,7 +39,7 @@ public class Main {
         }
     }
 
-    public static void processDefect(Scanner scanner) {
+    public static void writeDefect(Scanner scanner) {
         System.out.println("Введите описание дефекта");
         String description = scanner.nextLine();
 
@@ -64,7 +56,7 @@ public class Main {
         scanner.nextLine();
 
         Defect defect = new Defect(description, severity, amountOfDays);
-        addDefect(defect);
+        Repository.add(defect);
 
     }
 }
