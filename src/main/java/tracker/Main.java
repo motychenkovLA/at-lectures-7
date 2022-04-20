@@ -39,6 +39,7 @@ public class Main {
 
     public static void writeDefect(Scanner scanner) {
         //При переводе в  репо блока if, он не отрабатывал корректно. Перенесла сюда.
+        // todo 3+ - но все ещё не метод в репо
         if (Repository.getCounter() >= getAll().length) {
             System.out.println("Не возможно добавить дефект");
             return;
