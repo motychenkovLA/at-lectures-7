@@ -6,37 +6,35 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        List<Defect> defects = new ArrayList<>();
+        Defect[] list = new Defect[10];
         int count = 0;
-        boolean isWork = true;
+        Scanner scanner = new Scanner(System.in);
         do {
             System.out.println("Введите действие: добавить новый дефект (\"add\") или вывести список (\"list\") или выйти из программы (\"quit\") - главное меню ");
-            Scanner scanner = new Scanner(System.in);
-            switch (scanner.nextLine()){
-                case("add"):
-                        System.out.println("Введите резюме дефекта:");
-                        String summary = scanner.nextLine();
-                        System.out.println("Введите критичность дефекта");
-                        System.out.println("Minor\nMedium\nMajor\nCritical\nBlocker");
-                        String severity = scanner.nextLine();
-                        System.out.println("Введите ожидаемое количество дней на исправление дефекта");
-                        int days = scanner.nextInt();
-                        Defect bug = new Defect(count, summary, severity,days );
-                        defects.add(bug);
-                        count++;
-                        break;
+            switch (scanner.nextLine()) {
+                case ("add"):
+                    System.out.println("Введите резюме дефекта:");
+                    String summary = scanner.nextLine();
+                    System.out.println("Введите критичность дефекта");
+                    System.out.println("Minor\nMedium\nMajor\nCritical\nBlocker");
+                    String severity = scanner.nextLine();
+                    System.out.println("Введите ожидаемое количество дней на исправление дефекта");
+                    int days = scanner.nextInt();
+                    scanner.nextLine();
+                    Defect bugs = new Defect(count, summary, severity, days);
+                    list[count] = bugs;
+                    count++;
+                    break;
 
-                case("list"):
-                    for (Defect defect : defects) {
-                        defect.getInfo();
+                case ("list"):
+                    for (int i = 0; i < count; i++) {
+                        System.out.println(list[i].getInfo());
                     }
                     break;
                 case("quit"):
-                    isWork = false;
-                    break;
+                    return;
             }
         }
-        while (isWork);
+        while (true);
     }
-
-    }
+}
