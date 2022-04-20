@@ -2,6 +2,8 @@ package tracker;
 
 import java.util.Scanner;
 
+import static tracker.Repository.getAll;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -14,17 +16,12 @@ public class Main {
 
             switch (operation) {
                 case "add":
-                    // todo 3 - почему это не сделать одним методом у репо?
-                    if (Repository.getCounter() >= Repository.getMassivDefects().length) {
-                        System.out.println("Не возможно добавить дефект");
-                        break;
-                    }
                     writeDefect(scanner);
                     break;
 
                 case "list":
                     for (int i = 0; i < Repository.getCounter(); i++) {
-                        System.out.println(Repository.getMassivDefects()[i]);
+                        System.out.println(getAll()[i]);
                         System.out.println("________________________");
                     }
                     break;
@@ -41,6 +38,12 @@ public class Main {
     }
 
     public static void writeDefect(Scanner scanner) {
+        //При переводе в  репо блока if, он не отрабатывал корректно. Перенесла сюда.
+        if (Repository.getCounter() >= getAll().length) {
+            System.out.println("Не возможно добавить дефект");
+            return;
+        }
+
         System.out.println("Введите описание дефекта");
         String description = scanner.nextLine();
 
