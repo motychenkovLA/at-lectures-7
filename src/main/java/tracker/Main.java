@@ -6,13 +6,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        final int WORKING_DAYS_IN_WEEK = 5;     // Рабочая неделя
-
-        String[] arrayResumeBag = new String[10];
-        String[] arrayCritical = new String[10];
-        int[] arrayDaysCorrection = new int[10];
-
-        int i = 0;
+        int count = 0;
+        Defect[] bugs = new Defect[10];
 
         Scanner scanner = new Scanner(System.in);
 
@@ -25,36 +20,29 @@ public class Main {
             switch (scanner.nextLine()) {
 
                 case "add":
-                    if (i >= arrayResumeBag.length) {
+                    if (count >= bugs.length) {
                         System.out.println("Уже заведено 10 дефектов");
                         break;
                     }
 
                     System.out.println("Введите резюме по дефекту:");
-                    arrayResumeBag[i] = scanner.nextLine();
+                    String resume = scanner.nextLine();
 
                     System.out.println("Введите критичность дефекта (Низкий, Средний, Высокий, Блокирующий):");
-                    arrayCritical[i] = scanner.nextLine();
+                    String critical = scanner.nextLine();
 
                     System.out.println("Введите количество дней на исправление:");
-                    arrayDaysCorrection[i] = scanner.nextInt();
+                    int dayToFix = scanner.nextInt();
                     scanner.nextLine();
 
-                    i++;
+                    Defect defect = new Defect(resume, critical, dayToFix);
+                    defect.add(bugs, defect);
+                    count++;
                     break;
 
                 case "list":
-                    int r = 0;
-                    while (i > r) {
-                        System.out.println(
-                                "Номер дефекта " + r + ":" +
-                                        "\n Описание дефекта: " + arrayResumeBag[r] +
-                                        "\n Критичность: " + arrayCritical[r] +
-                                        "\n Количество дней на исправление: " + arrayDaysCorrection[r] +
-                                        "\n Будет исправлен за рабочую неделю: " + (arrayDaysCorrection[r] <= WORKING_DAYS_IN_WEEK) +
-                                        "\n________________________________________________________"
-                        );
-                        r++;
+                    for (Defect r : bugs) {
+                        if (r != null) System.out.println(r.list());
                     }
                     break;
 
