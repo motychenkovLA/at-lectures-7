@@ -1,7 +1,7 @@
 package tracker;
 
 public class Defect {
-    private long id;
+    private long id; // todo 3 - не final
     private String name;
     private String critical;
     private int countDay;

@@ -32,6 +32,7 @@ public class Main {
     }
 
     private static void addDefect(Scanner scanner) {
+        // todo 3 - два обращение к репо и к его внутренностям, это должна быть ответственность репо и метод в нем
         if (Repository.getCounterDefectSize() >= Repository.getListDefect().length) {
             System.out.println("Размер дефектов превышен");
             return;
