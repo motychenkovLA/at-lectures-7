@@ -15,7 +15,7 @@ public class Defect {
         counter++;
     }
 
-    public String toString() {
+    public String info() {
         return "Номер дефекта: " + id + ", Название: " + name + ", Критичность: "
                 + critical + ", Кол-во дней: " + countDay;
     }
