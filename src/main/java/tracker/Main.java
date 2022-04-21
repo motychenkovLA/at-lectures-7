@@ -2,11 +2,10 @@ package tracker;
 
 import java.util.Scanner;
 
-import static tracker.Repository.getAll;
-
 public class Main {
 
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -21,7 +20,7 @@ public class Main {
 
                 case "list":
                     for (int i = 0; i < Repository.getCounter(); i++) {
-                        System.out.println(getAll()[i]);
+                        System.out.println(Repository.getAll()[i]);
                         System.out.println("________________________");
                     }
                     break;
@@ -38,13 +37,7 @@ public class Main {
     }
 
     public static void writeDefect(Scanner scanner) {
-        //При переводе в  репо блока if, он не отрабатывал корректно. Перенесла сюда.
-        // todo 3+ - но все ещё не метод в репо
-        if (Repository.getCounter() >= getAll().length) {
-            System.out.println("Не возможно добавить дефект");
-            return;
-        }
-
+        Repository.examination();
         System.out.println("Введите описание дефекта");
         String description = scanner.nextLine();
 

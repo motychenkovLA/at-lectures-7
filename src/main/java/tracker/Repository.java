@@ -2,25 +2,43 @@ package tracker;
 
 public class Repository {
 
+    private static int maxOfDefect;
     // todo 5+ - ТЗ: количество дефектов, которые могут храниться в Repository >>задается при создании его экземпляра<<
-    private static Defect[] massivDefects = new Defect[10];
+    private static Defect[] massivDefects = new Defect[maxOfDefect];
+    Repository repository = new Repository(10);
+
     private static int counter = 0;
+
+    public Repository(int maxOfDefect) {
+        this.maxOfDefect = maxOfDefect;
+    }
 
     public static void add(Defect defect) {
         massivDefects[counter] = defect;
         counter++;
-
     }
-    //private сделать если, то не могу обращаться к нему из Main
-    // todo 3+ - утечка массива наружу, внешний пользователь получает доступ к внутреннему объекту репозитория,
-    //  в результате не гарантируется его валидность
-    //  + >>возвращается массив с null-ами а не только дефектами<<
+
+    public static void examination() {
+        if (counter >= massivDefects.length) {
+            System.out.println("Не возможно добавить дефект");
+            System.out.println("___________________________");
+            return;
+        }
+    }
+
     public static Defect[] getAll() {
-        return massivDefects;
+        Defect[] newMassiv = new Defect[counter];
+        for (int i = 0; i < massivDefects.length; i++) {
+            if (massivDefects[i] != null) {
+                newMassiv[i] = massivDefects[i];
+            }
+        }
+        return newMassiv;
     }
 
     public static int getCounter() {
         return counter;
     }
+
 }
 
