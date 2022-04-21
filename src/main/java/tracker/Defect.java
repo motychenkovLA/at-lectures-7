@@ -1,12 +1,12 @@
 package tracker;
 
 public class Defect {
-    private static long numberDefects = 1;
     private final long ID;
     private final int WEEK = 5;
     private String summary;
     private String criticality;
     private int countDay;
+    private static long numberDefects = 1;
 
     public Defect(String summary, String criticality, int countDay) {
         this.summary = summary;

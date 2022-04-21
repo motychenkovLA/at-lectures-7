@@ -1,16 +1,23 @@
 package tracker;
 
+import java.util.Arrays;
+
 public class Repository {
-    private static final int LENGTH_ARRAY = 10;
-    private static Defect[] listDefect = new Defect[LENGTH_ARRAY];
+    private int length;
+    private static Defect[] listDefect;
     private static int counterArray = 0;
 
-    public static Defect[] getListDefect() {
-        return listDefect;
+    public Repository(int length) {
+        this.length = length;
+        listDefect = new Defect[length];
     }
 
-    public static int getCounterArray() {
-        return counterArray;
+    public static boolean examination() {
+        if(getCounterArray() >= getAll().length) {
+            System.out.println("Обращение к индексу больше размера массива");
+            return true;
+        }
+        return false;
     }
 
     public static void addDef(Defect defect) {
@@ -18,8 +25,12 @@ public class Repository {
         counterArray++;
     }
 
-    public static Defect[] getAll() {
-        return listDefect;
+    public static int getCounterArray() {
+        return counterArray;
+    }
 
+    public static Defect[] getAll() {
+        Defect[] copyListDefect = Arrays.copyOf(listDefect, counterArray);
+        return copyListDefect;
     }
 }
