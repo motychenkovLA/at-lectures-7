@@ -13,8 +13,7 @@ public class Repository {
     }
 
     public static boolean examination() {
-        if(getCounterArray() >= getAll().length) {
-            System.out.println("Обращение к индексу больше размера массива");
+        if(getCounterArray() >= listDefect.length) {
             return true;
         }
         return false;

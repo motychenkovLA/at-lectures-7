@@ -17,10 +17,10 @@ public class Tracker {
                     System.out.println();
                     break;
                 case "list":
-                    for(int i = 0; i < Repository.getCounterArray(); i++) {
+                    for (int i = 0; i < Repository.getCounterArray(); i++) {
                         System.out.println(Repository.getAll()[i].info());
                         System.out.println("________________________");
-                }
+                    }
                     break;
                 case "quit":
                     System.out.println("Выход из системы");
@@ -33,7 +33,8 @@ public class Tracker {
     }
 
     public static void addDefect(Scanner scanner) {
-        if(Repository.examination()) {
+        if (Repository.examination()) {
+            System.out.println("Обращение к индексу больше размера массива");
             return;
         }
 
@@ -42,7 +43,7 @@ public class Tracker {
 
         System.out.println("Введите критичность дефекта из списка:" + "\ntrivial, minor, major, critical, blocker");
         String criticality = scanner.nextLine();
-        if(criticality.equals("trivial") || criticality.equals("minor") || criticality.equals("major") ||
+        if (criticality.equals("trivial") || criticality.equals("minor") || criticality.equals("major") ||
                 criticality.equals("critical") || criticality.equals("blocker")) {
             criticality = criticality;
         } else {
@@ -52,7 +53,7 @@ public class Tracker {
         System.out.println("Введите количество дней на исправление");
         int countDay = scanner.nextInt();
         scanner.nextLine();
-        if(countDay <= 0) {
+        if (countDay <= 0) {
             countDay = 1;
         }
 
