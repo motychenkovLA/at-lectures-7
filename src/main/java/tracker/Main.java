@@ -19,6 +19,7 @@ public class Main {
                     break;
 
                 case "list":
+                    // todo 3 - getAll возвращает ровно столько сколько есть, можно for-each. к тому же сейчас getAll вызывается на каждой итерации цикла
                     for (int i = 0; i < Repository.getCounter(); i++) {
                         System.out.println(Repository.getAll()[i]);
                         System.out.println("________________________");
