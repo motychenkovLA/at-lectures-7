@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-
+        Repository repository = new Repository(10);
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -15,13 +15,13 @@ public class Main {
 
             switch (operation) {
                 case "add":
-                    writeDefect(scanner);
+                    writeDefect(scanner, repository);
                     break;
 
                 case "list":
-                    // todo 3 - getAll возвращает ровно столько сколько есть, можно for-each. к тому же сейчас getAll вызывается на каждой итерации цикла
-                    for (int i = 0; i < Repository.getCounter(); i++) {
-                        System.out.println(Repository.getAll()[i]);
+
+                    for (Defect i : repository.getAll()) {
+                        System.out.println(i);
                         System.out.println("________________________");
                     }
                     break;
@@ -37,8 +37,12 @@ public class Main {
         }
     }
 
-    public static void writeDefect(Scanner scanner) {
-        Repository.examination();
+    public static void writeDefect(Scanner scanner, Repository repository) {
+        if (repository.isFull()) {
+            System.out.println("Не возможно добавить дефект");
+            return;
+        }
+
         System.out.println("Введите описание дефекта");
         String description = scanner.nextLine();
 
@@ -55,8 +59,7 @@ public class Main {
         scanner.nextLine();
 
         Defect defect = new Defect(description, severity, amountOfDays);
-        Repository.add(defect);
-
+        repository.add(defect);
     }
 }
 
