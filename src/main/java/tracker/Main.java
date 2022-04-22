@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Repository repository = new Repository(10); // todo 3 - объект нигде не используется
+        Repository repository = new Repository(2); // todo 3 - объект нигде не используется
 
         while (true) {
             System.out.println("Выберите действие:\n" + "Добавить новый дефект - add, Вывести список - list, " +
@@ -14,12 +14,12 @@ public class Main {
 
             switch (scanner.nextLine()) {
                 case "add":
-                    addDefect(scanner);
+                    addDefect(scanner, repository);
                     break;
 
                 case "list":
-                    for (int a = 0; a < Repository.getCounterDefectSize(); a++) {
-                        System.out.println(Repository.getAll()[a].info());
+                    for (int a = 0; a < repository.getCapacity(); a++) {
+                        System.out.println(repository.getAll()[a].info());
                         System.out.println("_____________________________________________________________________");
                     }
                     System.out.println();
@@ -37,8 +37,8 @@ public class Main {
         }
     }
 
-    private static void addDefect(Scanner scanner) {
-        if (Repository.maxSize()) {
+    public static void addDefect(Scanner scanner, Repository repository) {
+        if (repository.isFull()) {
             System.out.println("Размер дефектов превышен");
             return;
         }
@@ -55,6 +55,6 @@ public class Main {
         scanner.nextLine();
 
         Defect defect = new Defect(name, critical, countDay);
-        Repository.add(defect);
+        repository.add(defect);
     }
 }
