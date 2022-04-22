@@ -5,8 +5,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         final int MAX_COUNT = 10;
-        int currentDefectNum = 0;
-        Defect[] defects = new Defect[MAX_COUNT];
+        Repository repository = new Repository(MAX_COUNT);
 
         boolean isRun = true;
         while(isRun) {
@@ -15,18 +14,17 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
             switch (scanner.nextLine()) {
                 case "add": {
-                    if (currentDefectNum < MAX_COUNT) {
+                    if (Repository.getCurrentDefectNum() < MAX_COUNT) {
                         System.out.println("Введите резюме дефекта");
                         String resume = scanner.nextLine();
                         System.out.println("Введите критичность дефекта (Blocker, Critical, Major, Minor, Trivial)");
                         String severity = scanner.nextLine();
                         System.out.println("Введите ожидаемое количество дней на исправление дефекта");
                         String daysToFix = scanner.nextLine();
-                        long id = currentDefectNum+1;
 
-                        defects[currentDefectNum] = new Defect(id, resume, severity, daysToFix);
+                        Defect defect = new Defect(resume, severity, daysToFix);
 
-                        currentDefectNum++;
+                        Repository.add(defect);
                     }   else {
                         System.out.println("Нельзя ввести больше 10 дефектов!");
                     }
@@ -35,10 +33,12 @@ public class Main {
 
                 case "list": {
                     System.out.println("Список дефектов:");
-                    for (int i = 0; i < currentDefectNum; i++) {
-                        System.out.println("ID: " + defects[i].getID() + " | " + "Резюме: " +
-                                defects[i].getResume() + " | " + "Критичность: " + defects[i].getSeverity() + " | " +
-                                "Дни: " + defects[i].getDaysToFix());
+                    for (int i = 0; i < Repository.getCurrentDefectNum(); i++) {
+                        System.out.println("ID: " + Repository.getAll()[i].getID() + " | " + "Резюме: " +
+                                Repository.getAll()[i].getResume() + " | " + "Критичность: " +
+                                Repository.getAll()[i].getSeverity() + " | " + "Дни: " +
+                                Repository.getAll()[i].getDaysToFix());
+
                     }
                     break;
                 }

@@ -1,16 +1,17 @@
 package tracker;
 
 public class Defect {
-    long id;
-    String resume;
-    String severity;
-    String daysToFix;
+    private final long id;
+    private String resume;
+    private String severity;
+    private String daysToFix;
+    private static long currentID = 1;
 
-    public Defect(long id, String resume, String severity, String daysToFix) {
-        this.id = id;
+    public Defect(String resume, String severity, String daysToFix) {
         this.resume = resume;
         this.severity = severity;
         this.daysToFix = daysToFix;
+        id = currentID++;
     }
 
     public void setResume(String resume){
@@ -25,9 +26,9 @@ public class Defect {
         this.daysToFix=daysToFix;
     }
 
-    public void setID(long id) {
-        this.id = id;
-    }
+//    public void setID(long id) {
+//        this.id = id;
+//    }
 
     public String getResume(){
         return resume;
