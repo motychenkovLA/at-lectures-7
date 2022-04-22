@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Repository repository = new Repository(2); // todo 3 - объект нигде не используется
+        Repository repository = new Repository(2);
 
         while (true) {
             System.out.println("Выберите действие:\n" + "Добавить новый дефект - add, Вывести список - list, " +

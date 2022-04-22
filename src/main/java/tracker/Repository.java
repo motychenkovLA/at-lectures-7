@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Repository {
     private final int size;
-    private Defect[] listDefect; // todo 5 - общий массив на все репо
+    private Defect[] listDefect;
     private int capacity = 0;
 
     public Repository(int size) {
