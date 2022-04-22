@@ -6,6 +6,7 @@ public class Defect {
     private String summary;
     private String criticality;
     private int countDay;
+    private Attachment attachment;
     private static long numberDefects = 1;
 
     public Defect(String summary, String criticality, int countDay) {
@@ -15,9 +16,21 @@ public class Defect {
         this.ID = numberDefects++;
     }
 
-    public String info() {
+    public Defect(String summary, String criticality, int countDay, Attachment attachment) {
+        this.summary = summary;
+        this.criticality = criticality;
+        this.countDay = countDay;
+        this.attachment = attachment;
+        this.ID = numberDefects++;
+    }
+
+    public String toString() {
+        if (attachment == null) {
+            return "Defect:"+"\nid = "+ ID +"\nРезюме = "+summary+"\nКритичность = "+criticality+"\ncountDay = "+countDay+
+                    "\nИсправление займет больше рабочей недели = "+(countDay > WEEK);
+        }
         return "Defect:"+"\nid = "+ ID +"\nРезюме = "+summary+"\nКритичность = "+criticality+"\ncountDay = "+countDay+
-               "\nИсправление займет больше рабочей недели = "+(countDay > WEEK);
+               "\nИсправление займет больше рабочей недели = "+(countDay > WEEK)+"\n"+attachment.asString();
     }
 }
 

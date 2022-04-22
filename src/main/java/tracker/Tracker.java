@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Tracker {
     public static void main(String[] args) {
-        Repository repository = new Repository(2);
+        Repository repository = new Repository(10);
         Scanner sc = new Scanner(System.in);
 
         while (true) {
@@ -13,12 +13,12 @@ public class Tracker {
 
             switch (sc.nextLine()) {
                 case "add":
-                    addDefect(sc);
+                    addDefect(sc, repository);
                     System.out.println();
                     break;
                 case "list":
-                    for (int i = 0; i < Repository.getCounterArray(); i++) {
-                        System.out.println(Repository.getAll()[i].info());
+                    for (int i = 0; i < repository.getCounterArray(); i++) {
+                        System.out.println(repository.getAll()[i]);
                         System.out.println("________________________");
                     }
                     break;
@@ -32,8 +32,8 @@ public class Tracker {
         }
     }
 
-    public static void addDefect(Scanner scanner) {
-        if (Repository.examination()) {
+    public static void addDefect(Scanner scanner, Repository repository) {
+        if (repository.isExamination()) {
             System.out.println("Обращение к индексу больше размера массива");
             return;
         }
@@ -57,9 +57,35 @@ public class Tracker {
             countDay = 1;
         }
 
-        Defect defect = new Defect(summary, criticality, countDay);
-
-        Repository.addDef(defect);
+        System.out.println("Хотите добавить вложение Y, да/N, нет?");
+        String choice = scanner.nextLine();
+        if (choice.equals("N")) {
+            Defect defect = new Defect(summary, criticality, countDay);
+            repository.addDef(defect);
+            return;
+        }
+        if (choice.equals("Y")) {
+            System.out.println("Введите тип вложения из списка: \n\"Comment\" - комментарий к дефекту или \"Link\" - ссылка к дефекту");
+            String attachment = scanner.nextLine();
+            switch (attachment) {
+                case "Link":
+                    System.out.println("Введите id дефекта");
+                    DefectAttachment defectAttachment = new DefectAttachment(scanner.nextInt());
+                    scanner.nextLine();
+                    Defect defect = new Defect(summary, criticality, countDay,  defectAttachment);
+                    repository.addDef(defect);
+                    break;
+                case "Comment":
+                    System.out.println("Введите комментарий к дефекту");
+                    CommentAttachment commentAttachment = new CommentAttachment(scanner.nextLine());
+                    defect = new Defect(summary, criticality, countDay, commentAttachment);
+                    repository.addDef(defect);
+                    break;
+                default:
+                    System.out.println("Введена не существующая операция, дефект не добавлен в систему");
+                    return;
+            }
+        }
     }
 }
 
