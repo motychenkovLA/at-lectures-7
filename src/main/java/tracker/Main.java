@@ -6,13 +6,17 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        Repository repository = new Repository(10);
+
         while (true) {
             System.out.println("Выберите действие:\n" + "Добавить новый дефект - add, Вывести список - list, " +
                     "Выйти из программы - quit");
+
             switch (scanner.nextLine()) {
                 case "add":
                     addDefect(scanner);
                     break;
+
                 case "list":
                     for (int a = 0; a < Repository.getCounterDefectSize(); a++) {
                         System.out.println(Repository.getAll()[a].info());
@@ -20,9 +24,11 @@ public class Main {
                     }
                     System.out.println();
                     break;
+
                 case "quit":
                     System.out.println("Выход из программы");
                     return;
+
                 default:
                     System.out.println("try again");
                     System.out.println();
@@ -32,8 +38,7 @@ public class Main {
     }
 
     private static void addDefect(Scanner scanner) {
-        // todo 3 - два обращение к репо и к его внутренностям, это должна быть ответственность репо и метод в нем
-        if (Repository.getCounterDefectSize() >= Repository.getListDefect().length) {
+        if (Repository.maxSize()) {
             System.out.println("Размер дефектов превышен");
             return;
         }
@@ -51,6 +56,5 @@ public class Main {
 
         Defect defect = new Defect(name, critical, countDay);
         Repository.add(defect);
-
     }
 }

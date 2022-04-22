@@ -1,7 +1,7 @@
 package tracker;
 
 public class Defect {
-    private long id; // todo 3 - не final
+    private final long id;
     private String name;
     private String critical;
     private int countDay;
@@ -11,7 +11,7 @@ public class Defect {
         this.name = name;
         this.critical = critical;
         this.countDay = countDay;
-        id = counter;
+        this.id = counter;
         counter++;
     }
 
