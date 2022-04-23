@@ -18,6 +18,7 @@ public class Main {
                     break;
 
                 case "list":
+                    // todo 3 - for each
                     for (int a = 0; a < repository.getCapacity(); a++) {
                         System.out.println(repository.getAll()[a].info());
                         System.out.println("_____________________________________________________________________");
