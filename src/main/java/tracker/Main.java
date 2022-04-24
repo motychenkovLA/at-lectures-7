@@ -1,5 +1,6 @@
 package tracker;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -10,10 +11,7 @@ public class Main {
         final int MAX_CAPACITY = 10;
         int currentDefectNumber = 0;
 
-        int [] id = new int[MAX_CAPACITY];
-        String[] allSummary= new String[MAX_CAPACITY];
-        String[] allSeverity = new String[MAX_CAPACITY];
-        int [] allDeadline = new int[MAX_CAPACITY];
+        Defect[] allDefects = new Defect[MAX_CAPACITY];
 
         while (true) {
             System.out.println("Select a command: \"add\", \"list\", \"quit\"");
@@ -24,20 +22,25 @@ public class Main {
 
                 if (currentDefectNumber <= (MAX_CAPACITY - 1)) {
 
-                    id[currentDefectNumber] = currentDefectNumber;
+                    //если пользователь выбрал add, то создаЄм экземпл€р класса Defect
+
+                    Defect bag = new Defect();
+                    allDefects[currentDefectNumber] = bag;
+
+                    bag.id = currentDefectNumber;
 
                     System.out.println("Enter a resume of the problem");
                     String description = scanner.nextLine();
-                    allSummary[currentDefectNumber] = description;
+                    bag.summary = description;
 
                     System.out.println("Please, enter a severity of the problem:\nS1 - Blocker;\nS2 - Critical;" +
                             "\nS3 - Major;\nS4 - Minor;\nS5 - Trivial");
                     String severity = scanner.nextLine();
-                    allSeverity[currentDefectNumber] = severity;
+                    bag.severity = severity;
 
                     System.out.println("How many days do you need to fix the problem?");
                     int numberOfDays = scanner.nextInt();
-                    allDeadline[currentDefectNumber] = numberOfDays;
+                    bag.days = numberOfDays;
 
                 } else {
                     System.out.println("There is no place in array!");
@@ -46,14 +49,14 @@ public class Main {
 
                 currentDefectNumber++;
 
-            } if (choiceCommand.equals("list")) {
+            } else if (choiceCommand.equals("list")) {
 
                for (int i = 0; i < currentDefectNumber; i++) {
-                   System.out.println(id[i] + " | " + "Resume: " + allSummary[i] + " | " + "Severity: " + allSeverity[i] +
-                          " | " + "Days for fix: " + allDeadline[i] );
+                   System.out.println(allDefects[i].id + " | " + allDefects[i].summary + " | " +
+                           allDefects[i].severity + " | " + allDefects[i].days);
                }
 
-            } if (choiceCommand.equals("quit")) {
+            } else if (choiceCommand.equals("quit")) {
 
                 break;
 
