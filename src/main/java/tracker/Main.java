@@ -14,7 +14,7 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
             switch (scanner.nextLine()) {
                 case "add": {
-                    if (Repository.getCurrentDefectNum() < MAX_COUNT) {
+                    if (repository.isFull()) {
                         System.out.println("Введите резюме дефекта");
                         String resume = scanner.nextLine();
                         System.out.println("Введите критичность дефекта (Blocker, Critical, Major, Minor, Trivial)");
@@ -24,7 +24,7 @@ public class Main {
 
                         Defect defect = new Defect(resume, severity, daysToFix);
 
-                        Repository.add(defect);
+                        repository.add(defect);
                     }   else {
                         System.out.println("Нельзя ввести больше 10 дефектов!");
                     }
@@ -33,11 +33,11 @@ public class Main {
 
                 case "list": {
                     System.out.println("Список дефектов:");
-                    for (int i = 0; i < Repository.getCurrentDefectNum(); i++) {
-                        System.out.println("ID: " + Repository.getAll()[i].getID() + " | " + "Резюме: " +
-                                Repository.getAll()[i].getResume() + " | " + "Критичность: " +
-                                Repository.getAll()[i].getSeverity() + " | " + "Дни: " +
-                                Repository.getAll()[i].getDaysToFix());
+                    for (int i = 0; i < repository.getCurrentDefectNum(); i++) {
+                        System.out.println("ID: " + repository.getAll()[i].getID() + " | " + "Резюме: " +
+                                repository.getAll()[i].getResume() + " | " + "Критичность: " +
+                                repository.getAll()[i].getSeverity() + " | " + "Дни: " +
+                                repository.getAll()[i].getDaysToFix());
 
                     }
                     break;
@@ -45,6 +45,10 @@ public class Main {
 
                 case "quit": {
                     isRun = false;
+                    break;
+                }
+                default: {
+                    System.out.println("Введено неверное значение, попробуйте еще раз.");
                     break;
                 }
             }
