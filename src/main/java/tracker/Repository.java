@@ -3,12 +3,10 @@ package tracker;
 import java.util.Arrays;
 
 public class Repository {
-    private int length;
     private Defect[]listDefect;
     private int counterArray = 0;
 
     public Repository(int length) {
-        this.length = length;
         listDefect = new Defect[length];
     }
 

@@ -17,19 +17,14 @@ public class Defect {
     }
 
     public Defect(String summary, String criticality, int countDay, Attachment attachment) {
-        this.summary = summary;
-        this.criticality = criticality;
-        this.countDay = countDay;
+        this(summary, criticality, countDay);
         this.attachment = attachment;
-        this.ID = numberDefects++;
     }
 
     public String toString() {
-        if (attachment == null) {
-            return "Defect:"+"\nid = "+ ID +"\nРезюме = "+summary+"\nКритичность = "+criticality+"\ncountDay = "+countDay+
-                    "\nИсправление займет больше рабочей недели = "+(countDay > WEEK);
-        }
-        return "Defect:"+"\nid = "+ ID +"\nРезюме = "+summary+"\nКритичность = "+criticality+"\ncountDay = "+countDay+
+        return attachment == null ? "Defect:"+"\nid = "+ ID +"\nРезюме = "+summary+"\nКритичность = "+criticality+"\ncountDay = "+countDay+
+                    "\nИсправление займет больше рабочей недели = "+(countDay > WEEK)+"\n" :
+                "Defect:"+"\nid = "+ ID +"\nРезюме = "+summary+"\nКритичность = "+criticality+"\ncountDay = "+countDay+
                "\nИсправление займет больше рабочей недели = "+(countDay > WEEK)+"\n"+attachment.asString();
     }
 }

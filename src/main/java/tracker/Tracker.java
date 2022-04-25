@@ -35,7 +35,6 @@ public class Tracker {
     public static void addDefect(Scanner scanner, Repository repository) {
         if (repository.isExamination()) {
             System.out.println("Обращение к индексу больше размера массива");
-            return;
         }
 
         System.out.println("Введите резюме дефекта");
@@ -43,9 +42,9 @@ public class Tracker {
 
         System.out.println("Введите критичность дефекта из списка:" + "\ntrivial, minor, major, critical, blocker");
         String criticality = scanner.nextLine();
+
         if (criticality.equals("trivial") || criticality.equals("minor") || criticality.equals("major") ||
                 criticality.equals("critical") || criticality.equals("blocker")) {
-            criticality = criticality;
         } else {
             criticality = "minor";
         }
@@ -62,7 +61,6 @@ public class Tracker {
         if (choice.equals("N")) {
             Defect defect = new Defect(summary, criticality, countDay);
             repository.addDef(defect);
-            return;
         }
         if (choice.equals("Y")) {
             System.out.println("Введите тип вложения из списка: \n\"Comment\" - комментарий к дефекту или \"Link\" - ссылка к дефекту");
