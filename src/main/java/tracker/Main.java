@@ -1,6 +1,5 @@
 package tracker;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -8,10 +7,10 @@ public class Main {
 
 
         String choiceCommand;
-        final int MAX_CAPACITY = 10;
+        final int MAX_CAPACITY = 2;
         int currentDefectNumber = 0;
 
-        Defect[] allDefects = new Defect[MAX_CAPACITY];
+        Repository allDefects = new Repository(MAX_CAPACITY);
 
         while (true) {
             System.out.println("Select a command: \"add\", \"list\", \"quit\"");
@@ -32,7 +31,7 @@ public class Main {
                     System.out.println("How many days do you need to fix the problem?");
                     int numberOfDays = scanner.nextInt();
 
-                    allDefects[currentDefectNumber] = new Defect(currentDefectNumber, description, severity, numberOfDays);
+                    allDefects.add(new Defect(description, severity, numberOfDays));
 
                 } else {
                     System.out.println("There is no place in array!");
@@ -43,10 +42,7 @@ public class Main {
 
             } else if (choiceCommand.equals("list")) {
 
-               for (int i = 0; i < currentDefectNumber; i++) {
-                   System.out.println(allDefects[i].id + " | " + allDefects[i].summary + " | " +
-                           allDefects[i].severity + " | " + allDefects[i].days);
-               }
+                allDefects.getAll();
 
             } else if (choiceCommand.equals("quit")) {
 
