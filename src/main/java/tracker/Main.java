@@ -22,25 +22,17 @@ public class Main {
 
                 if (currentDefectNumber <= (MAX_CAPACITY - 1)) {
 
-                    //если пользователь выбрал add, то создаЄм экземпл€р класса Defect
-
-                    Defect bag = new Defect();
-                    allDefects[currentDefectNumber] = bag;
-
-                    bag.id = currentDefectNumber;
-
                     System.out.println("Enter a resume of the problem");
                     String description = scanner.nextLine();
-                    bag.summary = description;
 
                     System.out.println("Please, enter a severity of the problem:\nS1 - Blocker;\nS2 - Critical;" +
                             "\nS3 - Major;\nS4 - Minor;\nS5 - Trivial");
                     String severity = scanner.nextLine();
-                    bag.severity = severity;
 
                     System.out.println("How many days do you need to fix the problem?");
                     int numberOfDays = scanner.nextInt();
-                    bag.days = numberOfDays;
+
+                    allDefects[currentDefectNumber] = new Defect(currentDefectNumber, description, severity, numberOfDays);
 
                 } else {
                     System.out.println("There is no place in array!");
