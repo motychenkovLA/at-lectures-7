@@ -1,7 +1,5 @@
 package tracker;
 
-import java.util.Arrays;
-
 public class Repository {
     private final Defect[] listDefect;
     private int capacity = 0;
@@ -24,6 +22,11 @@ public class Repository {
     }
 
     public Defect[] getAll() {
-        return Arrays.copyOf(listDefect, capacity);
+        Defect[] array = new Defect[capacity];
+        for (int a = 0; a < listDefect.length; a++) {
+            if (listDefect[a] != null)
+                array[a] = listDefect[a];
+        }
+        return array;
     }
 }

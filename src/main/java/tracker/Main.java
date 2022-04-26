@@ -18,14 +18,11 @@ public class Main {
                     break;
 
                 case "list":
-
-                for (int a = 0; a < repository.getCapacity(); a++)
-                    System.out.println(repository.getAll()[a].info());
-                    System.out.println("_____________________________________________________________________");
-                    {
-                System.out.println();
-                break;
-            }
+                    for (Defect x : repository.getAll()) {
+                        System.out.println(x.info());
+                        System.out.println("_____________________________________________________________________");
+                    }
+                    break;
 
                 case "quit":
                     System.out.println("Выход из программы");
