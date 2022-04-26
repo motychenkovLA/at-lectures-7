@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
 
         int count = 0;
-        Defect[] bugs = new Defect[10];
+        Repository repository = new Repository(10);
 
         Scanner scanner = new Scanner(System.in);
 
@@ -20,7 +20,7 @@ public class Main {
             switch (scanner.nextLine()) {
 
                 case "add":
-                    if (count >= bugs.length) {
+                    if (repository.isComplet()) {
                         System.out.println("Уже заведено 10 дефектов");
                         break;
                     }
@@ -36,12 +36,12 @@ public class Main {
                     scanner.nextLine();
 
                     Defect defect = new Defect(resume, critical, dayToFix);
-                    defect.add(bugs, defect);
+                    repository.addDefect(defect);
                     count++;
                     break;
 
                 case "list":
-                    for (Defect r : bugs) {
+                    for (Defect r : repository.getAll()) {
                         if (r != null) System.out.println(r.list());
                     }
                     break;
