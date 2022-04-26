@@ -1,5 +1,7 @@
 package tracker;
 
+import java.util.Arrays;
+
 public class Repository {
 
     private final int max_capacity;
@@ -16,10 +18,11 @@ public class Repository {
         defectNumber++;
     }
 
-    public void getAll() {
-        for (int i = 0; i < defects.length; i++) {
-            System.out.println(defects[i].getId() + " | " + defects[i].getSummary() + " | " +
-                    defects[i].getSeverity() + " | " + defects[i].getDays());
-        }
+    public Defect[] getAll() {
+        return Arrays.copyOfRange(this.defects, 0, defectNumber);
+    }
+
+    public boolean isFull() {
+        return defectNumber >= max_capacity;
     }
 }

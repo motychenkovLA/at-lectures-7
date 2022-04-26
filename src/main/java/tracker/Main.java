@@ -7,47 +7,56 @@ public class Main {
 
 
         String choiceCommand;
-        final int MAX_CAPACITY = 2;
-        int currentDefectNumber = 0;
+        final int MAX_CAPACITY = 1;
 
         Repository allDefects = new Repository(MAX_CAPACITY);
 
-        while (true) {
+        boolean programRun = true;
+        while (programRun) {
             System.out.println("Select a command: \"add\", \"list\", \"quit\"");
             Scanner scanner = new Scanner(System.in);
             choiceCommand = scanner.nextLine();
 
-            if (choiceCommand.equals("add")) {
+            switch (choiceCommand) {
+                case "add":
+                    if (!allDefects.isFull()) {
 
-                if (currentDefectNumber <= (MAX_CAPACITY - 1)) {
+                        System.out.println("Enter a resume of the problem");
+                        String description = scanner.nextLine();
 
-                    System.out.println("Enter a resume of the problem");
-                    String description = scanner.nextLine();
+                        System.out.println("Please, enter a severity of the problem:\nS1 - Blocker;\nS2 - Critical;" +
+                                "\nS3 - Major;\nS4 - Minor;\nS5 - Trivial");
+                        String severity = scanner.nextLine();
 
-                    System.out.println("Please, enter a severity of the problem:\nS1 - Blocker;\nS2 - Critical;" +
-                            "\nS3 - Major;\nS4 - Minor;\nS5 - Trivial");
-                    String severity = scanner.nextLine();
+                        System.out.println("How many days do you need to fix the problem?");
+                        int numberOfDays = scanner.nextInt();
 
-                    System.out.println("How many days do you need to fix the problem?");
-                    int numberOfDays = scanner.nextInt();
+                        allDefects.add(new Defect(description, severity, numberOfDays));
 
-                    allDefects.add(new Defect(description, severity, numberOfDays));
+                    } else {
+                        System.out.println("There is no place in array!\nChoose another command!");
+                        continue;
+                    }
+                    break;
+                case "list":
 
-                } else {
-                    System.out.println("There is no place in array!");
-                    continue;
-                }
+                    Defect[] all = allDefects.getAll();
 
-                currentDefectNumber++;
+                    for (int a = 0; a <= (all.length - 1); a++) {
+                        System.out.println(all[a].getId() + " | " + all[a].getSummary() + " | " +
+                        all[a].getSeverity() + " | " + all[a].getDays());
+                    }
 
-            } else if (choiceCommand.equals("list")) {
+                    break;
 
-                allDefects.getAll();
+                case "quit":
+                    programRun = false;
+                    System.out.println("Bye! See you soon!");
+                    break;
 
-            } else if (choiceCommand.equals("quit")) {
-
-                break;
-
+                default:
+                    System.out.println("Wrong command! Try again!");
+                    break;
             }
         }
     }
