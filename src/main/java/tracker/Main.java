@@ -1,6 +1,5 @@
 package tracker;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -8,9 +7,10 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         String choise;
-        int count = 0;     //счетчик дефектов
-        int maxCount = 10; //максимальное количество дефектов
-        Defect[] defects = new Defect[maxCount];
+        int count = 0;
+        int maxCount = 10;
+        Repository rep = new Repository(maxCount);
+
         do {
             System.out.println("--------------" + "\n" +
                     "Для добавления дефекта введите add" + "\n"
@@ -29,22 +29,18 @@ public class Main {
                         System.out.println("Введите ожидаемое количество дней на исправление:");
                         int day = scanner.nextInt();
                         scanner.nextLine();
-                        //Defect defect = new Defect(count + 1,summary, severity, day);
+
                         Defect defect = new Defect(summary, severity, day);
 
-                        defects[count] = defect;
+                        rep.addDefect(defect);
+
                         count++;
                     } else System.out.println("Зарегистрировано максимально возможное количество дефектов");
                     break;
 
                 }
                 case "list": {
-                    if (count != 0) {
-                        for (Defect d1 : defects) {
-                            if (d1 != null) d1.printDefect();
-                        }
-                    }
-                    break;
+                    rep.getAll();
                 }
             }
 
