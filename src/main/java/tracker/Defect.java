@@ -6,11 +6,13 @@ public class Defect {
     private String severity;
     private String daysToFix;
     private static long currentID = 1;
+    private Attachment attachment;
 
-    public Defect(String resume, String severity, String daysToFix) {
+    public Defect(String resume, String severity, String daysToFix, Attachment attachment) {
         this.resume = resume;
         this.severity = severity;
         this.daysToFix = daysToFix;
+        this.attachment = attachment;
         id = currentID++;
     }
 
@@ -26,9 +28,6 @@ public class Defect {
         this.daysToFix=daysToFix;
     }
 
-//    public void setID(long id) {
-//        this.id = id;
-//    }
 
     public String getResume(){
         return resume;
@@ -46,4 +45,7 @@ public class Defect {
         return id;
     }
 
+    public Attachment getAttachment() {
+        return attachment;
+    }
 }

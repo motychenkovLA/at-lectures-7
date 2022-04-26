@@ -21,10 +21,27 @@ public class Main {
                         String severity = scanner.nextLine();
                         System.out.println("Введите ожидаемое количество дней на исправление дефекта");
                         String daysToFix = scanner.nextLine();
+                        System.out.println("Выберите тип вложения: comment - коментарий, link - ссылка на другой " +
+                                "дефект");
+                        switch (scanner.nextLine()) {
+                            case "comment": {
+                                System.out.println("Введите комментарий");
+                                String comment = scanner.nextLine();
+                                CommentAttachment commentAttachment = new CommentAttachment(comment);
+                                Defect defect = new Defect(resume, severity, daysToFix, commentAttachment);
+                                repository.add(defect);
+                                break;
+                            }
+                            case "link": {
+                                System.out.println("Введите ID дефекта");
+                                long link = scanner.nextLong();
+                                DefectAttachment defectAttachment = new DefectAttachment(link);
+                                Defect defect = new Defect(resume, severity, daysToFix, defectAttachment);
+                                repository.add(defect);
+                                break;
+                            }
+                        }
 
-                        Defect defect = new Defect(resume, severity, daysToFix);
-
-                        repository.add(defect);
                     }   else {
                         System.out.println("Нельзя ввести больше 10 дефектов!");
                     }
@@ -34,10 +51,11 @@ public class Main {
                 case "list": {
                     System.out.println("Список дефектов:");
                     for (int i = 0; i < repository.getCurrentDefectNum(); i++) {
-                        System.out.println("ID: " + repository.getAll()[i].getID() + " | " + "Резюме: " +
-                                repository.getAll()[i].getResume() + " | " + "Критичность: " +
-                                repository.getAll()[i].getSeverity() + " | " + "Дни: " +
-                                repository.getAll()[i].getDaysToFix());
+                        System.out.println("ID: " + repository.getAll()[i].getID() + " | Резюме: " +
+                                repository.getAll()[i].getResume() + " | Критичность: " +
+                                repository.getAll()[i].getSeverity() + " | Дни: " +
+                                repository.getAll()[i].getDaysToFix() + " | Вложение: " +
+                                repository.getAll()[i].getAttachment().asString());
 
                     }
                     break;
