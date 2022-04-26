@@ -2,7 +2,7 @@ package tracker;
 
 public class Repository {
 
-    private Defect[] massivDefects;
+    private Defect[] massivDefects; // todo 1 - можно зафиналить
     private int counter = 0;
 
     public Repository(int maxOfDefect) {

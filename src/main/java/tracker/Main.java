@@ -58,6 +58,11 @@ public class Main {
         int amountOfDays = scanner.nextInt();
         scanner.nextLine();
 
+        // todo 3 -
+        //  сейчас, если опечататься и ввести несуществующий тип дефекта, все до этого введенные данные просто выбрасываются
+        //  и дефект не создается.
+        //  + метод writeDefect слишком длинный,
+        //  => лучше вынести создание аттача в отдельный метод, который будет требовать нормальный тип пока не получит.
         System.out.println("Выберите тип вложения:\n" +
                 "-comment\n" +
                 "-linkId\n");
@@ -66,7 +71,7 @@ public class Main {
         switch (attachment) {
             case "linkId":
                 System.out.println("Введите id дефекта");
-                String linkId = scanner.nextLine();
+                String linkId = scanner.nextLine(); // todo 3 - раз id то число должно быть
                 DefectAttachment defectAttachment = new DefectAttachment(linkId);
                 Defect defect = new Defect(description, severity, amountOfDays, defectAttachment);
                 repository.add(defect);
