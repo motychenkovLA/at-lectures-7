@@ -58,8 +58,28 @@ public class Main {
         int amountOfDays = scanner.nextInt();
         scanner.nextLine();
 
-        Defect defect = new Defect(description, severity, amountOfDays);
-        repository.add(defect);
+        System.out.println("Выберите тип вложения:\n" +
+                "-comment\n" +
+                "-linkId\n");
+
+        String attachment = scanner.nextLine();
+        switch (attachment) {
+            case "linkId":
+                System.out.println("Введите id дефекта");
+                String linkId = scanner.nextLine();
+                DefectAttachment defectAttachment = new DefectAttachment(linkId);
+                Defect defect = new Defect(description, severity, amountOfDays, defectAttachment);
+                repository.add(defect);
+                break;
+
+            case "comment":
+                System.out.println("Введите комментарий к дефекту");
+                String comment = scanner.nextLine();
+                CommentAttachment commentAttachment = new CommentAttachment(comment);
+                defect = new Defect(description, severity, amountOfDays, commentAttachment);
+                repository.add(defect);
+                break;
+        }
     }
 }
 

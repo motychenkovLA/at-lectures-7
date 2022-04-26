@@ -2,12 +2,10 @@ package tracker;
 
 public class Repository {
 
-    private int maxOfDefect;
     private Defect[] massivDefects;
     private int counter = 0;
 
     public Repository(int maxOfDefect) {
-        this.maxOfDefect = maxOfDefect;
         massivDefects = new Defect[maxOfDefect];
     }
 
@@ -27,10 +25,6 @@ public class Repository {
             newMassiv[i] = massivDefects[i];
         }
         return newMassiv;
-    }
-
-    public int getCounter() {
-        return counter;
     }
 }
 
