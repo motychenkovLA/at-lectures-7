@@ -33,8 +33,10 @@ public class Tracker {
     }
 
     public static void addDefect(Scanner scanner, Repository repository) {
+
         if (repository.isExamination()) {
-            System.out.println("Обращение к индексу больше размера массива");
+            System.out.println("Обращение к индексу больше размера массива, в массиве нет свободного места");
+            return;
         }
 
         System.out.println("Введите резюме дефекта");
@@ -80,8 +82,10 @@ public class Tracker {
                     repository.addDef(defect);
                     break;
                 default:
-                    System.out.println("Введена не существующая операция, дефект не добавлен в систему");
-                    return;
+                    System.out.println("Введена не существующая операция, по умолчанию вложения не будет");
+                    defect = new Defect(summary, criticality, countDay);
+                    repository.addDef(defect);
+                    break;
             }
         }
     }
