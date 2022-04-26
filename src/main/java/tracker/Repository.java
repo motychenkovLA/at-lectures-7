@@ -3,12 +3,10 @@ package tracker;
 import java.util.Arrays;
 
 public class Repository {
-    private final int size; // todo 1 - не используется, можно убрать
-    private Defect[] listDefect; // todo 1 - можно зафиналить
-    private int capacity = 0; // todo 1 - ну это size тогда, а не capacity; и наоборот
+    private final Defect[] listDefect;
+    private int capacity = 0;
 
     public Repository(int size) {
-        this.size = size;
         listDefect = new Defect[size];
     }
 
