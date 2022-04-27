@@ -19,6 +19,6 @@ public class Defect {
 
     public String toString() {
         return "Номер дефекта: " + id + ", Название: " + description + ", Критичность: "
-                + severity + ", Кол-во дней: " + amountOfDays + attachment.asString();
+                + severity + ", Кол-во дней: " + amountOfDays + " , " + attachment.asString();
     }
 }

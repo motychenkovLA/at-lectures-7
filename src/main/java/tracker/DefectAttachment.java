@@ -10,6 +10,6 @@ public class DefectAttachment extends Attachment {
 
     @Override
     public String asString() {
-        return " , Ссылка на дефект по id: " + linkId;
+        return "Ссылка на дефект по id: " + linkId;
     }
 }

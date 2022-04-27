@@ -64,36 +64,39 @@ public class Main {
     }
 
     public static Attachment createAttachment(Scanner scanner) {
-        System.out.println("Выберите тип вложения:\n" +
-                "-comment\n" +
-                "-linkId\n");
-        String attachment = scanner.nextLine();
-
         Attachment result = null;
 
-        // todo 3 - всё ещё пропускает невалидный ввод + сейчас с невалидным типо аттача создает невалидный дефект.
-        //  нужно просить у пользователя тип пока не получим валидный
-        switch (attachment) {
-            case "linkId":
-                System.out.println("Введите id дефекта");
-                long linkId = scanner.nextLong();
-                scanner.nextLine();
-                result = new DefectAttachment(linkId);
-                break;
+        while (result == null) {
+            System.out.println("Выберите тип вложения:\n" +
+                    "-comment\n" +
+                    "-linkId\n");
+            String attachment = scanner.nextLine();
 
-            case "comment":
-                System.out.println("Введите комментарий к дефекту");
-                String comment = scanner.nextLine();
-                scanner.nextLine();
-                result = new CommentAttachment(comment);
-                break;
+            // todo 3 - всё ещё пропускает невалидный ввод + сейчас с невалидным типо аттача создает невалидный дефект.
+            //  нужно просить у пользователя тип пока не получим валидный
 
-            default:
-                System.out.println("Такого типа вложения не существует\n");
-                break;
+            switch (attachment) {
+                case "linkId":
+                    System.out.println("Введите id дефекта");
+                    long linkId = scanner.nextLong();
+                    scanner.nextLine();
+                    result = new DefectAttachment(linkId);
+                    break;
+
+                case "comment":
+                    System.out.println("Введите комментарий к дефекту");
+                    String comment = scanner.nextLine();
+                    scanner.nextLine();
+                    result = new CommentAttachment(comment);
+                    break;
+
+                default:
+                    System.out.println("Такого типа вложения не существует\n");
+                    break;
+            }
         }
-
         return result;
     }
 }
+
 
