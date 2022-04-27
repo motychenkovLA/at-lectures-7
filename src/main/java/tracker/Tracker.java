@@ -1,7 +1,9 @@
 package tracker;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
+import sun.security.util.ArrayUtil;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Tracker {
@@ -48,8 +50,14 @@ public class Tracker {
         System.out.println("Введите резюме дефекта");
         String summary = scanner.nextLine();
 
-        System.out.println("Введите критичность дефекта из списка:" + "\ntrivial, minor, major, critical, blocker");
-        Criticality criticality = Criticality.valueOf(scanner.nextLine().toUpperCase());
+        System.out.println("Введите критичность дефекта из списка:" + "\n\"trivial\", \"minor\", \"major\", \"critical\", \"blocker\"");
+        Criticality criticality;
+        try {
+            criticality = Criticality.valueOf(scanner.nextLine().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Такая критичность не существует, по умолчанию будет \"minor\"");
+            criticality = Criticality.MINOR;
+        }
 
         System.out.println("Введите количество дней на исправление");
         int countDay = scanner.nextInt();
@@ -95,7 +103,8 @@ public class Tracker {
         int idDefect = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.println("Выберите статус из списка: \nopen, in process, test, close, done");
+        System.out.println("Выберите статус из списка: \n\"open\", \"in process\", \"test\", \"close\", \"done\"");
+
         Status status = Status.valueOf(scanner.nextLine().toUpperCase());
 
         for (Defect repo :repository.getAll()) {

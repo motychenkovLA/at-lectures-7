@@ -1,15 +1,19 @@
 package tracker;
 
 public enum Criticality {
-    TRIVIAL("trivial"), MINOR("minor"), MAJOR("major"), CRITICAL("critical"), BLOCKER("blocker");
+    TRIVIAL("trivial"),
+    MINOR("minor"),
+    MAJOR("major"),
+    CRITICAL("critical"),
+    BLOCKER("blocker");
 
-    private String translationCritical;
+    private String name;
 
     Criticality(String name) {
-        this.translationCritical = name;
+        this.name = name;
     }
 
-    public String getTranslationCritical() {
-        return translationCritical;
+    public String getName() {
+        return name;
     }
 }

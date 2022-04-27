@@ -32,10 +32,10 @@ public class Defect {
     }
 
     public String toString() {
-        return attachment == null ? "Defect:"+"\nid = "+ ID +"\nРезюме = "+summary+"\nКритичность = "+criticality.getTranslationCritical()+"\ncountDay = "+countDay+
-                    "\nИсправление займет больше рабочей недели = "+(countDay > WEEK)+"\nСтатус = "+status.getTranslationStatus()+"\n":
-                "Defect:"+"\nid = "+ ID +"\nРезюме = "+summary+"\nКритичность = "+criticality.getTranslationCritical()+"\ncountDay = "+countDay+
-               "\nИсправление займет больше рабочей недели = "+(countDay > WEEK)+"\nСтатус = "+status.getTranslationStatus()+"\n"+attachment.asString();
+        return attachment == null ? "Defect:"+"\nid = "+ ID +"\nРезюме = "+summary+"\nКритичность = "+criticality.getName()+"\ncountDay = "+countDay+
+                    "\nИсправление займет больше рабочей недели = "+(countDay > WEEK)+"\nСтатус = "+status.getTranslation()+"\n":
+                "Defect:"+"\nid = "+ ID +"\nРезюме = "+summary+"\nКритичность = "+criticality.getName()+"\ncountDay = "+countDay+
+               "\nИсправление займет больше рабочей недели = "+(countDay > WEEK)+"\nСтатус = "+status.getTranslation()+"\n"+attachment;
     }
 }
 

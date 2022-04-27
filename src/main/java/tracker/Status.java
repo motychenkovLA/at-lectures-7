@@ -1,15 +1,19 @@
 package tracker;
 
 public enum Status {
-    OPEN("Открыто"), IN_PROCESS("В работе"), TEST("Тестирование"), CLOSE("Закрыто"), DONE("Выполненно");
+    OPEN("Открыто"),
+    IN_PROCESS("В работе"),
+    TEST("Тестирование"),
+    CLOSE("Закрыто"),
+    DONE("Выполненно");
 
-    private String translationStatus;
+    private String translation;
 
     Status(String translation) {
-        this.translationStatus = translation;
+        this.translation = translation;
     }
 
-    public String getTranslationStatus() {
-        return translationStatus;
+    public String getTranslation() {
+        return translation;
     }
 }
