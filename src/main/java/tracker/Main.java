@@ -1,46 +1,41 @@
 package tracker;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
+
+import static tracker.Repository.numberDefects;
 
 public class Main {
 
-    public static void main(String[] args){
-        List<String> bugs = new ArrayList<>();
-        int count = 0;
-        boolean isWork = true;
+    public static void main(String[] args) {
+        Repository repository = new Repository(10);
+        Scanner scanner = new Scanner(System.in);
         do {
             System.out.println("Введите действие: добавить новый дефект (\"add\") или вывести список (\"list\") или выйти из программы (\"quit\") - главное меню ");
-            Scanner scanner = new Scanner(System.in);
-            switch (scanner.nextLine()){
-                case("add"):
-                    if(count <= 9){
-                        System.out.println("Введите резюме дефекта:");
-                        String summary = scanner.nextLine();
-                        System.out.println("Введите критичность дефекта");
-                        System.out.println("Minor\nMedium\nMajor\nCritical\nBlocker");
-                        String severity = scanner.nextLine();
-                        System.out.println("Введите ожидаемое количество дней на исправление дефекта");
-                        int days = scanner.nextInt();
-                        bugs.add(count + " | " + summary + " | " + severity + " | " + days);
-                        count++;
-                    }
-                    else {
-                        System.out.println("Превышено максимальное количество дефектов");
-                    }
+            switch (scanner.nextLine()) {
+                case ("add"):
+                    System.out.println("Введите резюме дефекта:");
+                    String summary = scanner.nextLine();
+                    System.out.println("Введите критичность дефекта");
+                    System.out.println("Minor\nMedium\nMajor\nCritical\nBlocker");
+                    String severity = scanner.nextLine();
+                    System.out.println("Введите ожидаемое количество дней на исправление дефекта");
+                    int days = scanner.nextInt();
+                    scanner.nextLine();
+                    Defect bug = new Defect(summary, severity, days);
+                    repository.add(bug);
                     break;
-                case("list"):
-                    for (String bug : bugs) {
-                        System.out.println(bug);
+
+                case ("list"):
+                    Defect[] defects = repository.getAll();
+                    for (int i = 0; i < numberDefects; i++) {
+                        System.out.println(defects[i].getInfo());
                     }
                     break;
                 case("quit"):
-                    isWork = false;
-                    break;
+                    return;
             }
         }
-        while (isWork);
+        while (true);
     }
 }
 
