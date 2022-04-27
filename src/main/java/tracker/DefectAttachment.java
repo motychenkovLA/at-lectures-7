@@ -1,7 +1,7 @@
 package tracker;
 
 public class DefectAttachment extends Attachment {
-    private final long linkId; // todo 1 - можно зафиналить -исправлено
+    private final long linkId;
 
     public DefectAttachment(long linkId) {
 
