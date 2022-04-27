@@ -72,9 +72,6 @@ public class Main {
                     "-linkId\n");
             String attachment = scanner.nextLine();
 
-            // todo 3 - всё ещё пропускает невалидный ввод + сейчас с невалидным типо аттача создает невалидный дефект.
-            //  нужно просить у пользователя тип пока не получим валидный
-
             switch (attachment) {
                 case "linkId":
                     System.out.println("Введите id дефекта");
