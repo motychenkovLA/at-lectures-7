@@ -1,5 +1,7 @@
 package tracker;
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
+
 import java.util.Scanner;
 
 public class Tracker {
@@ -8,12 +10,16 @@ public class Tracker {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            System.out.println("Введите операцию из списка:\nadd - добавить новый дефект\nlist - вывести список дефектов\nquit - выход");
+            System.out.println("Введите операцию из списка:\n\"add\" - добавить новый дефект\n\"change\" - изменить статус дефекта\n\"list\" - вывести список дефектов\n\"quit\" - выход");
             System.out.println();
 
             switch (sc.nextLine()) {
                 case "add":
                     addDefect(sc, repository);
+                    System.out.println();
+                    break;
+                case "change":
+                    changeStatus(sc, repository);
                     System.out.println();
                     break;
                 case "list":
@@ -43,13 +49,7 @@ public class Tracker {
         String summary = scanner.nextLine();
 
         System.out.println("Введите критичность дефекта из списка:" + "\ntrivial, minor, major, critical, blocker");
-        String criticality = scanner.nextLine();
-
-        if (criticality.equals("trivial") || criticality.equals("minor") || criticality.equals("major") ||
-                criticality.equals("critical") || criticality.equals("blocker")) {
-        } else {
-            criticality = "minor";
-        }
+        Criticality criticality = Criticality.valueOf(scanner.nextLine().toUpperCase());
 
         System.out.println("Введите количество дней на исправление");
         int countDay = scanner.nextInt();
@@ -72,7 +72,7 @@ public class Tracker {
                     System.out.println("Введите id дефекта");
                     DefectAttachment defectAttachment = new DefectAttachment(scanner.nextInt());
                     scanner.nextLine();
-                    Defect defect = new Defect(summary, criticality, countDay,  defectAttachment);
+                    Defect defect = new Defect(summary, criticality, countDay, defectAttachment);
                     repository.addDef(defect);
                     break;
                 case "Comment":
@@ -86,6 +86,21 @@ public class Tracker {
                     defect = new Defect(summary, criticality, countDay);
                     repository.addDef(defect);
                     break;
+            }
+        }
+    }
+
+    public static void changeStatus(Scanner scanner, Repository repository) {
+        System.out.println("Введите ID дефекта у которого нужно изменить статус");
+        int idDefect = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("Выберите статус из списка: \nopen, in process, test, close, done");
+        Status status = Status.valueOf(scanner.nextLine().toUpperCase());
+
+        for (Defect repo :repository.getAll()) {
+            if (repo.getID() == idDefect) {
+                repo.setStatus(status);
             }
         }
     }
