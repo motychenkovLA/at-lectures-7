@@ -1,15 +1,15 @@
 package tracker;
 
 public class DefectAttachment extends Attachment {
-    private String linkId; // todo 1 - можно зафиналить
+    private final long linkId; // todo 1 - можно зафиналить -исправлено
 
-    public DefectAttachment(String linkId) {
+    public DefectAttachment(long linkId) {
+
         this.linkId = linkId;
     }
 
-    // todo 1 - аналогично замечанию в CommentAttachment
     @Override
     public String asString() {
-        return linkId;
+        return " , Ссылка на дефект по id: " + linkId;
     }
 }

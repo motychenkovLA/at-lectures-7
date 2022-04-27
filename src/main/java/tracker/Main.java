@@ -19,7 +19,6 @@ public class Main {
                     break;
 
                 case "list":
-
                     for (Defect i : repository.getAll()) {
                         System.out.println(i);
                         System.out.println("________________________");
@@ -58,33 +57,41 @@ public class Main {
         int amountOfDays = scanner.nextInt();
         scanner.nextLine();
 
-        // todo 3 -
-        //  сейчас, если опечататься и ввести несуществующий тип дефекта, все до этого введенные данные просто выбрасываются
-        //  и дефект не создается.
-        //  + метод writeDefect слишком длинный,
-        //  => лучше вынести создание аттача в отдельный метод, который будет требовать нормальный тип пока не получит.
+        Attachment attachment = createAttachment(scanner);
+
+        Defect defect = new Defect(description, severity, amountOfDays, attachment);
+        repository.add(defect);
+    }
+
+    public static Attachment createAttachment(Scanner scanner) {
         System.out.println("Выберите тип вложения:\n" +
                 "-comment\n" +
                 "-linkId\n");
-
         String attachment = scanner.nextLine();
+
+        Attachment result = null;
+
         switch (attachment) {
             case "linkId":
                 System.out.println("Введите id дефекта");
-                String linkId = scanner.nextLine(); // todo 3 - раз id то число должно быть
-                DefectAttachment defectAttachment = new DefectAttachment(linkId);
-                Defect defect = new Defect(description, severity, amountOfDays, defectAttachment);
-                repository.add(defect);
+                long linkId = scanner.nextLong();
+                scanner.nextLine();
+                result = new DefectAttachment(linkId);
                 break;
 
             case "comment":
                 System.out.println("Введите комментарий к дефекту");
                 String comment = scanner.nextLine();
-                CommentAttachment commentAttachment = new CommentAttachment(comment);
-                defect = new Defect(description, severity, amountOfDays, commentAttachment);
-                repository.add(defect);
+                scanner.nextLine();
+                result = new CommentAttachment(comment);
+                break;
+
+            default:
+                System.out.println("Такого типа вложения не существует\n");
                 break;
         }
+
+        return result;
     }
 }
 
