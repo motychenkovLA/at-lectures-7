@@ -1,7 +1,5 @@
 package tracker;
 
-import java.util.Scanner;
-
 public class Defect {
     private static long num = 0L;
 
@@ -10,12 +8,8 @@ public class Defect {
     private String severity;
     private int day;
 
-    Scanner scanner = new Scanner(System.in);
-
     public Defect(String summary, String severity, int day) {
-
-        num++;
-        this.id = num;
+        this.id = ++num;
         this.summary = summary;
         this.severity = severity;
         this.day = day;
