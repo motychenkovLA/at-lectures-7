@@ -12,6 +12,7 @@ public class Repository {
         return getCapacity() >= listDefect.length;
     }
 
+
     public int getCapacity() {
         return capacity;
     }
