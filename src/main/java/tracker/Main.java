@@ -53,7 +53,40 @@ public class Main {
         int countDay = scanner.nextInt();
         scanner.nextLine();
 
-        Defect defect = new Defect(name, critical, countDay);
+        Attachment attachment = createAttachment(scanner);
+
+        Defect defect = new Defect(name, critical, countDay, attachment);
         repository.add(defect);
+    }
+
+    public static Attachment createAttachment(Scanner scanner) {
+        Attachment result = null;
+
+        while (result == null) {
+            System.out.println("Выберите тип вложения:\n" +
+                    "-comment\n" +
+                    "-linkId\n");
+            String attachment = scanner.nextLine();
+
+            switch (attachment) {
+                case "linkId":
+                    System.out.println("Введите id дефекта");
+                    long linkId = scanner.nextLong();
+                    scanner.nextLine();
+                    result = new DefectAttachment(linkId);
+                    break;
+
+                case "comment":
+                    System.out.println("Введите комментарий к дефекту");
+                    String comment = scanner.nextLine();
+                    result = new CommentAttachment(comment);
+                    break;
+
+                default:
+                    System.out.println("Такого типа вложения не существует\n");
+                    break;
+            }
+        }
+        return result;
     }
 }
