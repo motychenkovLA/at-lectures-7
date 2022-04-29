@@ -9,16 +9,18 @@ public class Defect {
      private String summary;
      private String severity;
      private int days;
+     private Attachment attachment;
 
-    public Defect(String summary, String severity, int days) {
+    public Defect(String summary, String severity, int days, Attachment attachment) {
         this.summary = summary;
         this.severity = severity;
         this.days = days;
         this.id = numberDefects;
+        this.attachment = attachment;
     }
 
     public String getInfo(){
-      return id + " | " + summary + " | " + severity + " | " + days;
+      return id + " | " + summary + " | " + severity + " | " + days + " | " + attachment.asString();
     }
 
 

@@ -13,6 +13,19 @@ public class Main {
             System.out.println("Введите действие: добавить новый дефект (\"add\") или вывести список (\"list\") или выйти из программы (\"quit\") - главное меню ");
             switch (scanner.nextLine()) {
                 case ("add"):
+                    Attachment attachment;
+                    System.out.println("Выберите тип дефекта");
+                    System.out.println("Комментарий (\"comment\") или ссылка(\"link\")");
+                    switch (scanner.nextLine()) {
+                        case ("comment"):
+                            attachment = new CommentAttachment(scanner.nextLine());
+                            break;
+                        case ("link"):
+                            attachment = new DefectAttachment(scanner.nextLong());
+                            break;
+                        default:
+                            attachment=null;
+                    }
                     System.out.println("Введите резюме дефекта:");
                     String summary = scanner.nextLine();
                     System.out.println("Введите критичность дефекта");
@@ -21,8 +34,8 @@ public class Main {
                     System.out.println("Введите ожидаемое количество дней на исправление дефекта");
                     int days = scanner.nextInt();
                     scanner.nextLine();
-                    Defect bug = new Defect(summary, severity, days);
-                    repository.add(bug);
+                    Defect bugs = new Defect(summary, severity, days, attachment);
+                    repository.add(bugs);
                     break;
 
                 case ("list"):
