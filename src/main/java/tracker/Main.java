@@ -42,6 +42,7 @@ public class Main {
         }
     }
 
+    // todo 1 - private
     public static void writeDefect(Scanner scanner, Repository repository) {
         if (repository.isFull()) {
             System.out.println("Не возможно добавить дефект");
@@ -51,6 +52,7 @@ public class Main {
         System.out.println("Введите описание дефекта");
         String description = scanner.nextLine();
 
+        // todo 3 - дублирование списка существующих значений енама в строке
         System.out.println("Введите критичность дефекта из списка: \n" +
                 " BLOCKER \n " +
                 "CRITICAL\n " +
@@ -70,6 +72,7 @@ public class Main {
         repository.add(defect);
     }
 
+    // todo 1 - private
     public static Attachment createAttachment(Scanner scanner) {
         Attachment result = null;
 
@@ -90,7 +93,7 @@ public class Main {
                 case "comment":
                     System.out.println("Введите комментарий к дефекту");
                     String comment = scanner.nextLine();
-                    scanner.nextLine();
+                    scanner.nextLine(); // todo 1 - ?
                     result = new CommentAttachment(comment);
                     break;
 
@@ -102,11 +105,13 @@ public class Main {
         return result;
     }
 
+    // todo 1 - private
     public static void changeStatus(Scanner scanner, Repository repository) {
         System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
-        long change_Id = scanner.nextLong();
+        long change_Id = scanner.nextLong(); // todo 1 - форматирование
         scanner.nextLine();
 
+        // todo 3 - дублирование списка существующих значений енама в строке
         System.out.println("Изменить статус дефекта на:\n " +
                 "OPEN\n" +
                 "IN_PROGRESS\n" +
@@ -118,10 +123,11 @@ public class Main {
         Status status = Status.valueOf(scanner.nextLine());
 
         for (Defect j : repository.getAll()) {
-            if (change_Id == repository.getCounter()) {
+            if (change_Id == repository.getCounter()) { // todo 5 - если (введенный ид == текущему размеру репо) поменять все дефекты
                 j.setStatus(status);
             }
         }
+        // todo 3 - лучше достать из репо дефект по его id, а не все что там есть тащить
     }
 }
 
