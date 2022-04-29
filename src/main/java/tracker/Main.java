@@ -1,5 +1,6 @@
 package tracker;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
@@ -10,15 +11,15 @@ public class Main {
         boolean isRun = true;
         while(isRun) {
             System.out.println("Выберите действие: " + "\n" + "add - добавить новый дефект" + "\n" +
-                    "list - вывести список" + "\n" + "quit - выйти из программы");
+                    "change - изменить статус" + "\n" + "list - вывести список" + "\n" + "quit - выйти из программы");
             Scanner scanner = new Scanner(System.in);
             switch (scanner.nextLine()) {
                 case "add": {
                     if (repository.isFull()) {
                         System.out.println("Введите резюме дефекта");
                         String resume = scanner.nextLine();
-                        System.out.println("Введите критичность дефекта (Blocker, Critical, Major, Minor, Trivial)");
-                        String severity = scanner.nextLine();
+                        System.out.println("Введите критичность дефекта (BLOCKER, CRITICAL, MAJOR, MINOR, TRIVIAL)");
+                        Severity severity = Severity.valueOf(scanner.nextLine());
                         System.out.println("Введите ожидаемое количество дней на исправление дефекта");
                         String daysToFix = scanner.nextLine();
                         System.out.println("Выберите тип вложения: comment - коментарий, link - ссылка на другой " +
@@ -28,7 +29,7 @@ public class Main {
                                 System.out.println("Введите комментарий");
                                 String comment = scanner.nextLine();
                                 CommentAttachment commentAttachment = new CommentAttachment(comment);
-                                Defect defect = new Defect(resume, severity, daysToFix, commentAttachment);
+                                Defect defect = new Defect(resume, severity, daysToFix, commentAttachment, Status.OPEN);
                                 repository.add(defect);
                                 break;
                             }
@@ -36,7 +37,7 @@ public class Main {
                                 System.out.println("Введите ID дефекта");
                                 long link = scanner.nextLong();
                                 DefectAttachment defectAttachment = new DefectAttachment(link);
-                                Defect defect = new Defect(resume, severity, daysToFix, defectAttachment);
+                                Defect defect = new Defect(resume, severity, daysToFix, defectAttachment, Status.OPEN);
                                 repository.add(defect);
                                 break;
                             }
@@ -48,14 +49,29 @@ public class Main {
                     break;
                 }
 
+                case "change": {
+                    System.out.println("Введите id дефекта");
+                    long defectID = scanner.nextLong();
+                    System.out.println("Выберите новый статус (OPEN, FIXING, TESTING, CLOSED, REJECTED)");
+                    Status status = Status.valueOf(scanner.nextLine());
+                    for (int i = 0; i < repository.getCurrentDefectNum(); i++) {
+                        if (i == defectID) {
+                            repository.getAll()[i].setStatus(status);
+                        }
+                    }
+
+                    break;
+                }
+
                 case "list": {
                     System.out.println("Список дефектов:");
                     for (int i = 0; i < repository.getCurrentDefectNum(); i++) {
                         System.out.println("ID: " + repository.getAll()[i].getID() + " | Резюме: " +
                                 repository.getAll()[i].getResume() + " | Критичность: " +
                                 repository.getAll()[i].getSeverity() + " | Дни: " +
-                                repository.getAll()[i].getDaysToFix() + " | Вложение: " +
-                                repository.getAll()[i].getAttachment().asString());
+                                repository.getAll()[i].getDaysToFix() + " | Статус: " +
+                                repository.getAll()[i].getStatus() + " | Вложение: " +
+                                repository.getAll()[i].getAttachment().toString());
 
                     }
                     break;

@@ -1,18 +1,21 @@
 package tracker;
 
+
 public class Defect {
     private final long id;
     private String resume;
-    private String severity;
     private String daysToFix;
     private static long currentID = 1;
     private Attachment attachment;
+    private Status status;
+    private Severity severity;
 
-    public Defect(String resume, String severity, String daysToFix, Attachment attachment) {
+    public Defect(String resume, Severity severity, String daysToFix, Attachment attachment, Status status) {
         this.resume = resume;
         this.severity = severity;
         this.daysToFix = daysToFix;
         this.attachment = attachment;
+        this.status = status;
         id = currentID++;
     }
 
@@ -20,7 +23,7 @@ public class Defect {
         this.resume=resume;
     }
 
-    public void setSeverity(String severity){
+    public void setSeverity(Severity severity){
         this.severity=severity;
     }
 
@@ -28,12 +31,15 @@ public class Defect {
         this.daysToFix=daysToFix;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     public String getResume(){
         return resume;
     }
 
-    public String getSeverity(){
+    public Severity getSeverity(){
         return severity;
     }
 
@@ -43,6 +49,10 @@ public class Defect {
 
     public long getID() {
         return id;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 
     public Attachment getAttachment() {

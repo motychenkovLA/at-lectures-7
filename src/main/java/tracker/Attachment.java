@@ -2,7 +2,7 @@ package tracker;
 
 public class Attachment {
 
-    public String asString() {
+    public String toString() {
         return "Вложение отсутствует";
     }
 
