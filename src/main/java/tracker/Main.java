@@ -2,8 +2,6 @@ package tracker;
 
 import java.util.Scanner;
 
-import static tracker.Severity.*;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -42,8 +40,7 @@ public class Main {
         }
     }
 
-    // todo 1 - private
-    public static void writeDefect(Scanner scanner, Repository repository) {
+    private static void writeDefect(Scanner scanner, Repository repository) {
         if (repository.isFull()) {
             System.out.println("Не возможно добавить дефект");
             return;
@@ -52,15 +49,13 @@ public class Main {
         System.out.println("Введите описание дефекта");
         String description = scanner.nextLine();
 
-        // todo 3 - дублирование списка существующих значений енама в строке
-        System.out.println("Введите критичность дефекта из списка: \n" +
-                " BLOCKER \n " +
-                "CRITICAL\n " +
-                "MAJOR \n" +
-                " MINOR\n " +
-                "TRIVIAL");
-
+        System.out.println("Введите критичность дефекта из списка: \n");
+        Severity[] values = Severity.values();
+        for (Severity value : values) {
+            System.out.println(value);
+        }
         Severity severity = Severity.valueOf(scanner.nextLine());
+
 
         System.out.println("Дни на исправление дефекта:");
         int amountOfDays = scanner.nextInt();
@@ -72,8 +67,7 @@ public class Main {
         repository.add(defect);
     }
 
-    // todo 1 - private
-    public static Attachment createAttachment(Scanner scanner) {
+    private static Attachment createAttachment(Scanner scanner) {
         Attachment result = null;
 
         while (result == null) {
@@ -93,7 +87,6 @@ public class Main {
                 case "comment":
                     System.out.println("Введите комментарий к дефекту");
                     String comment = scanner.nextLine();
-                    scanner.nextLine(); // todo 1 - ?
                     result = new CommentAttachment(comment);
                     break;
 
@@ -105,29 +98,23 @@ public class Main {
         return result;
     }
 
-    // todo 1 - private
-    public static void changeStatus(Scanner scanner, Repository repository) {
+    private static void changeStatus(Scanner scanner, Repository repository) {
         System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
-        long change_Id = scanner.nextLong(); // todo 1 - форматирование
+        int change_Id = scanner.nextInt();
         scanner.nextLine();
 
-        // todo 3 - дублирование списка существующих значений енама в строке
-        System.out.println("Изменить статус дефекта на:\n " +
-                "OPEN\n" +
-                "IN_PROGRESS\n" +
-                "READY_FOR_TESTING\n" +
-                "TESTING\n" +
-                "DONE\n" +
-                "CLOSED");
-
+        System.out.println("Изменить статус дефекта на:\n ");
+        Status[] values = Status.values();
+        for (Status value : values) {
+            System.out.println(value);
+        }
         Status status = Status.valueOf(scanner.nextLine());
 
         for (Defect j : repository.getAll()) {
-            if (change_Id == repository.getCounter()) { // todo 5 - если (введенный ид == текущему размеру репо) поменять все дефекты
+            if (change_Id == j.getId()) {
                 j.setStatus(status);
             }
         }
-        // todo 3 - лучше достать из репо дефект по его id, а не все что там есть тащить
     }
 }
 

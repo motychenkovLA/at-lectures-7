@@ -8,8 +8,7 @@ public enum Status {
     DONE("СДЕЛАНО"),
     CLOSED("ЗАКРЫТ");
 
-    // todo 3 - private final
-    String ruName;
+    private final String ruName;
 
     public String getRuName() {
         return ruName;
