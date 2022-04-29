@@ -5,7 +5,12 @@ public class Repository {
     private final Defect[] massivDefects;
     private int counter = 0;
 
+    public int getCounter() {
+        return counter;
+    }
+
     public Repository(int maxOfDefect) {
+
         massivDefects = new Defect[maxOfDefect];
     }
 
