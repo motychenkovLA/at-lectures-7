@@ -100,7 +100,7 @@ public class Main {
 
     private static void changeStatus(Scanner scanner, Repository repository) {
         System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
-        int change_Id = scanner.nextInt();
+        int change_Id = scanner.nextInt();// todo 1+ - форматирование
         scanner.nextLine();
 
         System.out.println("Изменить статус дефекта на:\n ");
@@ -110,6 +110,7 @@ public class Main {
         }
         Status status = Status.valueOf(scanner.nextLine());
 
+        // todo 3+ - лучше достать из репо дефект по его id, а не все что там есть тащить
         for (Defect j : repository.getAll()) {
             if (change_Id == j.getId()) {
                 j.setStatus(status);
