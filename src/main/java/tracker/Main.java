@@ -6,35 +6,62 @@ public class Main {
     public static void main(String[] args) {
 
 
-        String choiceCommand;
-        final int MAX_CAPACITY = 1;
+        final int MAX_CAPACITY = 2;
 
         Repository allDefects = new Repository(MAX_CAPACITY);
 
         boolean programRun = true;
         while (programRun) {
-            System.out.println("Select a command: \"add\", \"list\", \"quit\"");
+            System.out.println("Введите команду:\n\"add\" - добавить новый дефект,\n" +
+                    "\"list\" - вывести список дефектов,\n" +
+                    "\"quit\" - выйти");
             Scanner scanner = new Scanner(System.in);
-            choiceCommand = scanner.nextLine();
+            String choiceCommand = scanner.nextLine();
 
             switch (choiceCommand) {
                 case "add":
                     if (!allDefects.isFull()) {
 
-                        System.out.println("Enter a resume of the problem");
+                        System.out.println("Введите описание дефекта");
                         String description = scanner.nextLine();
 
-                        System.out.println("Please, enter a severity of the problem:\nS1 - Blocker;\nS2 - Critical;" +
+                        System.out.println("Введите критичность дефекта:\nS1 - Blocker;\nS2 - Critical;" +
                                 "\nS3 - Major;\nS4 - Minor;\nS5 - Trivial");
                         String severity = scanner.nextLine();
 
-                        System.out.println("How many days do you need to fix the problem?");
+                        System.out.println("Введите колличество дней для исправления дефекта");
                         int numberOfDays = scanner.nextInt();
 
-                        allDefects.add(new Defect(description, severity, numberOfDays));
+                        scanner.nextLine();
+
+                        System.out.println("Выберите тип вложения:\n\"comment\" - ввести комментарий к дефекту,\n" +
+                                "\"link\" - ссылка на другой дефект");
+                        String choiceAttachment = scanner.nextLine();
+
+                        switch (choiceAttachment) {
+                            case "comment":
+                                System.out.println("Введите комментарий:");
+                                String comment = scanner.nextLine();
+                                CommentAttachment commentAttachment = new CommentAttachment(comment);
+                                Defect defect1 = new Defect(description, severity, numberOfDays, commentAttachment);
+                                allDefects.add(defect1);
+                                break;
+
+                            case "link":
+                                System.out.println("Введите ссылку на дефект:");
+                                int link = scanner.nextInt();
+                                DefectAttachment defectAttachment = new DefectAttachment(link);
+                                Defect defect2 = new Defect(description, severity, numberOfDays, defectAttachment);
+                                allDefects.add(defect2);
+                                break;
+
+                            default:
+                                System.out.println("Такого типа вложений не существует");
+                                break;
+                        }
 
                     } else {
-                        System.out.println("There is no place in array!\nChoose another command!");
+                        System.out.println("Закончилось место!\nВведите другую команде!");
                         continue;
                     }
                     break;
@@ -44,18 +71,18 @@ public class Main {
 
                     for (int a = 0; a <= (all.length - 1); a++) {
                         System.out.println(all[a].getId() + " | " + all[a].getSummary() + " | " +
-                        all[a].getSeverity() + " | " + all[a].getDays());
+                        all[a].getSeverity() + " | " + all[a].getDays() + " | "
+                                + all[a].getAttachment().asString());
                     }
-
                     break;
 
                 case "quit":
                     programRun = false;
-                    System.out.println("Bye! See you soon!");
+                    System.out.println("Пока! Увидимся позже");
                     break;
 
                 default:
-                    System.out.println("Wrong command! Try again!");
+                    System.out.println("Неверная команда! Попробуйте снова!");
                     break;
             }
         }

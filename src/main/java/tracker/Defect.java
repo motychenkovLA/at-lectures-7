@@ -8,12 +8,22 @@ public class Defect {
     private String summary;
     private String severity;
     private int days;
+    private Attachment attachment;
 
-    public Defect(String summary, String severity, int days) {
+    public Defect(String summary, String severity, int days, Attachment attachment) {
         this.summary = summary;
         this.severity = severity;
         this.days = days;
+        this.attachment = attachment;
         id = count++;
+    }
+
+    public Attachment getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(Attachment attachment) {
+        this.attachment = attachment;
     }
 
     public void setSummary(String summary) {
