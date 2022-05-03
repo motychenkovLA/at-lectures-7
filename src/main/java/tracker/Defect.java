@@ -7,6 +7,25 @@ public class Defect {
     private String summary;
     private String severity;
     private int day;
+    private Attachment attach;
+
+    public Defect(String summary, String severity, int day, long attD) {
+        this.id = ++num;
+        this.summary = summary;
+        this.severity = severity;
+        this.day = day;
+        DefectAttachment attDef = new DefectAttachment(id, attD);
+        this.attach = attDef;
+    }
+
+    public Defect(String summary, String severity, int day, String attach) {
+        this.id = ++num;
+        this.summary = summary;
+        this.severity = severity;
+        this.day = day;
+        CommentAttachment attComent = new CommentAttachment(id, attach);
+        this.attach = attComent;
+    }
 
     public Defect(String summary, String severity, int day) {
         this.id = ++num;
@@ -29,5 +48,11 @@ public class Defect {
 
     public int getDay() {
         return day;
+    }
+
+    public String getAttach() {
+        if (attach != null) {
+            return attach.asString();
+        } else return "нет вложений";
     }
 }
