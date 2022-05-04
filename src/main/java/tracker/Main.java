@@ -51,11 +51,11 @@ public class Main {
 
                 case "change": {
                     System.out.println("Введите id дефекта");
-                    long defectID = scanner.nextLong();
+                    long defectID = Long.parseLong(scanner.nextLine());
                     System.out.println("Выберите новый статус (OPEN, FIXING, TESTING, CLOSED, REJECTED)");
                     Status status = Status.valueOf(scanner.nextLine());
                     for (int i = 0; i < repository.getCurrentDefectNum(); i++) {
-                        if (i == defectID) {
+                        if (i+1 == defectID) {
                             repository.getAll()[i].setStatus(status);
                         }
                     }
