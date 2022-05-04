@@ -62,7 +62,7 @@ public class Main {
     public static void caseList() {
         for (Defect d1 : rep.getAll()) {
             if (d1 != null) {
-                System.out.println(d1.getId() + " | " + d1.getSummary() + " | " + d1.getSeverity() + " | " + d1.getDay() + " | " + d1.getAttach());
+                System.out.println(d1.toString());
             }
         }
 

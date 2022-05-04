@@ -1,15 +1,7 @@
 package tracker;
 
-public class Attachment {
-    private long defectID;
+public abstract class Attachment {
 
-    public Attachment(long defectID) {
-        this.defectID = defectID;
-    }
+    public abstract String asString();
 
-    public String asString() {
-
-        return this.toString();
-
-    }
 }

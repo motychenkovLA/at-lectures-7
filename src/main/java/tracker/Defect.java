@@ -14,7 +14,7 @@ public class Defect {
         this.summary = summary;
         this.severity = severity;
         this.day = day;
-        DefectAttachment attDef = new DefectAttachment(id, attD);
+        DefectAttachment attDef = new DefectAttachment(attD);
         this.attach = attDef;
     }
 
@@ -23,7 +23,7 @@ public class Defect {
         this.summary = summary;
         this.severity = severity;
         this.day = day;
-        CommentAttachment attComent = new CommentAttachment(id, attach);
+        CommentAttachment attComent = new CommentAttachment(attach);
         this.attach = attComent;
     }
 
@@ -54,5 +54,10 @@ public class Defect {
         if (attach != null) {
             return attach.asString();
         } else return "нет вложений";
+    }
+
+    public String toString() {
+        String s=this.id + " | " + this.summary + " | " + this.severity + " | " + this.day + " | " + this.getAttach();
+        return s;
     }
 }

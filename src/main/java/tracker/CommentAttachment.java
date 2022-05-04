@@ -3,8 +3,7 @@ package tracker;
 public class CommentAttachment extends Attachment {
     public String comment;
 
-    public CommentAttachment(long defectID, String comment) {
-        super(defectID);
+    public CommentAttachment( String comment) {
         this.comment = comment;
     }
 
