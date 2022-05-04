@@ -4,28 +4,30 @@ public class Repository {
     private final Defect[] listDefect;
     private int capacity = 0;
 
-    public Repository(int size) {
-        listDefect = new Defect[size];
-    }
-
-    public boolean isFull() {
-        return getCapacity() >= listDefect.length;
-    }
-
     public int getCapacity() {
         return capacity;
     }
 
+    public Repository(int size) {
+        listDefect = new Defect[size];
+    }
+
     public void add(Defect defect) {
-        listDefect[capacity] = defect;
+        this.listDefect[capacity] = defect;
         capacity++;
+    }
+
+    public boolean isFull() {
+        boolean full;
+        full = capacity >= listDefect.length;
+        return full;
     }
 
     public Defect[] getAll() {
         Defect[] array = new Defect[capacity];
-        for (int a = 0; a < listDefect.length; a++) {
-            if (listDefect[a] != null)
-                array[a] = listDefect[a];
+        for (int x = 0; x < capacity; x++) {
+            if (listDefect[x] != null)
+                array[x] = listDefect[x];
         }
         return array;
     }

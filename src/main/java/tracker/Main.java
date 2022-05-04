@@ -9,17 +9,23 @@ public class Main {
         Repository repository = new Repository(10);
 
         while (true) {
-            System.out.println("Выберите действие:\n" + "Добавить новый дефект - add, Вывести список - list, " +
+            System.out.println("Выберите действие:\n" + "Добавить новый дефект - add,\n" +
+                    "Изменить статус дефекта - change,\n" + "Вывести список - list,\n" +
                     "Выйти из программы - quit");
+            String operation = scanner.nextLine();
 
-            switch (scanner.nextLine()) {
+            switch (operation) {
                 case "add":
                     addDefect(scanner, repository);
                     break;
 
+                case "change":
+                    changeStatus(scanner, repository);
+                    break;
+
                 case "list":
                     for (Defect x : repository.getAll()) {
-                        System.out.println(x.info());
+                        System.out.println(x);
                         System.out.println("_____________________________________________________________________");
                     }
                     break;
@@ -43,11 +49,19 @@ public class Main {
         }
 
         System.out.println("//Создание баг-репорта//");
+
         System.out.println("Введите название дефекта");
         String name = scanner.nextLine();
 
-        System.out.println("Введите критичность дефекта:\n" + "(trivial, minor, major, critical, blocker)");
-        String critical = scanner.nextLine();
+
+        System.out.println("Введите критичность дефекта из списка: \n");
+        Severity[] values = Severity.values();
+        for (Severity value : values) {
+            System.out.println(value);
+        }
+
+        Severity severity = Severity.valueOf(scanner.nextLine());
+
 
         System.out.println("Введите ожидаемое кол-во дней на исправление дефекта");
         int countDay = scanner.nextInt();
@@ -55,7 +69,7 @@ public class Main {
 
         Attachment attachment = createAttachment(scanner);
 
-        Defect defect = new Defect(name, critical, countDay, attachment);
+        Defect defect = new Defect(name, severity, countDay, attachment);
         repository.add(defect);
     }
 
@@ -64,8 +78,8 @@ public class Main {
 
         while (result == null) {
             System.out.println("Выберите тип вложения:\n" +
-                    "-comment\n" +
-                    "-linkId\n");
+                    "comment\n" +
+                    "linkId");
             String attachment = scanner.nextLine();
 
             switch (attachment) {
@@ -88,5 +102,24 @@ public class Main {
             }
         }
         return result;
+    }
+
+    private static void changeStatus(Scanner scanner, Repository repository) {
+        System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
+        long changeId = scanner.nextLong();
+        scanner.nextLine();
+
+        System.out.println("Изменить статус дефекта на:\n ");
+        Status[] values = Status.values();
+        for (Status value : values) {
+            System.out.println(value);
+        }
+        Status status = Status.valueOf(scanner.nextLine());
+
+        for (int x = 0; x < repository.getCapacity(); x++) {
+            if (x == changeId) {
+                repository.getAll()[x].setStatus(status);
+            }
+        }
     }
 }
