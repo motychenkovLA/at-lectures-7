@@ -107,18 +107,15 @@ public class Main {
                 ;
                 return;  //если выбран неверный статус, выполняется возврат из метода
         }
-        int i = 0; //маркер успешного изменения статуса;
-        for (Defect d1 : rep.getAll()) {
-            if (d1 != null) {
-                if (d1.getId() == id) {
-                    d1.changeStatus(status);
-                    i++;
+        if (rep.defectIsFound(id)) {
+            for (Defect d1 : rep.getAll()) {
+                if (d1 != null) {
+                    if (d1.getId() == id) {
+                        d1.changeStatus(status);
+                    }
                 }
             }
-        }
-        if (i == 0) {
-            System.out.println("Дефект не найден");
-        }
+        } else System.out.println("Дефект не найден");
     }
 
     public static void chooseAction() {

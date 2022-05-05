@@ -3,7 +3,7 @@ package tracker;
 public enum StatusList {
 
     OPEN("Открыто"),
-    IN_PROGRESS("В работе"),
+    IN_PROGRESS ("В работе"),
     CLOSED("Закрыто");
 
     String name;

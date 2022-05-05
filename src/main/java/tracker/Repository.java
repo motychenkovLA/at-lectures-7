@@ -19,4 +19,14 @@ public class Repository {
         return defectRep;
     }
 
+    public boolean defectIsFound(long id) {
+        for (Defect d1 : this.defectRep) {
+            if (d1 != null) {
+                if (d1.getId() == id) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
