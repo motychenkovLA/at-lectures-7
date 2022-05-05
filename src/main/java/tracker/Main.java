@@ -10,7 +10,7 @@ public class Main {
         Repository repository = new Repository(10);
         Scanner scanner = new Scanner(System.in);
         do {
-            System.out.println("Введите действие: добавить новый дефект (\"add\") или вывести список (\"list\") или выйти из программы (\"quit\") - главное меню ");
+            System.out.println("Введите действие: добавить новый дефект (\"add\") или изменить статус дефекта (\"change\") или вывести список (\"list\") или выйти из программы (\"quit\") - главное меню ");
             switch (scanner.nextLine()) {
                 case ("add"):
                     Attachment attachment;
@@ -38,12 +38,30 @@ public class Main {
                     repository.add(bugs);
                     break;
 
+                case("change"):
+                    System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
+                    long changeId = scanner.nextLong();
+                    scanner.nextLine();
+                    System.out.println("Изменить статус дефекта на:");
+                    Status[] values = Status.values();
+                    for (Status value : values) {
+                        System.out.println(value);
+                    }
+                    Status status = Status.valueOf(scanner.nextLine());
+                    for (int x = 0; x < numberDefects; x++) {
+                        if (x == changeId) {
+                            repository.getAll()[x].setStatus(status);
+                        }
+                    }
+                    break;
+
                 case ("list"):
                     Defect[] defects = repository.getAll();
                     for (int i = 0; i < numberDefects; i++) {
                         System.out.println(defects[i].getInfo());
                     }
                     break;
+
                 case("quit"):
                     return;
             }

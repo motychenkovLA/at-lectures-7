@@ -10,6 +10,7 @@ public class Defect {
      private String severity;
      private int days;
      private Attachment attachment;
+     private Status status;
 
     public Defect(String summary, String severity, int days, Attachment attachment) {
         this.summary = summary;
@@ -17,10 +18,15 @@ public class Defect {
         this.days = days;
         this.id = numberDefects;
         this.attachment = attachment;
+        this.status=Status.OPENED;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public String getInfo(){
-      return id + " | " + summary + " | " + severity + " | " + days + " | " + attachment.asString();
+      return id + " | " + summary + " | " + severity + " | " + days + " | " + attachment.toString() + " | " + status.getRuName();
     }
 
 
