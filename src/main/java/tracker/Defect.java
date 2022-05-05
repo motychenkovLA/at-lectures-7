@@ -5,37 +5,37 @@ public class Defect {
 
     private long id;
     private String summary;
-    private SeverityList severity;
+    private Severities severity;
     private int day;
     private Attachment attach;
-    private StatusList status;
+    private Statuses status;
 
-    public Defect(String summary, SeverityList severity, int day, long attD) {
+    public Defect(String summary, Severities severity, int day, long attD) {
         this.id = ++num;
         this.summary = summary;
         this.severity = severity;
         this.day = day;
         DefectAttachment attDef = new DefectAttachment(attD);
         this.attach = attDef;
-        this.status = StatusList.OPEN;
+        this.status = Statuses.OPEN;
     }
 
-    public Defect(String summary, SeverityList severity, int day, String attach) {
+    public Defect(String summary, Severities severity, int day, String attach) {
         this.id = ++num;
         this.summary = summary;
         this.severity = severity;
         this.day = day;
         CommentAttachment attComent = new CommentAttachment(attach);
         this.attach = attComent;
-        this.status = StatusList.OPEN;
+        this.status = Statuses.OPEN;
     }
 
-    public Defect(String summary, SeverityList severity, int day) {
+    public Defect(String summary, Severities severity, int day) {
         this.id = ++num;
         this.summary = summary;
         this.severity = severity;
         this.day = day;
-        this.status = StatusList.OPEN;
+        this.status = Statuses.OPEN;
     }
 
     public long getId() {
@@ -66,7 +66,7 @@ public class Defect {
         return s;
     }
 
-    public void changeStatus(StatusList status) {
+    public void changeStatus(Statuses status) {
         this.status = status;
 
     }

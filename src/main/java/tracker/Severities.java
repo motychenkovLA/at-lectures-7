@@ -1,13 +1,13 @@
 package tracker;
 
-public enum SeverityList {
+public enum Severities {
     BLOCKER("Блокирующий"),
     HIGH("Высокий"),
     MEDIUM("Средний"),
     LOW("Низкий");
     String name;
 
-    SeverityList(String name) {
+    Severities(String name) {
         this.name = name;
     }
 }

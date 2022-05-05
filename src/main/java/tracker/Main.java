@@ -36,19 +36,19 @@ public class Main {
             System.out.println("Введите резюме дефекта:");
             String summary = scanner.nextLine();
             System.out.println("Введите критичность дефекта: 1- блокирующий, 2 - высокий, 3 - средний, другой символ - низкий");
-            SeverityList severity;
+            Severities severity;
             switch (scanner.nextLine()) {
                 case "1":
-                    severity = SeverityList.BLOCKER;
+                    severity = Severities.BLOCKER;
                     break;
                 case "2":
-                    severity = SeverityList.HIGH;
+                    severity = Severities.HIGH;
                     break;
                 case "3":
-                    severity = SeverityList.MEDIUM;
+                    severity = Severities.MEDIUM;
                     break;
                 default:
-                    severity = SeverityList.LOW;
+                    severity = Severities.LOW;
                     break;
             }
             System.out.println("Введите ожидаемое количество дней на исправление:");
@@ -90,16 +90,16 @@ public class Main {
         long id = scanner.nextLong();
         scanner.nextLine();
         System.out.println("Введите новый статус: 1 - Открыто, 2 - В работе, 3 - Закрыто");
-        StatusList status = null;
+        Statuses status = null;
         switch (scanner.nextLine()) {
             case "1":
-                status = StatusList.OPEN;
+                status = Statuses.OPEN;
                 break;
             case "2":
-                status = StatusList.IN_PROGRESS;
+                status = Statuses.IN_PROGRESS;
                 break;
             case "3":
-                status = StatusList.CLOSED;
+                status = Statuses.CLOSED;
                 ;
                 break;
             default:

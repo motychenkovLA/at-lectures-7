@@ -1,6 +1,6 @@
 package tracker;
 
-public enum StatusList {
+public enum Statuses {
 
     OPEN("Открыто"),
     IN_PROGRESS ("В работе"),
@@ -8,7 +8,7 @@ public enum StatusList {
 
     String name;
 
-    StatusList(String name) {
+    Statuses(String name) {
         this.name = name;
     }
 
