@@ -8,9 +8,9 @@ public class DefectAttachment extends Attachment {
     }
 
     @Override
-    public String asString() {
+    public String toString() {
 
-        return Long.toString(this.attachDefectID);
+        return "Связанный дефект: " + Long.toString(this.attachDefectID);
 
     }
 }

@@ -5,33 +5,37 @@ public class Defect {
 
     private long id;
     private String summary;
-    private String severity;
+    private SeverityList severity;
     private int day;
     private Attachment attach;
+    private StatusList status;
 
-    public Defect(String summary, String severity, int day, long attD) {
+    public Defect(String summary, SeverityList severity, int day, long attD) {
         this.id = ++num;
         this.summary = summary;
         this.severity = severity;
         this.day = day;
         DefectAttachment attDef = new DefectAttachment(attD);
         this.attach = attDef;
+        this.status = StatusList.OPEN;
     }
 
-    public Defect(String summary, String severity, int day, String attach) {
+    public Defect(String summary, SeverityList severity, int day, String attach) {
         this.id = ++num;
         this.summary = summary;
         this.severity = severity;
         this.day = day;
         CommentAttachment attComent = new CommentAttachment(attach);
         this.attach = attComent;
+        this.status = StatusList.OPEN;
     }
 
-    public Defect(String summary, String severity, int day) {
+    public Defect(String summary, SeverityList severity, int day) {
         this.id = ++num;
         this.summary = summary;
         this.severity = severity;
         this.day = day;
+        this.status = StatusList.OPEN;
     }
 
     public long getId() {
@@ -43,7 +47,7 @@ public class Defect {
     }
 
     public String getSeverity() {
-        return severity;
+        return severity.name();
     }
 
     public int getDay() {
@@ -52,12 +56,18 @@ public class Defect {
 
     public String getAttach() {
         if (attach != null) {
-            return attach.asString();
+            return attach.toString();
         } else return "нет вложений";
     }
 
+    @Override
     public String toString() {
-        String s=this.id + " | " + this.summary + " | " + this.severity + " | " + this.day + " | " + this.getAttach();
+        String s = this.id + " | " + this.status.name + " | " + this.summary + " | " + this.severity.name + " | " + this.day + " | " + this.getAttach();
         return s;
+    }
+
+    public void changeStatus(StatusList status) {
+        this.status = status;
+
     }
 }

@@ -20,6 +20,11 @@ public class Main {
                 }
                 case "list": {
                     caseList();
+                    break;
+                }
+                case "change": {
+                    caseChange();
+                    break;
                 }
             }
         }
@@ -30,8 +35,22 @@ public class Main {
         if (count < maxCount) {
             System.out.println("Введите резюме дефекта:");
             String summary = scanner.nextLine();
-            System.out.println("Введите критичность дефекта. Возможные варианты: блокирующий, высокий, средний, низкий");
-            String severity = scanner.nextLine();
+            System.out.println("Введите критичность дефекта: 1- блокирующий, 2 - высокий, 3 - средний, другой символ - низкий");
+            SeverityList severity;
+            switch (scanner.nextLine()) {
+                case "1":
+                    severity = SeverityList.BLOCKER;
+                    break;
+                case "2":
+                    severity = SeverityList.HIGH;
+                    break;
+                case "3":
+                    severity = SeverityList.MEDIUM;
+                    break;
+                default:
+                    severity = SeverityList.LOW;
+                    break;
+            }
             System.out.println("Введите ожидаемое количество дней на исправление:");
             int day = scanner.nextInt();
             scanner.nextLine();
@@ -49,7 +68,6 @@ public class Main {
                     scanner.nextLine();
                     defect = new Defect(summary, severity, day, attachDefect);
                     break;
-
                 default:
                     defect = new Defect(summary, severity, day);
                     break;
@@ -65,13 +83,49 @@ public class Main {
                 System.out.println(d1.toString());
             }
         }
+    }
 
+    public static void caseChange() {
+        System.out.println("Введите ID дефекта");
+        long id = scanner.nextLong();
+        scanner.nextLine();
+        System.out.println("Введите новый статус: 1 - Открыто, 2 - В работе, 3 - Закрыто");
+        StatusList status = null;
+        switch (scanner.nextLine()) {
+            case "1":
+                status = StatusList.OPEN;
+                break;
+            case "2":
+                status = StatusList.IN_PROGRESS;
+                break;
+            case "3":
+                status = StatusList.CLOSED;
+                ;
+                break;
+            default:
+                System.out.println("Нет такого статуса");
+                ;
+                return;  //если выбран неверный статус, выполняется возврат из метода
+        }
+        int i = 0; //маркер успешного изменения статуса;
+        for (Defect d1 : rep.getAll()) {
+            if (d1 != null) {
+                if (d1.getId() == id) {
+                    d1.changeStatus(status);
+                    i++;
+                }
+            }
+        }
+        if (i == 0) {
+            System.out.println("Дефект не найден");
+        }
     }
 
     public static void chooseAction() {
         System.out.println("--------------" + "\n" +
                 "Для добавления дефекта введите add" + "\n"
                 + "Для вывода списка дефектов введите list" + "\n"
+                + "Для изменения статуса дефекта введите change" + "\n"
                 + "Для выхода из программы введите quit");
         choise = scanner.nextLine();
     }
