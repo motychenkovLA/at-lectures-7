@@ -7,7 +7,6 @@ public class Main {
     public static void main(String[] args) {
 
 
-        int count = 0;
         Repository repository = new Repository(10);
 
         Scanner scanner = new Scanner(System.in);
@@ -21,21 +20,7 @@ public class Main {
             switch (scanner.nextLine()) {
 
                 case "add":
-                    if (repository.isFull()) {
-                        System.out.println("Уже заведено 10 дефектов");
-                        break;
-                    }
-
-                    System.out.println("Введите резюме дефекта:");
-                    String resume = scanner.nextLine();
-                    System.out.println("Введите критичность дефекта (Высокая, Средняя, Низкая):");
-                    String critical = scanner.nextLine();
-                    System.out.println("Введите срок исправления дефекта, в днях:");
-                    int dayToRepair = scanner.nextInt();
-                    scanner.nextLine();
-                    Defect defect = new Defect(resume, critical, dayToRepair);
-                    repository.addDefect(defect);
-                    count++;
+                    addDefect(scanner, repository);
                     break;
 
                 case "list":
@@ -49,9 +34,44 @@ public class Main {
                     return;
 
                 default:
-                    System.out.println("Возврат в главное меню");
+                    System.out.println("Введена неверная команда, возврат в главное меню");
                     break;
             }
+        }
+
+    }
+
+    public static void addDefect(Scanner scanner, Repository repository) {
+        if (repository.isFull()) {
+            System.out.println("Уже заведено 10 дефектов");
+            return;
+        }
+
+        System.out.println("Введите резюме дефекта:");
+        String resume = scanner.nextLine();
+        System.out.println("Введите критичность дефекта (Высокая, Средняя, Низкая):");
+        String critical = scanner.nextLine();
+        System.out.println("Введите срок исправления дефекта, в днях:");
+        int dayToRepair = scanner.nextInt();
+        System.out.println("выберите тип вложения: комментарий/ссылка");
+        scanner.nextLine();
+        switch (scanner.nextLine()) {
+            case "комментарий":
+                System.out.println("Введите комментарий к дефекту");
+                CommentAttachment commentAttachment = new CommentAttachment(scanner.nextLine());
+                Defect defect = new Defect(resume, critical, dayToRepair, commentAttachment);
+                repository.addDefect(defect);
+                break;
+            case "ссылка":
+                System.out.println("введите Id связанного дефекта");
+                DefectAttachment defectAttachment = new DefectAttachment(scanner.nextInt());
+                scanner.nextLine();
+                defect = new Defect(resume, critical, dayToRepair, defectAttachment);
+                repository.addDefect(defect);
+                break;
+            default:
+                System.out.println("Некорректное вложение");
+                break;
         }
 
     }
