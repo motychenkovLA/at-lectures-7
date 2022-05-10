@@ -9,6 +9,8 @@ public class Defect {
     private String severity;
     private int days;
     private Attachment attachment;
+    //добавляем поле для хранения статуса, по умолчанию содержит "Новый"
+    private Status status;
 
     public Defect(String summary, String severity, int days, Attachment attachment) {
         this.summary = summary;
@@ -16,6 +18,7 @@ public class Defect {
         this.days = days;
         this.attachment = attachment;
         id = count++;
+        this.status = Status.valueOf("OPEN");
     }
 
     public Attachment getAttachment() {
@@ -52,5 +55,13 @@ public class Defect {
 
     public int getDays() {
         return days;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = Status.valueOf(status);
     }
 }
