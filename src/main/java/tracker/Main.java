@@ -7,8 +7,8 @@ public class Main {
     public static void main(String[] args) {
 
 
-        Defect[] bugTable = new Defect[10];
-        int defectNum = 0;
+        int count = 0;
+        Repository repository = new Repository(10);
 
         Scanner scanner = new Scanner(System.in);
 
@@ -21,11 +21,10 @@ public class Main {
             switch (scanner.nextLine()) {
 
                 case "add":
-                    if (defectNum >= 10) {
+                    if (repository.isFull()) {
                         System.out.println("Уже заведено 10 дефектов");
                         break;
                     }
-                    long Id = defectNum;
 
                     System.out.println("Введите резюме дефекта:");
                     String resume = scanner.nextLine();
@@ -34,17 +33,14 @@ public class Main {
                     System.out.println("Введите срок исправления дефекта, в днях:");
                     int dayToRepair = scanner.nextInt();
                     scanner.nextLine();
-                    bugTable[defectNum] = new Defect(Id, critical, resume, dayToRepair);
-
-                    defectNum++;
+                    Defect defect = new Defect(resume, critical, dayToRepair);
+                    repository.addDefect(defect);
+                    count++;
                     break;
 
                 case "list":
-                    for (int i = 0; i < defectNum; i++) {
-                        System.out.println("№: " + bugTable[i].getId() +
-                                " | " + "Резюме: " + bugTable[i].getResume() + " | " + "Критичность: "
-                                + bugTable[i].getCritical() + " | "
-                                + "Дни: " + bugTable[i].getDayToRepair());
+                    for (Defect r : repository.getAll()) {
+                        if (r != null) System.out.println(r.list());
                     }
                     break;
 

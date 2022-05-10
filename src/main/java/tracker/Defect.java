@@ -1,51 +1,21 @@
 package tracker;
 
 public class Defect {
-    long id;
-    String resume;
-    String critical;
-    int dayToRepair;
+    private final long id;
+    private static int iteration = 1;
+    private String resume;
+    private String critical;
+    private int dayToRepair;
 
-    public Defect(long id, String resume, String critical, int dayToRepair) {
-        this.id = id;
+    public Defect(String resume, String critical, int dayToRepair) {
         this.resume = resume;
         this.critical = critical;
         this.dayToRepair = dayToRepair;
+        id = iteration;
+        iteration++;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getResume() {
-        return resume;
-    }
-
-    public void setResume(String resume) {
-        this.resume = resume;
-    }
-
-    public String getCritical() {
-        return critical;
-    }
-
-    public void setCritical(String critical) {
-        this.critical = critical;
-    }
-
-    public int getDayToRepair() {
-        return dayToRepair;
-    }
-
-    public void setDayToRepair(int dayToRepair) {
-        this.dayToRepair = dayToRepair;
-    }
-
-    public static void main(String[] args) {
-
+    public String list() {
+        return id + " | " + resume + " | " + critical + " | " + dayToRepair + " дня";
     }
 }
