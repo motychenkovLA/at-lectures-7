@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int count = 0;
+        //    int count = 0;
         Repository repository = new Repository(10);
 
         Scanner scanner = new Scanner(System.in);
@@ -20,24 +20,12 @@ public class Main {
             switch (scanner.nextLine()) {
 
                 case "add":
-                    if (repository.isComplet()) {
-                        System.out.println("Уже заведено 10 дефектов");
-                        break;
-                    }
 
-                    System.out.println("Введите резюме по дефекту:");
-                    String resume = scanner.nextLine();
+                    add(scanner, repository);
+                    break;
 
-                    System.out.println("Введите критичность дефекта (Низкий, Средний, Высокий, Блокирующий):");
-                    String critical = scanner.nextLine();
+                case "change":
 
-                    System.out.println("Введите количество дней на исправление:");
-                    int dayToFix = scanner.nextInt();
-                    scanner.nextLine();
-
-                    Defect defect = new Defect(resume, critical, dayToFix);
-                    repository.addDefect(defect);
-                    count++;
                     break;
 
                 case "list":
@@ -54,8 +42,50 @@ public class Main {
                     System.out.println("Возврат в главное меню");
                     break;
             }
+
         }
 
     }
 
+    public static void add(Scanner scanner, Repository repository) {
+        if (repository.isComplet()) {
+            System.out.println("Уже заведено 10 дефектов");
+            return;
+        }
+
+        System.out.println("Введите резюме по дефекту:");
+        String resume = scanner.nextLine();
+
+        System.out.println("Введите критичность дефекта (Низкий, Средний, Высокий, Блокирующий):");
+        String critical = scanner.nextLine();
+
+        System.out.println("Введите количество дней на исправление:");
+        int dayToFix = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("Введите для комментария comment или для дефекта id:");
+        String attachment = scanner.nextLine();
+        switch (attachment) {
+            case "comment":
+                System.out.println("Введите комментарий:");
+                CommentAttachment commentAttachment = new CommentAttachment(scanner.nextLine());
+                Defect defect = new Defect(resume, critical, dayToFix, commentAttachment);
+                repository.addDefect(defect);
+                break;
+
+            case "id":
+                System.out.println("Введите id:");
+                DefectAttachment defectAttachment = new DefectAttachment(scanner.nextInt());
+                scanner.nextLine();
+                defect = new Defect(resume, critical, dayToFix, defectAttachment);
+                repository.addDefect(defect);
+                break;
+
+            default:
+                System.out.println("Без комментария");
+                defect = new Defect(resume, critical, dayToFix);
+                repository.addDefect(defect);
+                break;
+        }
+    }
 }
