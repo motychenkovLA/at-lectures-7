@@ -1,11 +1,9 @@
 package tracker;
 
-import javax.xml.stream.events.Comment;
-
 public class Defect {
 
     private final int WORKING_DAYS_IN_WEEK = 5;     // Рабочая неделя
-    private final int ID;
+    private int ID;
     private static int iteration = 1;
     private String resume;
     private Critical critical;
@@ -15,13 +13,8 @@ public class Defect {
 
 
     public Defect(String resume, Critical critical, int dayToFix, Attachment attachment) {
-        this.resume = resume;
-        this.critical = critical;
-        this.dayToFix = dayToFix;
+        this(resume, critical, dayToFix);
         this.attachment = attachment;
-        this.status = Status.OPEN;
-        ID = iteration;
-        iteration++;
     }
 
     public Defect(String resume, Critical critical, int dayToFix) {
@@ -32,7 +25,6 @@ public class Defect {
         ID = iteration;
         iteration++;
     }
-
 
     public String getResume() {
         return resume;
