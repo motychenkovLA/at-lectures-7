@@ -12,11 +12,6 @@ public class Defect {
     private Status status;
 
 
-    public Defect(String resume, Critical critical, int dayToFix, Attachment attachment) {
-        this(resume, critical, dayToFix);
-        this.attachment = attachment;
-    }
-
     public Defect(String resume, Critical critical, int dayToFix) {
         this.resume = resume;
         this.critical = critical;
@@ -24,6 +19,11 @@ public class Defect {
         this.status = Status.OPEN;
         ID = iteration;
         iteration++;
+    }
+
+    public Defect(String resume, Critical critical, int dayToFix, Attachment attachment) {
+        this(resume, critical, dayToFix);
+        this.attachment = attachment;
     }
 
     public String getResume() {
