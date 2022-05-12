@@ -8,7 +8,7 @@ public class DefectAttachment extends Attachment {
         this.idDefect = idDefect;
     }
 
-    public String asString() {
+    public String toString() {
         return String.valueOf(idDefect);
     }
 }

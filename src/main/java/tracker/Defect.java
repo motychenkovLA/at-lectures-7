@@ -5,27 +5,30 @@ import javax.xml.stream.events.Comment;
 public class Defect {
 
     private final int WORKING_DAYS_IN_WEEK = 5;     // Рабочая неделя
-    private final long ID;
+    private final int ID;
     private static int iteration = 1;
     private String resume;
-    private String critical;
+    private Critical critical;
     private Attachment attachment;
     private int dayToFix;
+    private Status status;
 
 
-    public Defect(String resume, String critical, int dayToFix, Attachment attachment) {
+    public Defect(String resume, Critical critical, int dayToFix, Attachment attachment) {
         this.resume = resume;
         this.critical = critical;
         this.dayToFix = dayToFix;
         this.attachment = attachment;
+        this.status = Status.OPEN;
         ID = iteration;
         iteration++;
     }
 
-    public Defect(String resume, String critical, int dayToFix) {
+    public Defect(String resume, Critical critical, int dayToFix) {
         this.resume = resume;
         this.critical = critical;
         this.dayToFix = dayToFix;
+        this.status = Status.OPEN;
         ID = iteration;
         iteration++;
     }
@@ -35,20 +38,25 @@ public class Defect {
         return resume;
     }
 
-    public String getCritical() {
-        return critical;
-    }
-
     public int getDayToFix() {
         return dayToFix;
     }
 
-    public String list() {
+    public int getID() {
+        return ID;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public String toString() {
         return attachment == null ? "id дефекта " + ID + ":" +
                 "\n Описание дефекта: " + resume +
                 "\n Критичность: " + critical +
                 "\n Количество дней на исправление: " + dayToFix +
                 "\n Будет исправлен за рабочую неделю: " + (dayToFix <= WORKING_DAYS_IN_WEEK) +
+                "\n Статус: " + status.getTranslation() +
                 "\n________________________________________________________"
                 :
                 "id дефекта " + ID + ":" +
@@ -56,7 +64,8 @@ public class Defect {
                         "\n Критичность: " + critical +
                         "\n Количество дней на исправление: " + dayToFix +
                         "\n Будет исправлен за рабочую неделю: " + (dayToFix <= WORKING_DAYS_IN_WEEK) +
-                        "\n Вложения: " + attachment.asString() +
+                        "\n Статус: " + status.getTranslation() +
+                        "\n Вложения: " + attachment +
                         "\n________________________________________________________";
 
     }

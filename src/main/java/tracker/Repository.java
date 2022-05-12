@@ -8,7 +8,7 @@ public class Repository {
     private int counter = 0;
 
     public boolean isComplet() {
-        if(counter >= list.length) {
+        if (counter >= list.length) {
             return true;
         }
         return false;
@@ -27,7 +27,8 @@ public class Repository {
     }
 
     public Defect[] getAll() {
-        return list;
+        Defect[] copyListDefect = Arrays.copyOf(list, counter);
+        return copyListDefect;
     }
 
     public int getCounterArray() {

@@ -6,7 +6,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //    int count = 0;
         Repository repository = new Repository(10);
 
         Scanner scanner = new Scanner(System.in);
@@ -15,6 +14,7 @@ public class Main {
             System.out.println("Введите одно из действий:" +
                     "\n add - Завести новый дефект" +
                     "\n list - Показать перечень дефектов" +
+                    "\n change - Изменить статус дефекта" +
                     "\n quit - Выход из программы");
 
             switch (scanner.nextLine()) {
@@ -25,12 +25,13 @@ public class Main {
                     break;
 
                 case "change":
-
+                    changeStatus(scanner, repository);
                     break;
 
                 case "list":
-                    for (Defect r : repository.getAll()) {
-                        if (r != null) System.out.println(r.list());
+                    for (int i = 0; i < repository.getCounterArray(); i++) {
+                        System.out.println(repository.getAll()[i]);
+                        System.out.println("________________________");
                     }
                     break;
 
@@ -56,8 +57,8 @@ public class Main {
         System.out.println("Введите резюме по дефекту:");
         String resume = scanner.nextLine();
 
-        System.out.println("Введите критичность дефекта (Низкий, Средний, Высокий, Блокирующий):");
-        String critical = scanner.nextLine();
+        System.out.println("Введите критичность дефекта из списка:" + "\n\"trivial\", \"minor\", \"major\", \"blocker\"");
+        Critical critical = Critical.valueOf(scanner.nextLine().toUpperCase());
 
         System.out.println("Введите количество дней на исправление:");
         int dayToFix = scanner.nextInt();
@@ -86,6 +87,22 @@ public class Main {
                 defect = new Defect(resume, critical, dayToFix);
                 repository.addDefect(defect);
                 break;
+        }
+    }
+
+    public static void changeStatus(Scanner scanner, Repository repository) {
+        System.out.println("Введите ID дефекта у которого нужно изменить статус");
+        int idDefect = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("Введите статус: \n\"open\", \"in_process\", \"test\", \"done\"");
+
+        Status status = Status.valueOf(scanner.nextLine().toUpperCase());
+
+        for (Defect defect : repository.getAll()) {
+            if (defect.getID() == idDefect) {
+                defect.setStatus(status);
+            }
         }
     }
 }
