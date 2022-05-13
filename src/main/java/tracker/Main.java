@@ -4,22 +4,21 @@ import java.util.Scanner;
 
 public class Main {
     private static String choise;
-    private static final MainSteps mainStep = new MainSteps();
 
     public static void main(String[] args) {
         do {
-            choise = mainStep.chooseAction();
+            choise = MainSteps.chooseAction();
             switch (choise) {
                 case "add": {
-                    mainStep.caseAdd();
+                    MainSteps.caseAdd();
                     break;
                 }
                 case "list": {
-                    mainStep.caseList();
+                    MainSteps.caseList();
                     break;
                 }
                 case "change": {
-                    mainStep.caseChange();
+                    MainSteps.caseChange();
                     break;
                 }
             }
