@@ -1,14 +1,14 @@
 package tracker;
 
-public enum Statuses {
+public enum Status {
 
     OPEN("Открыто"),
-    IN_PROGRESS ("В работе"),
+    IN_PROGRESS("В работе"),
     CLOSED("Закрыто");
 
     String name;
 
-    Statuses(String name) {
+    Status(String name) {
         this.name = name;
     }
 
