@@ -1,6 +1,6 @@
 package tracker;
 
-import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -52,15 +52,28 @@ public class Main {
 
         System.out.println("Введите критичность дефекта из списка: \n");
         Severity[] values = Severity.values();
+        Severity severity = null;
         for (Severity value : values) {
             System.out.println(value);
         }
-        Severity severity = Severity.valueOf(scanner.nextLine());
+        try (Scanner sc = new Scanner(System.in)) {
+            severity = Severity.valueOf(sc.nextLine());
 
-
+        } catch (IllegalArgumentException e) {
+            e.getStackTrace();
+            System.out.println("Введенная критичность отсутствует в списке. Введите еще раз.");
+            return;
+        }
+// Ниже у меня падает c NoSuchElementException. Не пойму как исправить.
         System.out.println("Дни на исправление дефекта:");
-        int amountOfDays = scanner.nextInt();
-        scanner.nextLine();
+        int amountOfDays = 0;
+        try (Scanner sc = new Scanner(System.in)) {
+            amountOfDays = sc.nextInt();
+            sc.nextLine();
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            System.out.println("Вводимое значение должно быть числом. Введите еще раз.");
+        }
 
         Attachment attachment = createAttachment(scanner);
 
@@ -106,10 +119,17 @@ public class Main {
 
         System.out.println("Изменить статус дефекта на:\n ");
         Status[] values = Status.values();
+        Status status = null;
         for (Status value : values) {
             System.out.println(value);
         }
-        Status status = Status.valueOf(scanner.nextLine());
+        try (Scanner sc = new Scanner(System.in)) {
+            status = Status.valueOf(sc.nextLine());
+        } catch (IllegalArgumentException e) {
+            e.getStackTrace();
+            System.out.println("Введенный статус отсутствует в списке. Введите еще раз.");
+            return;
+        }
 
         for (int i = 0; i < repository.getCounter(); i++) {
             if (i == changeId) {
