@@ -22,8 +22,8 @@ public class CommentAttachment extends Attachment {
         if (this == a) return true;
         if (a == null || getClass() != a.getClass()) return false;
         CommentAttachment comment = (CommentAttachment) a;
-        if (this.hashCode() != comment.hashCode()) return false;
-        return this.equals(comment.getComment());
+        if (this.hashCode() != comment.hashCode()) return false; // todo 3 - лишняя проверка
+        return this.equals(comment.getComment()); // todo 5 - аттач никогда не может быть равен строке
     }
 
     @Override

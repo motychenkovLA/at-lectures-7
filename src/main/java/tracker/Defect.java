@@ -53,13 +53,13 @@ public class Defect {
         if (this == o) return true;
         if (o == null || this.getClass() != o.getClass()) return false;
         Defect defect = (Defect) o;
-        if (this.hashCode() != defect.hashCode()) return false;
+        if (this.hashCode() != defect.hashCode()) return false; // todo 3 - лишняя проверка
         return id == defect.id &&
                 this.amountOfDays == defect.amountOfDays &&
-                this.equals(defect.getDescription()) &&
-                this.equals(defect.getSeverity()) &&
-                this.equals(defect.getAttachment()) &&
-                this.equals(defect.getStatus());
+                this.equals(defect.getDescription()) && // todo 5 - дефект никогда не может быть равен строке
+                this.equals(defect.getSeverity()) && // todo 5 - дефект никогда не может быть раен критичности
+                this.equals(defect.getAttachment()) && // todo 5 - дефект никогда не может быть раен аттачменту
+                this.equals(defect.getStatus()); // todo 5 - дефект никогда не может быть раен статусу
 
     }
 

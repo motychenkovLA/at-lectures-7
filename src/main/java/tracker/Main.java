@@ -1,5 +1,6 @@
 package tracker;
 
+// todo 1 - не используется
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -7,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
         Repository repository = new Repository(10);
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in); // todo 3 - ТЗ: работу со сканером выполнять через try-with-resources
 
         while (true) {
             System.out.println("Введите операцию из списка:\nadd - добавить новый дефект; " +
@@ -56,23 +57,23 @@ public class Main {
         for (Severity value : values) {
             System.out.println(value);
         }
-        try (Scanner sc = new Scanner(System.in)) {
+        try (Scanner sc = new Scanner(System.in)) { // todo 3 - откуда-то взялся новый сканнер
             severity = Severity.valueOf(sc.nextLine());
 
         } catch (IllegalArgumentException e) {
-            e.getStackTrace();
-            System.out.println("Введенная критичность отсутствует в списке. Введите еще раз.");
+            e.getStackTrace(); // todo 3 - мертвый код
+            System.out.println("Введенная критичность отсутствует в списке. Введите еще раз."); // todo 3 - просит ввести еще раз но не дает возможности, выкидывает обратно в меню
             return;
         }
 // Ниже у меня падает c NoSuchElementException. Не пойму как исправить.
         System.out.println("Дни на исправление дефекта:");
         int amountOfDays = 0;
-        try (Scanner sc = new Scanner(System.in)) {
+        try (Scanner sc = new Scanner(System.in)) { // todo 3 - ещё один сканнер
             amountOfDays = sc.nextInt();
             sc.nextLine();
         } catch (NumberFormatException e) {
-            e.printStackTrace();
-            System.out.println("Вводимое значение должно быть числом. Введите еще раз.");
+            e.printStackTrace(); // todo 3 - зачем пользователю стек?
+            System.out.println("Вводимое значение должно быть числом. Введите еще раз."); // todo 3 - просит ввести еще раз но не дает возможности, выкидывает обратно в меню
         }
 
         Attachment attachment = createAttachment(scanner);
@@ -123,14 +124,15 @@ public class Main {
         for (Status value : values) {
             System.out.println(value);
         }
-        try (Scanner sc = new Scanner(System.in)) {
+        try (Scanner sc = new Scanner(System.in)) {// todo 3 - ещё один сканнер
             status = Status.valueOf(sc.nextLine());
         } catch (IllegalArgumentException e) {
-            e.getStackTrace();
-            System.out.println("Введенный статус отсутствует в списке. Введите еще раз.");
+            e.getStackTrace(); // todo 3 - мертвый код
+            System.out.println("Введенный статус отсутствует в списке. Введите еще раз."); // todo 3 - просит ввести еще раз но не дает возможности, выкидывает обратно в меню
             return;
         }
 
+        // todo 3 - забирает все дефекты из репо причем не раз, лучше просто получить нужный дефект по id от репо
         for (int i = 0; i < repository.getCounter(); i++) {
             if (i == changeId) {
                 repository.getAll()[i].setStatus(status);
