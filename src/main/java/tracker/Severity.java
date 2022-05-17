@@ -5,5 +5,7 @@ public enum Severity {
     CRITICAL,
     MAJOR,
     MINOR,
-    TRIVIAL
+    TRIVIAL;
+
+
 }

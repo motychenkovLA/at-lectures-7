@@ -1,16 +1,18 @@
 package tracker;
 
 
+import java.util.Objects;
+
 public class Defect {
     private final long id;
     private String resume;
-    private String daysToFix;
+    private int daysToFix;
     private static long currentID = 1;
     private Attachment attachment;
     private Status status;
     private Severity severity;
 
-    public Defect(String resume, Severity severity, String daysToFix, Attachment attachment, Status status) {
+    public Defect(String resume, Severity severity, int daysToFix, Attachment attachment, Status status) {
         this.resume = resume;
         this.severity = severity;
         this.daysToFix = daysToFix;
@@ -27,7 +29,7 @@ public class Defect {
         this.severity=severity;
     }
 
-    public void setDaysToFix(String daysToFix){
+    public void setDaysToFix(int daysToFix){
         this.daysToFix=daysToFix;
     }
 
@@ -43,7 +45,7 @@ public class Defect {
         return severity;
     }
 
-    public String getDaysToFix(){
+    public int getDaysToFix(){
         return daysToFix;
     }
 
@@ -57,5 +59,21 @@ public class Defect {
 
     public Attachment getAttachment() {
         return attachment;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || this.getClass() != o.getClass()) return false;
+        Defect defect = (Defect) o;
+        if (this.hashCode() != defect.hashCode()) return false;
+        return this.id == defect.id && this.resume.equals(defect.resume) && this.daysToFix == defect.daysToFix &&
+                this.attachment.equals(defect.attachment) && this.status.equals(defect.status) &&
+                this.severity.equals(defect.severity);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, resume, daysToFix, attachment, status, severity);
     }
 }
