@@ -21,24 +21,7 @@ public class Defect {
         counter++;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public Severity getSeverity() {
-        return severity;
-    }
-
-    public Attachment getAttachment() {
-        return attachment;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
     public void setStatus(Status status) {
-
         this.status = status;
     }
 
@@ -53,14 +36,12 @@ public class Defect {
         if (this == o) return true;
         if (o == null || this.getClass() != o.getClass()) return false;
         Defect defect = (Defect) o;
-        if (this.hashCode() != defect.hashCode()) return false; // todo 3 - лишняя проверка
         return id == defect.id &&
                 this.amountOfDays == defect.amountOfDays &&
-                this.equals(defect.getDescription()) && // todo 5 - дефект никогда не может быть равен строке
-                this.equals(defect.getSeverity()) && // todo 5 - дефект никогда не может быть раен критичности
-                this.equals(defect.getAttachment()) && // todo 5 - дефект никогда не может быть раен аттачменту
-                this.equals(defect.getStatus()); // todo 5 - дефект никогда не может быть раен статусу
-
+                this.description.equals(defect.description) &&
+                this.severity.equals(defect.severity) &&
+                this.attachment.equals(defect.attachment) &&
+                this.status.equals(defect.status);
     }
 
     @Override
