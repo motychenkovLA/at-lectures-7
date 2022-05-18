@@ -27,6 +27,8 @@ public class Repository {
         return newMassiv;
     }
 
+    // todo 5 - возвращает не по id а по индексу в массиве,
+    //   индекс в массиве вообще не обязательно совпадает с id, никаких гарантий нету
     public Defect getById(int id) {
         return massivDefects[id];
     }

@@ -1,5 +1,6 @@
 package tracker;
 
+// todo 0 - не используемые импорты
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.InputMismatchException;
@@ -53,6 +54,7 @@ public class Main {
         System.out.println("Введите описание дефекта");
         String description = scanner.nextLine();
 
+        // todo 1 - ввод критичности довольно большой теперь лучше вынести в отдельный метод как с аттачментом
         System.out.println("Введите критичность дефекта из списка: \n");
         Severity[] values = Severity.values();
         Severity severity = null;
@@ -68,6 +70,7 @@ public class Main {
             }
         }
 
+        // todo 1 - ввод дней тоже довольно большой теперь, лучше вынести в метод
         System.out.println("Дни на исправление дефекта:");
         int amountOfDays = 0;
         while (amountOfDays <= 0) {
@@ -96,7 +99,7 @@ public class Main {
             switch (attachment) {
                 case "linkId":
                     System.out.println("Введите id дефекта");
-                    long linkId = scanner.nextLong();
+                    long linkId = scanner.nextLong(); // todo 3 - может упасть на неформатном числе
                     scanner.nextLine();
                     result = new DefectAttachment(linkId);
                     break;
@@ -117,8 +120,10 @@ public class Main {
 
     private static void changeStatus(Scanner scanner, Repository repository) {
         System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
-        long changeId = scanner.nextLong();
+        long changeId = scanner.nextLong(); // todo 3 - может упасть на неформатном лонге
         scanner.nextLine();
+
+        // todo 3 - уже есть id, лучше сразу проверить вдруг он не валидный и не просить новый статус тогда
 
         System.out.println("Изменить статус дефекта на:\n ");
         Status[] values = Status.values();
