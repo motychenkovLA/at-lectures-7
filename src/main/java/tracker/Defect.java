@@ -50,8 +50,8 @@ public class Defect {
         return this.ID == defect.ID &&
                 this.countDay == defect.countDay &&
                 this.summary.equals(defect.summary) &&
-                this.status.equals(defect.status) &&
-                this.criticality.equals(defect.criticality) &&
+                this.status == defect.status &&
+                this.criticality == defect.criticality &&
                 this.attachment.equals(defect.attachment);
     }
 

@@ -22,6 +22,7 @@ public class DefectAttachment extends Attachment {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if(this.hashCode() != o.hashCode()) return false;
         DefectAttachment defectAttachment = (DefectAttachment) o;
         return linkId == defectAttachment.linkId;
     }
