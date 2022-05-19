@@ -28,6 +28,6 @@ public class CommentAttachment extends Attachment {
 
     @Override
     public int hashCode() {
-        return (getComment() == null) ? 0 : Objects.hash(getComment());
+        return Objects.hash(getComment());
     }
 }

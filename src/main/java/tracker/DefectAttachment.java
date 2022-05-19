@@ -28,6 +28,6 @@ public class DefectAttachment extends Attachment {
 
     @Override
     public int hashCode() {
-        return (getId() == 0 ? 0 : Objects.hash(getId()));
+        return Objects.hash(getId());
     }
 }
