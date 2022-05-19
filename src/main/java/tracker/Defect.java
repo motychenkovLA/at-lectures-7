@@ -1,5 +1,7 @@
 package tracker;
 
+import java.util.Objects;
+
 public class Defect {
     private final long ID;
     private final int WEEK = 5;
@@ -16,6 +18,7 @@ public class Defect {
         this.countDay = countDay;
         this.status = Status.OPEN;
         this.ID = numberDefects++;
+        super.toString();
     }
 
     public Defect(String summary, Criticality criticality, int countDay, Attachment attachment) {
@@ -36,6 +39,25 @@ public class Defect {
                     "\nИсправление займет больше рабочей недели = "+(countDay > WEEK)+"\nСтатус = "+status.getTranslation()+"\n":
                 "Defect:"+"\nid = "+ ID +"\nРезюме = "+summary+"\nКритичность = "+criticality.getName()+"\ncountDay = "+countDay+
                "\nИсправление займет больше рабочей недели = "+(countDay > WEEK)+"\nСтатус = "+status.getTranslation()+"\n"+attachment;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(o == null || this.getClass() != o.getClass()) return false;
+        Defect defect = (Defect) o;
+        if(this.hashCode() != o.hashCode()) return false;
+        return this.ID == defect.ID &&
+                this.countDay == defect.countDay &&
+                this.summary.equals(defect.summary) &&
+                this.status.equals(defect.status) &&
+                this.criticality.equals(defect.criticality) &&
+                this.attachment.equals(defect.attachment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID, summary, countDay, criticality, attachment, status);
     }
 }
 

@@ -30,4 +30,5 @@ public class Repository {
         Defect[] copyListDefect = Arrays.copyOf(listDefect, counterArray);
         return copyListDefect;
     }
+    
 }
