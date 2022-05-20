@@ -1,34 +1,19 @@
 package tracker;
 
-import java.util.Arrays;
+import java.util.HashMap;
 
 public class Repository {
-    private Defect[]listDefect;
-    private int counterArray = 0;
 
-    public Repository(int length) {
-        listDefect = new Defect[length];
-    }
-
-    public boolean isExamination() {
-        if(counterArray >= listDefect.length) {
-            return true;
-        }
-        return false;
-    }
+    private HashMap <Long, Defect> listDefect = new HashMap<>();
 
     public void addDef(Defect defect) {
-        listDefect[counterArray] = defect;
-        counterArray++;
+        listDefect.put(defect.getID(), defect);
     }
 
-    public int getCounterArray() {
-        return counterArray;
+    public HashMap<Long, Defect> getAll() {
+        return listDefect;
     }
 
-    public Defect[] getAll() {
-        Defect[] copyListDefect = Arrays.copyOf(listDefect, counterArray);
-        return copyListDefect;
-    }
-    
+
+
 }

@@ -1,10 +1,10 @@
 package tracker;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Tracker {
     public static void main(String[] args) {
-        Repository repository = new Repository(10);
+        Repository repository = new Repository();
         try (Scanner sc = new Scanner(System.in)) {
 
             while (true) {
@@ -21,10 +21,9 @@ public class Tracker {
                         System.out.println();
                         break;
                     case "list":
-                        for (int i = 0; i < repository.getCounterArray(); i++) {
-                            System.out.println(repository.getAll()[i]);
+                        for (HashMap.Entry<Long, Defect> entry :repository.getAll().entrySet())
+                            System.out.println(entry.getValue());
                             System.out.println("________________________");
-                        }
                         break;
                     case "quit":
                         System.out.println("Выход из системы");
@@ -39,10 +38,6 @@ public class Tracker {
     }
 
     public static void addDefect(Scanner scanner, Repository repository) {
-        if (repository.isExamination()) {
-            System.out.println("Обращение к индексу больше размера массива, в массиве нет свободного места");
-            return;
-        }
 
         System.out.println("Введите резюме дефекта");
         String summary = scanner.nextLine();
@@ -103,25 +98,32 @@ public class Tracker {
     }
 
     public static void changeStatus(Scanner scanner, Repository repository) {
+        HashSet <Transition> hashSet = new HashSet<>();
+        Collections.addAll(hashSet, new Transition(Status.OPEN, Status.IN_PROCESS),
+                new Transition(Status.OPEN, Status.TEST), new Transition(Status.IN_PROCESS, Status.TEST),
+                new Transition(Status.IN_PROCESS, Status.CLOSE), new Transition(Status.TEST, Status.DONE),
+                new Transition(Status.TEST, Status.DONE), new Transition(Status.TEST, Status.CLOSE));
+
         System.out.println("Введите ID дефекта у которого нужно изменить статус");
-        int idDefect = scanner.nextInt();
+        Defect defect = repository.getAll().get(scanner.nextLong());
+        System.out.println(defect);
         scanner.nextLine();
-        for (Defect repo :repository.getAll()) {
-            if (repo.getID() == idDefect) {
-                System.out.println("Выберите статус из списка: \n\"open\", \"in process\", \"test\", \"close\", \"done\"");
-                Status status = null;
-                while (status == null) {
-                    try {
-                        status = Status.valueOf(scanner.nextLine().toUpperCase());
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("Введен несуществующий статус, используйте значение из списка");
-                    }
-                }
-                repo.setStatus(status);
-            } else {
-                System.out.println("Введен несуществующий ID, используйте дефекты которые есть в БД");
+
+        System.out.println("Выберите статус из списка: \n\"open\", \"in_process\", \"test\", \"close\", \"done\"");
+        Status to;
+        while (true) {
+            try {
+                to = Status.valueOf(scanner.nextLine().toUpperCase());
                 break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Введен несуществующий статус, используйте значение из списка");
             }
+        }
+
+        if (hashSet.contains(new Transition(defect.getStatus(), to))) {
+                defect.setStatus(to);
+        } else {
+            System.out.println("Невалидное перемещение");
         }
     }
 }
