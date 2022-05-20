@@ -1,5 +1,6 @@
 package tracker;
 
+// todo 0 - лишний импорт
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -130,7 +131,7 @@ public class Main {
     }
 
     private static void changeStatus(Scanner scanner, Repository repository) {
-        long changeId = 0;
+        long changeId = 0; // todo 3 - а вдруг существует дефект с id 0 ?
         while (repository.getById(changeId) == null) {
             System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
             try {
@@ -158,7 +159,7 @@ public class Main {
                 System.out.println("Введенный статус отсутствует в списке. Введите еще раз.");
             }
         }
-        repository.getById((int) changeId).setStatus(status);
+        repository.getById((int) changeId).setStatus(status); // todo 1 - changeId преобразуется в int хотя метод принимает long
     }
 }
 
