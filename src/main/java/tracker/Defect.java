@@ -21,6 +21,10 @@ public class Defect {
         counter++;
     }
 
+    public long getId() {
+        return id;
+    }
+
     public void setStatus(Status status) {
         this.status = status;
     }

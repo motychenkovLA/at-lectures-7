@@ -6,6 +6,7 @@ public class Repository {
     private int counter = 1;
 
     public Repository(int maxOfDefect) {
+
         massivDefects = new Defect[maxOfDefect];
     }
 
@@ -27,10 +28,17 @@ public class Repository {
         return newMassiv;
     }
 
-    // todo 5 - возвращает не по id а по индексу в массиве,
-    //   индекс в массиве вообще не обязательно совпадает с id, никаких гарантий нету
-    public Defect getById(int id) {
-        return massivDefects[id];
+    public Defect getById(long id) {
+        for (int i = 0; i < counter; i++) {
+            Defect d = massivDefects[i];
+            if (d == null) {
+                continue;
+            }
+            if (d.getId() == id) {
+                return d;
+            }
+        }
+        return null;
     }
 }
 

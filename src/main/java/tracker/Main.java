@@ -1,8 +1,5 @@
 package tracker;
 
-// todo 0 - не используемые импорты
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -54,7 +51,30 @@ public class Main {
         System.out.println("Введите описание дефекта");
         String description = scanner.nextLine();
 
-        // todo 1 - ввод критичности довольно большой теперь лучше вынести в отдельный метод как с аттачментом
+        Severity severity = createSeverity(scanner);
+
+        int amountOfDays = createAmountOfDays(scanner);
+
+        Attachment attachment = createAttachment(scanner);
+
+        Defect defect = new Defect(description, severity, amountOfDays, attachment);
+        repository.add(defect);
+    }
+
+    private static int createAmountOfDays(Scanner scanner) {
+        System.out.println("Дни на исправление дефекта:");
+        int amountOfDays = 0;
+        while (amountOfDays <= 0) {
+            try {
+                amountOfDays = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Вводимое значение должно быть числом. Введите еще раз.");
+            }
+        }
+        return amountOfDays;
+    }
+
+    private static Severity createSeverity(Scanner scanner) {
         System.out.println("Введите критичность дефекта из списка: \n");
         Severity[] values = Severity.values();
         Severity severity = null;
@@ -69,22 +89,7 @@ public class Main {
                 System.out.println("Введенная критичность отсутствует в списке. Введите еще раз.");
             }
         }
-
-        // todo 1 - ввод дней тоже довольно большой теперь, лучше вынести в метод
-        System.out.println("Дни на исправление дефекта:");
-        int amountOfDays = 0;
-        while (amountOfDays <= 0) {
-            try {
-                amountOfDays = Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Вводимое значение должно быть числом. Введите еще раз.");
-            }
-        }
-
-        Attachment attachment = createAttachment(scanner);
-
-        Defect defect = new Defect(description, severity, amountOfDays, attachment);
-        repository.add(defect);
+        return severity;
     }
 
     private static Attachment createAttachment(Scanner scanner) {
@@ -99,11 +104,17 @@ public class Main {
             switch (attachment) {
                 case "linkId":
                     System.out.println("Введите id дефекта");
-                    long linkId = scanner.nextLong(); // todo 3 - может упасть на неформатном числе
-                    scanner.nextLine();
-                    result = new DefectAttachment(linkId);
+                    long linkId = 0;
+                    while (true) {
+                        try {
+                            linkId = Long.parseLong(scanner.nextLine());
+                            result = new DefectAttachment(linkId);
+                            break;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Не верный формат. Введите еще раз.");
+                        }
+                    }
                     break;
-
                 case "comment":
                     System.out.println("Введите комментарий к дефекту");
                     String comment = scanner.nextLine();
@@ -119,11 +130,19 @@ public class Main {
     }
 
     private static void changeStatus(Scanner scanner, Repository repository) {
-        System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
-        long changeId = scanner.nextLong(); // todo 3 - может упасть на неформатном лонге
-        scanner.nextLine();
+        long changeId = 0;
+        while (repository.getById(changeId) == null) {
+            System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
+            try {
+                changeId = Long.parseLong(scanner.nextLine());
+                if (repository.getById(changeId) == null) {
+                    System.out.println("Дефекта с таким id не существует");
+                }
 
-        // todo 3 - уже есть id, лучше сразу проверить вдруг он не валидный и не просить новый статус тогда
+            } catch (NumberFormatException e) {
+                System.out.println("Не верный формат. Введите еще раз.");
+            }
+        }
 
         System.out.println("Изменить статус дефекта на:\n ");
         Status[] values = Status.values();
@@ -139,7 +158,6 @@ public class Main {
                 System.out.println("Введенный статус отсутствует в списке. Введите еще раз.");
             }
         }
-
         repository.getById((int) changeId).setStatus(status);
     }
 }
