@@ -3,7 +3,7 @@ package tracker;
 public class Repository {
 
     private final Defect[] massivDefects;
-    private int counter = 1; // todo 5 - дефекты записываются с 1 индекса, в 0 всегда лежит null
+    private int counter = 0;
 
     public Repository(int maxOfDefect) {
 
@@ -31,9 +31,6 @@ public class Repository {
     public Defect getById(long id) {
         for (int i = 0; i < counter; i++) {
             Defect d = massivDefects[i];
-            if (d == null) { // todo 1 - раз перебираем до counter можно не проверять на null, дефект наверняка есть
-                continue;
-            }
             if (d.getId() == id) {
                 return d;
             }

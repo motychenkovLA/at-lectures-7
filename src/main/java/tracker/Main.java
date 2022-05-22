@@ -1,7 +1,5 @@
 package tracker;
 
-// todo 0 - лишний импорт
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -131,35 +129,35 @@ public class Main {
     }
 
     private static void changeStatus(Scanner scanner, Repository repository) {
-        long changeId = 0; // todo 3 - а вдруг существует дефект с id 0 ?
-        while (repository.getById(changeId) == null) {
-            System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
+        while (true) {
             try {
-                changeId = Long.parseLong(scanner.nextLine());
+                System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
+                long changeId = Long.parseLong(scanner.nextLine());
                 if (repository.getById(changeId) == null) {
                     System.out.println("Дефекта с таким id не существует");
+                    continue;
                 }
+                System.out.println("Изменить статус дефекта на:\n ");
+                Status[] values = Status.values();
+                Status status = null;
 
+                while (status == null) {
+                    for (Status value : values) {
+                        System.out.println(value);
+                    }
+                    try {
+                        status = Status.valueOf(scanner.nextLine());
+
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Введенный статус отсутствует в списке. Введите еще раз.");
+                    }
+                }
+                repository.getById(changeId).setStatus(status);
             } catch (NumberFormatException e) {
-                System.out.println("Не верный формат. Введите еще раз.");
+                System.out.println("Не верный формат.");
             }
+            break;
         }
-
-        System.out.println("Изменить статус дефекта на:\n ");
-        Status[] values = Status.values();
-        Status status = null;
-
-        while (status == null) {
-            for (Status value : values) {
-                System.out.println(value);
-            }
-            try {
-                status = Status.valueOf(scanner.nextLine());
-            } catch (IllegalArgumentException e) {
-                System.out.println("Введенный статус отсутствует в списке. Введите еще раз.");
-            }
-        }
-        repository.getById((int) changeId).setStatus(status); // todo 1 - changeId преобразуется в int хотя метод принимает long
     }
 }
 
