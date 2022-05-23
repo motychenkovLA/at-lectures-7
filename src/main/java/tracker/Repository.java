@@ -1,16 +1,17 @@
 package tracker;
 
-import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Repository {
 
-    private HashMap <Long, Defect> listDefect = new HashMap<>();
+    private Map<Long, Defect> listDefect = new TreeMap<>();
 
     public void addDef(Defect defect) {
         listDefect.put(defect.getID(), defect);
     }
 
-    public HashMap<Long, Defect> getAll() {
+    public Map<Long, Defect> getAll() {
         return listDefect;
     }
 

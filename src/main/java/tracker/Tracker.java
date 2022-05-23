@@ -98,15 +98,14 @@ public class Tracker {
     }
 
     public static void changeStatus(Scanner scanner, Repository repository) {
-        HashSet <Transition> hashSet = new HashSet<>();
-        Collections.addAll(hashSet, new Transition(Status.OPEN, Status.IN_PROCESS),
+        Set <Transition> set = new LinkedHashSet<>();
+        Collections.addAll(set, new Transition(Status.OPEN, Status.IN_PROCESS),
                 new Transition(Status.OPEN, Status.TEST), new Transition(Status.IN_PROCESS, Status.TEST),
                 new Transition(Status.IN_PROCESS, Status.CLOSE), new Transition(Status.TEST, Status.DONE),
                 new Transition(Status.TEST, Status.DONE), new Transition(Status.TEST, Status.CLOSE));
 
         System.out.println("Введите ID дефекта у которого нужно изменить статус");
         Defect defect = repository.getAll().get(scanner.nextLong());
-        System.out.println(defect);
         scanner.nextLine();
 
         System.out.println("Выберите статус из списка: \n\"open\", \"in_process\", \"test\", \"close\", \"done\"");
@@ -120,7 +119,7 @@ public class Tracker {
             }
         }
 
-        if (hashSet.contains(new Transition(defect.getStatus(), to))) {
+        if (set.contains(new Transition(defect.getStatus(), to))) {
                 defect.setStatus(to);
         } else {
             System.out.println("Невалидное перемещение");

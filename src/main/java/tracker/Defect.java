@@ -18,7 +18,6 @@ public class Defect {
         this.countDay = countDay;
         this.status = Status.OPEN;
         this.ID = numberDefects++;
-        super.toString();
     }
 
     public Defect(String summary, Criticality criticality, int countDay, Attachment attachment) {
