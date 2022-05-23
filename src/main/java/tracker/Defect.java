@@ -1,33 +1,64 @@
 package tracker;
 
+import java.util.Objects;
+
 public class Defect {
-    private final long id;
-    private String name;
-    private Severity severity;
+    private final long ID;
+    private String summary;
     private int countDay;
-    private static long counter = 1;
+    private Severity severity;
     private Attachment attachment;
     private Status status;
+    private static long numberDefects = 1;
 
-    public Defect(String name, Severity severity, int countDay, Attachment attachment) {
-        this.name = name;
+
+    public Defect(String summary, Severity severity, int countDay) {
+        this.summary = summary;
         this.severity = severity;
         this.countDay = countDay;
-        this.id = counter;
-        this.attachment = attachment;
         this.status = Status.OPEN;
-        counter++;
+        this.ID = numberDefects++;
     }
-    public long getId() {
-        return id;
+
+    public Defect(String summary, Severity severity, int countDay, Attachment attachment) {
+        this(summary, severity, countDay);
+        this.attachment = attachment;
     }
+
+        public long getID() {
+            return ID;
+        }
+
     public void setStatus(Status status) {
         this.status = status;
     }
 
     public String toString() {
-        return "Номер дефекта: " + id + ", Название: " + name + ", Критичность: "
-                + severity + ", Кол-во дней: " + countDay + " , " + attachment.asString() + ", Статус " +
-                status.getRuName();
+        return attachment == null ? "Defect:"+"\nНомер дефекта: "+ ID +"\nНазвание = "+summary+
+                "\nКритичность = "+severity.getName()+"\nКол-во дней = "+countDay+
+                "\nСтатус = "+status.getRuName()+"\n":
+                "Defect:"+"\nНомер дефекта = "+ ID +"\nНазвание = "+summary+
+                        "\nКритичность = "+severity.getName()+"\nКол-во дней = "+countDay+
+                        "\nСтатус = "+status.getRuName()+"\n"+attachment;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || this.getClass() != o.getClass()) return false;
+        Defect defect = (Defect) o;
+        if(this.hashCode() != o.hashCode()) return false;
+        return this.ID == defect.ID &&
+                this.countDay == defect.countDay &&
+                this.summary.equals(defect.summary) &&
+                this.severity.equals(defect.severity) &&
+                this.attachment.equals(defect.attachment) &&
+                this.status.equals(defect.status);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID, summary, countDay, severity, attachment, status);
+    }
+
 }

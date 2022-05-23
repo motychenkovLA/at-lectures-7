@@ -1,5 +1,7 @@
 package tracker;
 
+import java.util.Objects;
+
 public class CommentAttachment extends Attachment {
     private final String comment;
 
@@ -7,7 +9,26 @@ public class CommentAttachment extends Attachment {
         this.comment = comment;
     }
 
-    public String asString() {
+    public String getComment() {
+        return comment;
+    }
+
+    @Override
+    public String toString() {
         return "Комментарий: " + comment;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o == null || this.getClass() != o.getClass()) return false;
+        if(this == o) return true;
+        if(this.hashCode() != o.hashCode()) return false;
+        CommentAttachment commentAttachment = (CommentAttachment) o;
+        return this.comment.equals(commentAttachment.getComment());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getComment());
     }
 }

@@ -1,9 +1,19 @@
 package tracker;
 
 public enum Severity {
-    BLOCKER,
-    CRITICAL,
-    MAJOR,
-    MINOR,
-    TRIVIAL
+    TRIVIAL("trivial"),
+    MINOR("minor"),
+    MAJOR("major"),
+    CRITICAL("critical"),
+    BLOCKER("blocker");
+
+    private String name;
+
+    Severity(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
