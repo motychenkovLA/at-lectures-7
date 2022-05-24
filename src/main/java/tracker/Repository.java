@@ -1,41 +1,21 @@
 package tracker;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Repository {
 
-    private final Defect[] massivDefects;
-    private int counter = 0;
-
-    public Repository(int maxOfDefect) {
-
-        massivDefects = new Defect[maxOfDefect];
-    }
+    private Map<Long, Defect> listDefect = new HashMap<>();
 
     public void add(Defect defect) {
-        this.massivDefects[counter] = defect;
-        counter++;
+        listDefect.put(defect.getId(), defect);
     }
 
-    public boolean isFull() {
-        boolean full = counter >= massivDefects.length;
-        return full;
-    }
-
-    public Defect[] getAll() {
-        Defect[] newMassiv = new Defect[counter];
-        for (int i = 0; i < counter; i++) {
-            newMassiv[i] = massivDefects[i];
-        }
-        return newMassiv;
+    public Map<Long, Defect> getAll() {
+        return listDefect;
     }
 
     public Defect getById(long id) {
-        for (int i = 0; i < counter; i++) {
-            Defect d = massivDefects[i];
-            if (d.getId() == id) {
-                return d;
-            }
-        }
-        return null;
+        return listDefect.get(id);
     }
 }
-

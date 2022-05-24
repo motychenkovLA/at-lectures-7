@@ -1,5 +1,6 @@
 package tracker;
 
+import java.util.Map;
 import java.util.Objects;
 
 public class Defect {
@@ -21,11 +22,16 @@ public class Defect {
         counter++;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     public long getId() {
         return id;
     }
 
     public void setStatus(Status status) {
+
         this.status = status;
     }
 
@@ -34,6 +40,7 @@ public class Defect {
                 + severity + ", Кол-во дней: " + amountOfDays + " , " + attachment.asString() + " , Статус " +
                 status.getRuName();
     }
+
 
     @Override
     public boolean equals(Object o) {
