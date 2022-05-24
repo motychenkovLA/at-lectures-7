@@ -1,19 +1,20 @@
 package tracker;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        Repository repository = new Repository(10);
+        Repository repository = new Repository();
         try (Scanner scanner = new Scanner(System.in)) {
+
             while (true) {
                 System.out.println("Выберите действие:\n" + "Добавить новый дефект - add,\n" +
                         "Изменить статус дефекта - change,\n" + "Вывести список - list,\n" +
                         "Выйти из программы - quit");
-                String operation = scanner.nextLine();
+                System.out.println();
 
-                switch (operation) {
+                switch (scanner.nextLine()) {
                     case "add":
                         addDefect(scanner, repository);
                         System.out.println();
@@ -25,8 +26,8 @@ public class Main {
                         break;
 
                     case "list":
-                        for (Defect i : repository.getAll()) {
-                            System.out.println(i);
+                        for (HashMap.Entry<Long, Defect> entry : repository.getAll().entrySet()) {
+                            System.out.println(entry.getValue());
                             System.out.println("_____________________________________________________________________");
                         }
                         break;
@@ -45,10 +46,6 @@ public class Main {
     }
 
     public static void addDefect(Scanner scanner, Repository repository) {
-        if (repository.isFull()) {
-            System.out.println("Размер дефектов превышен");
-            return;
-        }
 
         System.out.println("Введите название дефекта");
         String summary = scanner.nextLine();
@@ -104,7 +101,6 @@ public class Main {
             String attachment = scanner.nextLine();
 
             switch (attachment) {
-
                 case "linkId":
                     System.out.println("Введите id дефекта");
                     long linkId = 0;
@@ -131,36 +127,55 @@ public class Main {
         }
         return result;
     }
+
     public static void changeStatus(Scanner scanner, Repository repository) {
         while (true) {
+            Set<Transition> set = new LinkedHashSet<>();
+            Collections.addAll(set, new Transition(Status.OPEN, Status.IN_PROGRESS),
+                    new Transition(Status.OPEN, Status.READY_FOR_TESTING),
+                    new Transition(Status.IN_PROGRESS, Status.READY_FOR_TESTING),
+                    new Transition(Status.IN_PROGRESS, Status.CLOSED),
+                    new Transition(Status.READY_FOR_TESTING, Status.TESTING),
+                    new Transition(Status.TESTING, Status.DONE),
+                    new Transition(Status.IN_PROGRESS, Status.CLOSED));
+
             try {
                 System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
                 long changeId = Long.parseLong(scanner.nextLine());
+                Defect defect = repository.getAll().get(scanner.nextLong());
+
                 if (repository.getById(changeId) == null) {
                     System.out.println("Дефекта с таким id не существует");
                     continue;
                 }
+
                 System.out.println("Изменить статус дефекта на:\n ");
                 Status[] values = Status.values();
                 Status status = null;
+                Status to;
 
-                while (status == null) {
+                while (true) {
                     for (Status value : values) {
                         System.out.println(value);
                     }
                     try {
-                        status = Status.valueOf(scanner.nextLine());
-
+                        to = Status.valueOf(scanner.nextLine());
+                        break;
                     } catch (IllegalArgumentException e) {
                         System.out.println("Введенный статус отсутствует в списке. Введите еще раз.");
                     }
                 }
-                repository.getById(changeId).setStatus(status);
+                if (set.contains(new Transition(defect.getStatus(), to))) {
+                    defect.setStatus(to);
+                } else {
+                    System.out.println("Переход в этот статус невозможен");
+                    System.out.println("\n");
+                }
+                break;
             } catch (NumberFormatException e) {
                 System.out.println("Не верный формат.");
             }
             break;
-
         }
     }
 }

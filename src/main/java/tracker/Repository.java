@@ -1,39 +1,22 @@
 package tracker;
 
-public class Repository {
-    private final Defect[] listDefect;
-    private int capacity = 0;
+import java.util.Map;
+import java.util.TreeMap;
 
-    public Repository(int size) {
-        listDefect = new Defect[size];
-    }
+public class Repository {
+
+    private final Map<Long, Defect> listDefect = new TreeMap<>();
 
     public void add(Defect defect) {
-        this.listDefect[capacity] = defect;
-        capacity++;
+        listDefect.put(defect.getID(), defect);
     }
 
-    public boolean isFull() {
-        boolean full = capacity >= listDefect.length;
-        return full;
-    }
-
-    public Defect[] getAll() {
-
-        Defect[] copyListDefect = new Defect[capacity];
-        for (int i = 0; i < capacity; i++) {
-            copyListDefect[i] = listDefect[i];
-        }
-        return copyListDefect;
+    public Map<Long, Defect> getAll() {
+        return listDefect;
     }
 
     public Defect getById(long id) {
-        for (int i = 0; i < capacity; i++) {
-            Defect d = listDefect[i];
-            if (d.getID() == id) {
-                return d;
-            }
-        }
-        return null;
+        return listDefect.get(id);
     }
+
 }

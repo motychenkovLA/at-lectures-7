@@ -25,6 +25,10 @@ public class Defect {
         this.attachment = attachment;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     public long getID() {
         return id;
     }
