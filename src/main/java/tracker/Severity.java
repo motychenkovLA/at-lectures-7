@@ -8,9 +8,10 @@ public enum Severity {
     MINOR("Незначительный"),
     TRIVIAL("Тривиальный");
 
-    String ruName;
+    final String ruName;
 
     Severity(String ruName) {
         this.ruName = ruName;
     }
+
 }
