@@ -3,7 +3,7 @@ package tracker;
 import java.util.Objects;
 
 public class Defect {
-    private final long ID; // todo 1 - обычное поле почему-то капсом
+    private final long id;
     private String summary;
     private int countDay;
     private Severity severity;
@@ -17,7 +17,7 @@ public class Defect {
         this.severity = severity;
         this.countDay = countDay;
         this.status = Status.OPEN;
-        this.ID = numberDefects++;
+        this.id = numberDefects++;
     }
 
     public Defect(String summary, Severity severity, int countDay, Attachment attachment) {
@@ -26,7 +26,7 @@ public class Defect {
     }
 
     public long getID() {
-        return ID;
+        return id;
     }
 
     public void setStatus(Status status) {
@@ -34,10 +34,10 @@ public class Defect {
     }
 
     public String toString() {
-        return attachment == null ? "Defect:"+"\nНомер дефекта: "+ ID +"\nНазвание = "+summary+
+        return attachment == null ? "Defect:"+"\nНомер дефекта: "+ id +"\nНазвание = "+summary+
                 "\nКритичность = "+severity.getName()+"\nКол-во дней = "+countDay+
                 "\nСтатус = "+status.getRuName()+"\n":
-                "Defect:"+"\nНомер дефекта = "+ ID +"\nНазвание = "+summary+
+                "Defect:"+"\nНомер дефекта = "+ id +"\nНазвание = "+summary+
                         "\nКритичность = "+severity.getName()+"\nКол-во дней = "+countDay+
                         "\nСтатус = "+status.getRuName()+"\n"+attachment;
     }
@@ -47,8 +47,7 @@ public class Defect {
         if (this == o) return true;
         if (o == null || this.getClass() != o.getClass()) return false;
         Defect defect = (Defect) o;
-        if(this.hashCode() != o.hashCode()) return false; // todo 1 - лишняя проверка
-        return this.ID == defect.ID &&
+        return this.id == defect.id &&
                 this.countDay == defect.countDay &&
                 this.summary.equals(defect.summary) &&
                 this.severity.equals(defect.severity) &&
@@ -58,7 +57,7 @@ public class Defect {
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, summary, countDay, severity, attachment, status);
+        return Objects.hash(id, summary, countDay, severity, attachment, status);
     }
 
 }

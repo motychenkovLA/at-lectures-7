@@ -10,11 +10,11 @@ public enum Status {
 
     private final String ruName;
 
-    Status(String ruName) {
-        this.ruName = ruName;
-    }
-
     public String getRuName() {
         return ruName;
+    }
+
+    Status(String ruName) {
+        this.ruName = ruName;
     }
 }

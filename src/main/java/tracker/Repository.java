@@ -1,34 +1,39 @@
 package tracker;
 
-import java.util.Arrays;
-
 public class Repository {
-    private Defect[] listDefect;
+    private final Defect[] listDefect;
     private int capacity = 0;
 
     public Repository(int size) {
         listDefect = new Defect[size];
     }
 
-    public boolean isFull() {
-        // todo 3 - if (true) { return true; } else { return false; } зачем? почему сразу не вернуть?
-        if(capacity >= listDefect.length) {
-            return true;
-        }
-        return false;
-    }
-
     public void add(Defect defect) {
-        listDefect[capacity] = defect;
+        this.listDefect[capacity] = defect;
         capacity++;
     }
 
-    public int getCapacity() {
-        return capacity;
+    public boolean isFull() {
+        boolean full = capacity >= listDefect.length;
+        return full;
     }
 
     public Defect[] getAll() {
-        Defect[] copyListDefect = Arrays.copyOf(listDefect, capacity);
+
+        Defect[] copyListDefect = new Defect[capacity];
+        for (int i = 0; i < capacity; i++) {
+            copyListDefect[i] = listDefect[i];
+        }
         return copyListDefect;
+    }
+
+    public Defect getById(long id) {
+        for (int i = 0; i < capacity; i++) {
+            Defect d = listDefect[i];
+            if (d.getID() == id) {
+                return d;
+            }
+        }
+        return null;
     }
 }

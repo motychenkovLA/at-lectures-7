@@ -25,8 +25,8 @@ public class Main {
                         break;
 
                     case "list":
-                        for (int i = 0; i < repository.getCapacity(); i++) { // todo 3 - getAll вызывается миллион раз
-                            System.out.println(repository.getAll()[i]);
+                        for (Defect i : repository.getAll()) {
+                            System.out.println(i);
                             System.out.println("_____________________________________________________________________");
                         }
                         break;
@@ -51,87 +51,116 @@ public class Main {
         }
 
         System.out.println("Введите название дефекта");
-        String name = scanner.nextLine();
+        String summary = scanner.nextLine();
 
-        System.out.println("Введите критичность дефекта из списка:"
-                + "\n\"trivial\", \"minor\", \"major\", \"critical\", \"blocker\""); // todo 3 - список вариантов хард кодом
-        Severity severity = null;
-        while (severity == null) {
-            try {
-                severity = Severity.valueOf(scanner.nextLine().toUpperCase());
-            } catch (IllegalArgumentException e) {
-                System.out.println("Введена несуществующая критичность, используйте значение из списка");
-            }
-        }
+        Severity severity = createSeverity(scanner);
 
-        System.out.println("Введите ожидаемое кол-во дней на исправление дефекта");
+        int amountOfDays = createCountDay(scanner);
+
+        Attachment attachment = createAttachment(scanner);
+
+        Defect defect = new Defect(summary, severity, amountOfDays, attachment);
+        repository.add(defect);
+    }
+
+    private static int createCountDay(Scanner scanner) {
+        System.out.println("Дни на исправление дефекта:");
         int countDay = 0;
-        while (countDay == 0) {
+        while (countDay <= 0) {
             try {
                 countDay = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Некорректный формат данных, введите целое число");
+                System.out.println("Вводимое значение должно быть числом. Введите еще раз.");
             }
         }
-        if (countDay <= 0) { // todo 3 - почему тогда в цикл не внести это?
-            countDay = 1;
-        }
+        return countDay;
+    }
 
-        System.out.println("Хотите добавить вложение Y, да/N, нет?");
-        String choice = scanner.nextLine();
-        if (choice.equals("N")) {
-            Defect defect = new Defect(name, severity, countDay);
-            repository.add(defect);
+    private static Severity createSeverity(Scanner scanner) {
+        System.out.println("Введите критичность дефекта из списка: \n");
+        Severity[] values = Severity.values();
+        Severity severity = null;
+
+        while (severity == null) {
+            for (Severity value : values) {
+                System.out.println(value);
+            }
+            try {
+                severity = Severity.valueOf(scanner.nextLine());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Введенная критичность отсутствует в списке. Введите еще раз.");
+            }
         }
-        if (choice.equals("Y")) {
-            System.out.println("Введите тип вложения из списка: " +
-                    "\n\"comment\" - комментарий к дефекту или \"link\" - ссылка к дефекту");
+        return severity;
+    }
+
+    private static Attachment createAttachment(Scanner scanner) {
+        Attachment result = null;
+
+        while (result == null) {
+            System.out.println("Выберите тип вложения:\n" +
+                    "-comment\n" +
+                    "-linkId\n");
             String attachment = scanner.nextLine();
 
             switch (attachment) {
+
                 case "linkId":
                     System.out.println("Введите id дефекта");
-                    DefectAttachment defectAttachment = new DefectAttachment(scanner.nextInt()); // todo 5 - упадет на кривом числе
-                    scanner.nextLine();
-                    Defect defect = new Defect(name, severity, countDay, defectAttachment);
-                    repository.add(defect);
+                    long linkId = 0;
+                    while (true) {
+                        try {
+                            linkId = Long.parseLong(scanner.nextLine());
+                            result = new DefectAttachment(linkId);
+                            break;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Не верный формат. Введите еще раз.");
+                        }
+                    }
                     break;
                 case "comment":
                     System.out.println("Введите комментарий к дефекту");
-                    CommentAttachment commentAttachment = new CommentAttachment(scanner.nextLine());
-                    defect = new Defect(name, severity, countDay, commentAttachment);
-                    repository.add(defect);
+                    String comment = scanner.nextLine();
+                    result = new CommentAttachment(comment);
                     break;
+
                 default:
-                    System.out.println("Введена не существующая операция, по умолчанию вложения не будет");
-                    defect = new Defect(name, severity, countDay);
-                    repository.add(defect);
+                    System.out.println("Такого типа вложения не существует\n");
                     break;
             }
         }
-        // todo 3 - если выбрано не N и не Y, все данные просто выкидываются
+        return result;
     }
     public static void changeStatus(Scanner scanner, Repository repository) {
-        System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
-        int idDefect = scanner.nextInt(); // todo 5 - упадет на кривом числе
-        scanner.nextLine();
-        for (Defect repo :repository.getAll()) { // todo 3 - за поиск дефект почему-то отвечает мейн, а не репо
-            if (repo.getID() == idDefect) {
-                System.out.println("Выберите статус из списка: " +
-                        "\n\"open\", \"in process\", \"test\", \"close\", \"done\""); // todo 3 - список вариантов хард кодом
+        while (true) {
+            try {
+                System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
+                long changeId = Long.parseLong(scanner.nextLine());
+                if (repository.getById(changeId) == null) {
+                    System.out.println("Дефекта с таким id не существует");
+                    continue;
+                }
+                System.out.println("Изменить статус дефекта на:\n ");
+                Status[] values = Status.values();
                 Status status = null;
+
                 while (status == null) {
+                    for (Status value : values) {
+                        System.out.println(value);
+                    }
                     try {
-                        status = Status.valueOf(scanner.nextLine().toUpperCase());
+                        status = Status.valueOf(scanner.nextLine());
+
                     } catch (IllegalArgumentException e) {
-                        System.out.println("Введен несуществующий статус, используйте значение из списка");
+                        System.out.println("Введенный статус отсутствует в списке. Введите еще раз.");
                     }
                 }
-                repo.setStatus(status);
-            } else {
-                System.out.println("Введен несуществующий ID, используйте дефекты которые есть в БД"); // todo 5 - работать не будет, логика не верная
-                break;
+                repository.getById(changeId).setStatus(status);
+            } catch (NumberFormatException e) {
+                System.out.println("Не верный формат.");
             }
+            break;
+
         }
     }
 }

@@ -3,13 +3,13 @@ package tracker;
 import java.util.Objects;
 
 public class DefectAttachment extends Attachment {
-    private int linkId; // todo 3 - можно зафиналить
+    private final long linkId;
 
-    public DefectAttachment(int linkId) {
+    public DefectAttachment(long linkId) {
         this.linkId = linkId;
     }
 
-    public int getId() {
+    public long getId() {
         return linkId;
     }
 
@@ -22,7 +22,6 @@ public class DefectAttachment extends Attachment {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if(this.hashCode() != o.hashCode()) return false; // todo 1 - лишняя проверка
         DefectAttachment defectAttachment = (DefectAttachment) o;
         return linkId == defectAttachment.linkId;
     }
