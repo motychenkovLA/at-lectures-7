@@ -25,7 +25,7 @@ public class Main {
                         break;
 
                     case "list":
-                        for (int i = 0; i < repository.getCapacity(); i++) {
+                        for (int i = 0; i < repository.getCapacity(); i++) { // todo 3 - getAll вызывается миллион раз
                             System.out.println(repository.getAll()[i]);
                             System.out.println("_____________________________________________________________________");
                         }
@@ -54,7 +54,7 @@ public class Main {
         String name = scanner.nextLine();
 
         System.out.println("Введите критичность дефекта из списка:"
-                + "\n\"trivial\", \"minor\", \"major\", \"critical\", \"blocker\"");
+                + "\n\"trivial\", \"minor\", \"major\", \"critical\", \"blocker\""); // todo 3 - список вариантов хард кодом
         Severity severity = null;
         while (severity == null) {
             try {
@@ -73,7 +73,7 @@ public class Main {
                 System.out.println("Некорректный формат данных, введите целое число");
             }
         }
-        if (countDay <= 0) {
+        if (countDay <= 0) { // todo 3 - почему тогда в цикл не внести это?
             countDay = 1;
         }
 
@@ -91,7 +91,7 @@ public class Main {
             switch (attachment) {
                 case "linkId":
                     System.out.println("Введите id дефекта");
-                    DefectAttachment defectAttachment = new DefectAttachment(scanner.nextInt());
+                    DefectAttachment defectAttachment = new DefectAttachment(scanner.nextInt()); // todo 5 - упадет на кривом числе
                     scanner.nextLine();
                     Defect defect = new Defect(name, severity, countDay, defectAttachment);
                     repository.add(defect);
@@ -109,15 +109,16 @@ public class Main {
                     break;
             }
         }
+        // todo 3 - если выбрано не N и не Y, все данные просто выкидываются
     }
     public static void changeStatus(Scanner scanner, Repository repository) {
         System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
-        int idDefect = scanner.nextInt();
+        int idDefect = scanner.nextInt(); // todo 5 - упадет на кривом числе
         scanner.nextLine();
-        for (Defect repo :repository.getAll()) {
+        for (Defect repo :repository.getAll()) { // todo 3 - за поиск дефект почему-то отвечает мейн, а не репо
             if (repo.getID() == idDefect) {
                 System.out.println("Выберите статус из списка: " +
-                        "\n\"open\", \"in process\", \"test\", \"close\", \"done\"");
+                        "\n\"open\", \"in process\", \"test\", \"close\", \"done\""); // todo 3 - список вариантов хард кодом
                 Status status = null;
                 while (status == null) {
                     try {
@@ -128,7 +129,7 @@ public class Main {
                 }
                 repo.setStatus(status);
             } else {
-                System.out.println("Введен несуществующий ID, используйте дефекты которые есть в БД");
+                System.out.println("Введен несуществующий ID, используйте дефекты которые есть в БД"); // todo 5 - работать не будет, логика не верная
                 break;
             }
         }

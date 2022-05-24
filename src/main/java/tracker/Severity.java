@@ -7,7 +7,7 @@ public enum Severity {
     CRITICAL("critical"),
     BLOCKER("blocker");
 
-    private String name;
+    private String name; // todo 3 - final
 
     Severity(String name) {
         this.name = name;

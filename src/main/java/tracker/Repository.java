@@ -11,6 +11,7 @@ public class Repository {
     }
 
     public boolean isFull() {
+        // todo 3 - if (true) { return true; } else { return false; } зачем? почему сразу не вернуть?
         if(capacity >= listDefect.length) {
             return true;
         }

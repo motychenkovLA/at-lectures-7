@@ -3,7 +3,7 @@ package tracker;
 import java.util.Objects;
 
 public class Defect {
-    private final long ID;
+    private final long ID; // todo 1 - обычное поле почему-то капсом
     private String summary;
     private int countDay;
     private Severity severity;
@@ -47,12 +47,12 @@ public class Defect {
         if (this == o) return true;
         if (o == null || this.getClass() != o.getClass()) return false;
         Defect defect = (Defect) o;
-        if(this.hashCode() != o.hashCode()) return false;
+        if(this.hashCode() != o.hashCode()) return false; // todo 1 - лишняя проверка
         return this.ID == defect.ID &&
                 this.countDay == defect.countDay &&
                 this.summary.equals(defect.summary) &&
                 this.severity.equals(defect.severity) &&
-                this.attachment.equals(defect.attachment) &&
+                this.attachment.equals(defect.attachment) && // todo 5 - null pointer exception
                 this.status.equals(defect.status);
     }
 

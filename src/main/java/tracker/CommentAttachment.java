@@ -22,7 +22,7 @@ public class CommentAttachment extends Attachment {
     public boolean equals(Object o) {
         if(o == null || this.getClass() != o.getClass()) return false;
         if(this == o) return true;
-        if(this.hashCode() != o.hashCode()) return false;
+        if(this.hashCode() != o.hashCode()) return false; // todo 1 - лишняя проверка
         CommentAttachment commentAttachment = (CommentAttachment) o;
         return this.comment.equals(commentAttachment.getComment());
     }
