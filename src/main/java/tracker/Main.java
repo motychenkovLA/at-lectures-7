@@ -129,6 +129,7 @@ public class Main {
 
     private static void changeStatus(Scanner scanner, Repository repository) {
         while (true) {
+            // todo 3 - сет собирается на каждой итерации
             Set<Transition> set = new HashSet<>();
             set.add(new Transition(Status.OPEN, Status.IN_PROGRESS));
             set.add(new Transition(Status.IN_PROGRESS, Status.READY_FOR_TESTING));
@@ -139,9 +140,9 @@ public class Main {
             try {
                 System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
                 long changeId = Long.parseLong(scanner.nextLine());
-                Defect defect = repository.getAll().get(changeId);
+                Defect defect = repository.getAll().get(changeId); // todo 3 - достали дефект первый раз, причем в обход
 
-                if (repository.getById(changeId) == null) {
+                if (repository.getById(changeId) == null) { // todo 3 - достали дефект второй раз
                     System.out.println("Дефекта с таким id не существует");
                     continue;
                 }
@@ -162,7 +163,7 @@ public class Main {
                     }
                 }
                 if (set.contains(new Transition(defect.getStatus(), to))) {
-                    repository.getById(changeId).setStatus(status);
+                    repository.getById(changeId).setStatus(status); // todo 5 - status всегда null, NPE после смены
                 } else {
                     System.out.println("Переход в этот статус невозможен");
                     System.out.println("\n");
