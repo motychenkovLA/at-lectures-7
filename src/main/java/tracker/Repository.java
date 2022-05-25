@@ -12,6 +12,7 @@ public class Repository {
         listDefect.put(defect.getId(), defect);
     }
 
+    // todo 3 - все еще не коллекция дефектов
     public Set<Map.Entry<Long, Defect>> getAll() {
         return listDefect.entrySet();
     }

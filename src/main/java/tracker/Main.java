@@ -100,7 +100,7 @@ public class Main {
             switch (attachment) {
                 case "linkId":
                     System.out.println("Введите id дефекта");
-                    long linkId = 0;
+                    long linkId = 0; // todo 1 - сильно заранее объявлена
                     while (true) {
                         try {
                             linkId = Long.parseLong(scanner.nextLine());
@@ -126,6 +126,8 @@ public class Main {
     }
 
     private static void changeStatus(Scanner scanner, Repository repository) {
+        // todo 3 - сет собирается на каждом изменении статуса все еще
+        //   + теперь Main занимается валидацией а не только работой с консолью
         Set<Transition> set = new HashSet<>();
         set.add(new Transition(Status.OPEN, Status.IN_PROGRESS));
         set.add(new Transition(Status.IN_PROGRESS, Status.READY_FOR_TESTING));
@@ -138,14 +140,14 @@ public class Main {
                 System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
                 long changeId = Long.parseLong(scanner.nextLine());
 
-                if (repository.getById(changeId) == null) {
+                if (repository.getById(changeId) == null) { // todo 3 - достали дефект первый раз
                     System.out.println("Дефекта с таким id не существует");
                     continue;
                 }
 
                 System.out.println("Изменить статус дефекта на:\n ");
                 Status[] values = Status.values();
-                Status status = null;
+                Status status = null; // todo 1 - не используется
                 Status to;
                 while (true) {
                     for (Status value : values) {
@@ -158,8 +160,9 @@ public class Main {
                         System.out.println("Введенный статус отсутствует в списке. Введите еще раз.");
                     }
                 }
-                    if (set.contains(new Transition(repository.getById(changeId).getStatus(), to))) {
-                        repository.getById(changeId).setStatus(to);
+                // todo 1 - отступ
+                    if (set.contains(new Transition(repository.getById(changeId).getStatus(), to))) { // todo 3 - достали дефект второй раз
+                        repository.getById(changeId).setStatus(to); // todo 3 - достали дефект третий раз
                     } else {
                         System.out.println("Переход в этот статус невозможен");
                         System.out.println("\n");

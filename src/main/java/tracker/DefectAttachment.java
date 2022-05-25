@@ -13,5 +13,5 @@ public class DefectAttachment extends Attachment {
         return "Ссылка на дефект по id: " + linkId;
     }
 
-    // todo 5 - ТЗ: реализовать методы equals(...) и hashCode() у Defect и Attachment-ов
+    // todo 5+++ - ТЗ: реализовать методы equals(...) и hashCode() у Defect и Attachment-ов
 }
