@@ -4,6 +4,5 @@ public enum Status {
     OPEN,
     FIXING,
     TESTING,
-    CLOSED,
-    REJECTED
+    CLOSED
 }

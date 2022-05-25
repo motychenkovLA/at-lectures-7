@@ -1,11 +1,13 @@
 package tracker;
 
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        final int MAX_COUNT = 10;
-        Repository repository = new Repository(MAX_COUNT);
+        Repository repository = new Repository();
         try (Scanner scanner = new Scanner(System.in)) {
             boolean isRun = true;
             while (isRun) {
@@ -65,24 +67,35 @@ public class Main {
                     }
 
                     case "change": {
+                        Set<Transition> setTransition = new HashSet<>();
+                        setTransition.add(new Transition(Status.OPEN, Status.FIXING));
+                        setTransition.add(new Transition(Status.FIXING, Status.TESTING));
+                        setTransition.add(new Transition(Status.TESTING, Status.CLOSED));
                         boolean isChanging = true;
                         while (isChanging) {
                             try {
                                 System.out.println("Введите id дефекта");
                                 long defectID = Long.parseLong(scanner.nextLine());
-                                System.out.println("Выберите новый статус (OPEN, FIXING, TESTING, CLOSED, REJECTED)");
-                                Status status = Status.valueOf(scanner.nextLine());
-                                for (int i = 0; i < repository.getCurrentDefectNum(); i++) {
-                                    if (i + 1 == defectID) {
-                                        repository.getAll()[i].setStatus(status);
+                                if (repository.getAll().containsKey(defectID)) {
+                                    System.out.println("Выберите новый статус (OPEN, FIXING, TESTING, CLOSED)");
+                                    Status status = Status.valueOf(scanner.nextLine());
+                                    for (Map.Entry<Long, Defect> entry: repository.getAll().entrySet()) {
+                                            if (setTransition.contains(new Transition(entry.getValue().getStatus(),
+                                                status))) {
+                                            entry.getValue().setStatus(status);
+                                        } else {
+                                            System.out.println("Невалидный переход между статусами!");
+                                        }
                                     }
+                                } else {
+                                    System.out.println("Дефект с id = " + defectID + " не найден!");
                                 }
                                 isChanging = false;
                             } catch (NumberFormatException e) {
                                 System.out.println("Введите число!");
                             } catch (IllegalArgumentException e) {
                                 System.out.println("Неверное значение! Выберите значение из списка: OPEN, FIXING, " +
-                                        "TESTING, CLOSED, REJECTED");
+                                        "TESTING, CLOSED");
                             }
                         }
                         break;
@@ -90,14 +103,8 @@ public class Main {
 
                     case "list": {
                         System.out.println("Список дефектов:");
-                        for (int i = 0; i < repository.getCurrentDefectNum(); i++) {
-                            System.out.println("ID: " + repository.getAll()[i].getID() + " | Резюме: " +
-                                    repository.getAll()[i].getResume() + " | Критичность: " +
-                                    repository.getAll()[i].getSeverity() + " | Дни: " +
-                                    repository.getAll()[i].getDaysToFix() + " | Статус: " +
-                                    repository.getAll()[i].getStatus() + " | Вложение: " +
-                                    repository.getAll()[i].getAttachment().toString());
-
+                        for (Map.Entry<Long, Defect> entry: repository.getAll().entrySet()) {
+                            System.out.println(entry.getValue());
                         }
                         break;
                     }

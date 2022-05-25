@@ -1,26 +1,24 @@
 package tracker;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Repository {
-    private final int MAX_COUNT;
-    private int currentDefectNum = 0;
-    private final Defect[] defects;
+    private final int MAX_COUNT = 10;
+    private int currentDefectNum = 1;
+    private final Map<Long, Defect> defects = new HashMap<>();
 
-
-    public Repository(int maxCount) {
-        this.MAX_COUNT = maxCount;
-        defects = new Defect[this.MAX_COUNT];
-    }
 
     public int getCurrentDefectNum() {
         return currentDefectNum;
     }
 
     public void add(Defect defect){
-        defects[currentDefectNum] = defect;
+        defects.put(defect.getID(), defect);
         currentDefectNum++;
     }
 
-    public Defect[] getAll() {
+    public Map<Long, Defect> getAll(){
         return defects;
     }
 

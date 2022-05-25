@@ -61,6 +61,11 @@ public class Defect {
         return attachment;
     }
 
+    public String toString(){
+        return "ID: " + getID() + " | Резюме: " + getResume() + " | Критичность: " + getSeverity() + " | Дни: " +
+                getDaysToFix() + " | Статус: " + getStatus() + " | Вложение: " + getAttachment().toString();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
