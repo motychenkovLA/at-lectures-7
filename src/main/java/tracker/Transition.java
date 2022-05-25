@@ -3,7 +3,7 @@ package tracker;
 import java.util.Objects;
 
 public class Transition {
-    private Status from; // todo 3 - можно зафиналить
+    private final Status from;
     private Status to;
 
     public Transition(Status from, Status to) {

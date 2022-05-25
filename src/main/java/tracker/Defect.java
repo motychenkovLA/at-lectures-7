@@ -11,19 +11,13 @@ public class Defect {
     private Status status;
     private static long numberDefects = 1;
 
-
-    // todo 3 - нигде не используется кроме второго конструктора
-    public Defect(String summary, Severity severity, int countDay) {
+    public Defect(String summary, Severity severity, int countDay, Attachment attachment) {
+        this.attachment = attachment;
         this.summary = summary;
         this.severity = severity;
         this.countDay = countDay;
         this.status = Status.OPEN;
         this.id = numberDefects++;
-    }
-
-    public Defect(String summary, Severity severity, int countDay, Attachment attachment) {
-        this(summary, severity, countDay);
-        this.attachment = attachment;
     }
 
     public Status getStatus() {

@@ -26,10 +26,8 @@ public class Main {
                         break;
 
                     case "list":
-                        for (HashMap.Entry<Long, Defect> entry : repository.getAll().entrySet()) {
-                            System.out.println(entry.getValue());
-                            System.out.println("_____________________________________________________________________");
-                        }
+                        System.out.println(repository.getArray());
+                        System.out.println("_____________________________________________________________________");
                         break;
 
                     case "quit":
@@ -103,10 +101,9 @@ public class Main {
             switch (attachment) {
                 case "linkId":
                     System.out.println("Введите id дефекта");
-                    long linkId = 0; // todo 1 - объявлен заранее
                     while (true) {
                         try {
-                            linkId = Long.parseLong(scanner.nextLine());
+                            long linkId = Long.parseLong(scanner.nextLine());
                             result = new DefectAttachment(linkId);
                             break;
                         } catch (NumberFormatException e) {
@@ -129,30 +126,27 @@ public class Main {
     }
 
     public static void changeStatus(Scanner scanner, Repository repository) {
-        while (true) {
-            // todo 3 - сет собирается на каждой итерации, Main занимается валидацией, что не его ответственность
-            Set<Transition> set = new LinkedHashSet<>();
-            Collections.addAll(set, new Transition(Status.OPEN, Status.IN_PROGRESS),
-                    new Transition(Status.OPEN, Status.READY_FOR_TESTING),
-                    new Transition(Status.IN_PROGRESS, Status.READY_FOR_TESTING),
-                    new Transition(Status.IN_PROGRESS, Status.CLOSED),
-                    new Transition(Status.READY_FOR_TESTING, Status.TESTING),
-                    new Transition(Status.TESTING, Status.DONE),
-                    new Transition(Status.IN_PROGRESS, Status.CLOSED));
+        Set<Transition> set = new LinkedHashSet<>();
+        Collections.addAll(set, new Transition(Status.OPEN, Status.IN_PROGRESS),
+                new Transition(Status.OPEN, Status.READY_FOR_TESTING),
+                new Transition(Status.IN_PROGRESS, Status.READY_FOR_TESTING),
+                new Transition(Status.IN_PROGRESS, Status.CLOSED),
+                new Transition(Status.READY_FOR_TESTING, Status.TESTING),
+                new Transition(Status.TESTING, Status.DONE),
+                new Transition(Status.IN_PROGRESS, Status.CLOSED));
 
+        while (true) {
             try {
                 System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
                 long changeId = Long.parseLong(scanner.nextLine());
-                Defect defect = repository.getAll().get(scanner.nextLong()); // todo 3 - прочитали с консоли второй раз, упали на неверном формате
 
-                if (repository.getById(changeId) == null) { // todo 3 - запросили дефект второй раз
+                if (repository.getById(changeId) == null) {
                     System.out.println("Дефекта с таким id не существует");
                     continue;
                 }
 
                 System.out.println("Изменить статус дефекта на:\n ");
                 Status[] values = Status.values();
-                Status status = null; // todo 1 - не используется
                 Status to;
 
                 while (true) {
@@ -166,13 +160,15 @@ public class Main {
                         System.out.println("Введенный статус отсутствует в списке. Введите еще раз.");
                     }
                 }
-                if (set.contains(new Transition(defect.getStatus(), to))) {
-                    defect.setStatus(to);
+
+                if (set.contains(new Transition(repository.getById(changeId).getStatus(), to))) {
+                    repository.getById(changeId).setStatus(to);
+                    break;
                 } else {
-                    System.out.println("Переход в этот статус невозможен");
+                    System.out.println("Переход в этот статус невозможен, попробуйте еще раз");
                     System.out.println("\n");
+                    continue;
                 }
-                break;
             } catch (NumberFormatException e) {
                 System.out.println("Не верный формат.");
             }
