@@ -1,37 +1,45 @@
 package tracker;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class MainSteps {
-    private static Scanner scanner = new Scanner(System.in);
     private static int count = 0;
     private static int maxCount = 10;
     private static Repository rep = new Repository(maxCount);
     private static Defect defect;
 
-    public static void caseAdd() {
+    public static void caseAdd(Scanner scanner) {
+        Severity severity = null;
+        int day = 0;
+        boolean goodSeverity = false;
+        boolean goodDay = false;
+        boolean goodId = false;
         if (count < maxCount) {
             System.out.println("Введите резюме дефекта:");
             String summary = scanner.nextLine();
-            System.out.println("Введите критичность дефекта: 1- блокирующий, 2 - высокий, 3 - средний, другой символ - низкий");
-            Severity severity;
-            switch (scanner.nextLine()) {
-                case "1":
-                    severity = Severity.BLOCKER;
-                    break;
-                case "2":
-                    severity = Severity.HIGH;
-                    break;
-                case "3":
-                    severity = Severity.MEDIUM;
-                    break;
-                default:
-                    severity = Severity.LOW;
-                    break;
+
+            System.out.println("Введите критичность дефекта: BLOCKER, HIGH, MEDIUM, LOW");
+            while (!goodSeverity) {
+                try {
+                    severity = Severity.valueOf(scanner.nextLine());
+                    goodSeverity = true;
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Нет такой критичности, попробуйте еще раз");
+                }
             }
-            System.out.println("Введите ожидаемое количество дней на исправление:");
-            int day = scanner.nextInt();
-            scanner.nextLine();
+
+            while (!goodDay) {
+                try {
+                    System.out.println("Введите ожидаемое количество дней на исправление:");
+                    day = scanner.nextInt();
+                    scanner.nextLine();
+                    goodDay = true;
+                } catch (NoSuchElementException e) {
+                    scanner.nextLine();
+                    System.out.println("Введено не число, попробуйте еще раз");
+                }
+            }
             System.out.println("Введите тип вложения: 1 -комментарий, 2 - ссылка на другой дефект, другой символ - не добавлять вложение");
             String attachType = scanner.nextLine();
             switch (attachType) {
@@ -41,10 +49,19 @@ public class MainSteps {
                     defect = new Defect(summary, severity, day, attachComment);
                     break;
                 case "2":
-                    System.out.println("Введите ID связанного дефекта");
-                    Long attachDefect = scanner.nextLong();
-                    scanner.nextLine();
-                    defect = new Defect(summary, severity, day, attachDefect);
+                    while (!goodId) {
+                        try {
+                            System.out.println("Введите ID связанного дефекта");
+                            Long attachDefect = scanner.nextLong();
+                            scanner.nextLine();
+                            defect = new Defect(summary, severity, day, attachDefect);
+                            goodId = true;
+                        } catch (NoSuchElementException e) {
+                            scanner.nextLine();
+                            System.out.println("Неверный формать номера, попробуйте еще раз");
+                            continue;
+                        }
+                    }
                     break;
                 default:
                     defect = new Defect(summary, severity, day);
@@ -63,40 +80,53 @@ public class MainSteps {
         }
     }
 
-    public static void caseChange() {
-        System.out.println("Введите ID дефекта");
-        long id = scanner.nextLong();
-        scanner.nextLine();
-        System.out.println("Введите новый статус: 1 - Открыто, 2 - В работе, 3 - Закрыто");
+    public static void caseChange(Scanner scanner) {
+        boolean goodStatus = false;
+        boolean goodId = false;
         Status status = null;
-        switch (scanner.nextLine()) {
-            case "1":
-                status = Status.OPEN;
-                break;
-            case "2":
-                status = Status.IN_PROGRESS;
-                break;
-            case "3":
-                status = Status.CLOSED;
-                ;
-                break;
-            default:
-                System.out.println("Нет такого статуса");
-                ;
-                return;  //если выбран неверный статус, выполняется возврат из метода
-        }
-        if (rep.defectIsFound(id)) {
-            for (Defect d1 : rep.getAll()) {
-                if (d1 != null) {
-                    if (d1.getId() == id) {
-                        d1.changeStatus(status);
+        long id;
+
+        while (!goodId) {
+            try {
+                System.out.println("Введите ID дефекта");
+                id = scanner.nextLong();
+                scanner.nextLine();
+
+                if (rep.defectIsFound(id)) goodId = true;
+
+            } catch (NoSuchElementException e) {
+                scanner.nextLine();
+                System.out.println("Неверный формать номера, попробуйте еще раз");
+                continue;
+            } catch (MyExeption e) {
+                System.out.println("Нет такого дефекта, попробуйте еще раз");
+                continue;
+            }
+
+            System.out.println("Введите новый статус. Допустимые варианты OPEN, IN_PROGRESS, CLOSED");
+            while (!goodStatus) {
+                try {
+
+                    status = Status.valueOf(scanner.nextLine());
+                    goodStatus = true;
+                } catch (IllegalArgumentException e) {
+                    System.out.println("попробуйте еще раз");
+                    continue;
+                }
+
+                for (Defect d1 : rep.getAll()) {
+                    if (d1 != null) {
+                        if (d1.getId() == id) {
+                            d1.changeStatus(status);
+                        }
                     }
                 }
             }
-        } else System.out.println("Дефект не найден");
+        }
     }
 
-    public static String chooseAction() {
+
+    public static String chooseAction(Scanner scanner) {
         System.out.println("--------------" + "\n" +
                 "Для добавления дефекта введите add" + "\n"
                 + "Для вывода списка дефектов введите list" + "\n"
@@ -104,6 +134,7 @@ public class MainSteps {
                 + "Для выхода из программы введите quit");
         String choise = scanner.nextLine();
         return choise;
+
     }
 
 

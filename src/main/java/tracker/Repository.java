@@ -19,7 +19,7 @@ public class Repository {
         return defectRep;
     }
 
-    public boolean defectIsFound(long id) {
+    public boolean defectIsFound(long id) throws MyExeption {
         for (Defect d1 : this.defectRep) {
             if (d1 != null) {
                 if (d1.getId() == id) {
@@ -27,6 +27,7 @@ public class Repository {
                 }
             }
         }
-        return false;
+       throw new MyExeption();
     }
+
 }
