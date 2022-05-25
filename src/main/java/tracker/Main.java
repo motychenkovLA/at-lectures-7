@@ -24,7 +24,7 @@ public class Main {
 
                     case "list":
 
-                        for (Map.Entry<Long, Defect> entry : repository.getAll().entrySet()) {
+                        for (Map.Entry<Long, Defect> entry : repository.getAll()) {
                             System.out.println(entry.getValue());
                             System.out.println("________________________");
                         }
@@ -158,21 +158,13 @@ public class Main {
                         System.out.println("Введенный статус отсутствует в списке. Введите еще раз.");
                     }
                 }
-
-               // try {
                     if (set.contains(new Transition(repository.getById(changeId).getStatus(), to))) {
-                        repository.getById(changeId).setStatus(status); // todo 5 - status всегда null, NPE после смены
+                        repository.getById(changeId).setStatus(to);
                     } else {
                         System.out.println("Переход в этот статус невозможен");
                         System.out.println("\n");
                     }
                     break;
-//                } catch (NullPointerException e){
-//                    System.out.println("======");
-//                }
-
-
-
             } catch (NumberFormatException e) {
                 System.out.println("Не верный формат.");
             }

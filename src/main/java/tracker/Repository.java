@@ -2,6 +2,7 @@ package tracker;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Repository {
 
@@ -11,9 +12,8 @@ public class Repository {
         listDefect.put(defect.getId(), defect);
     }
 
-    // todo 3 - зачем целую мапу то возвращать, если только дефекты просят? + утечка внутреннего состояния  - спросила у Лени
-    public Map<Long, Defect> getAll() {
-        return listDefect;
+    public Set<Map.Entry<Long, Defect>> getAll() {
+        return listDefect.entrySet();
     }
 
     public Defect getById(long id) {
