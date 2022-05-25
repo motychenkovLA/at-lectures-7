@@ -103,7 +103,7 @@ public class Main {
             switch (attachment) {
                 case "linkId":
                     System.out.println("Введите id дефекта");
-                    long linkId = 0;
+                    long linkId = 0; // todo 1 - объявлен заранее
                     while (true) {
                         try {
                             linkId = Long.parseLong(scanner.nextLine());
@@ -130,6 +130,7 @@ public class Main {
 
     public static void changeStatus(Scanner scanner, Repository repository) {
         while (true) {
+            // todo 3 - сет собирается на каждой итерации, Main занимается валидацией, что не его ответственность
             Set<Transition> set = new LinkedHashSet<>();
             Collections.addAll(set, new Transition(Status.OPEN, Status.IN_PROGRESS),
                     new Transition(Status.OPEN, Status.READY_FOR_TESTING),
@@ -142,16 +143,16 @@ public class Main {
             try {
                 System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
                 long changeId = Long.parseLong(scanner.nextLine());
-                Defect defect = repository.getAll().get(scanner.nextLong());
+                Defect defect = repository.getAll().get(scanner.nextLong()); // todo 3 - прочитали с консоли второй раз, упали на неверном формате
 
-                if (repository.getById(changeId) == null) {
+                if (repository.getById(changeId) == null) { // todo 3 - запросили дефект второй раз
                     System.out.println("Дефекта с таким id не существует");
                     continue;
                 }
 
                 System.out.println("Изменить статус дефекта на:\n ");
                 Status[] values = Status.values();
-                Status status = null;
+                Status status = null; // todo 1 - не используется
                 Status to;
 
                 while (true) {

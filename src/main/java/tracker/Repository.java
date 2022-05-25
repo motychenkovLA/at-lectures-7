@@ -11,6 +11,7 @@ public class Repository {
         listDefect.put(defect.getID(), defect);
     }
 
+    // todo 3 - возвращает всю мапу вместо того чтоб вернуть только дефекты
     public Map<Long, Defect> getAll() {
         return listDefect;
     }

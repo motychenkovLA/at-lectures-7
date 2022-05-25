@@ -12,6 +12,7 @@ public class Defect {
     private static long numberDefects = 1;
 
 
+    // todo 3 - нигде не используется кроме второго конструктора
     public Defect(String summary, Severity severity, int countDay) {
         this.summary = summary;
         this.severity = severity;
@@ -55,7 +56,7 @@ public class Defect {
                 this.countDay == defect.countDay &&
                 this.summary.equals(defect.summary) &&
                 this.severity.equals(defect.severity) &&
-                this.attachment.equals(defect.attachment) && // todo 5 - null pointer exception
+                this.attachment.equals(defect.attachment) &&
                 this.status.equals(defect.status);
     }
 
