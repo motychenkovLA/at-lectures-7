@@ -5,13 +5,13 @@ import java.util.Map;
 
 public class Repository {
 
-    private Map<Long, Defect> listDefect = new HashMap<>(); // todo 3 - final
+    private final Map<Long, Defect> listDefect = new HashMap<>();
 
     public void add(Defect defect) {
         listDefect.put(defect.getId(), defect);
     }
 
-    // todo 3 - зачем целую мапу то возвращать, если только дефекты просят? + утечка внутреннего состояния
+    // todo 3 - зачем целую мапу то возвращать, если только дефекты просят? + утечка внутреннего состояния  - спросила у Лени
     public Map<Long, Defect> getAll() {
         return listDefect;
     }

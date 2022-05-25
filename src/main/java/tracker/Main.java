@@ -1,9 +1,6 @@
 package tracker;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
 
@@ -26,6 +23,7 @@ public class Main {
                         break;
 
                     case "list":
+
                         for (Map.Entry<Long, Defect> entry : repository.getAll().entrySet()) {
                             System.out.println(entry.getValue());
                             System.out.println("________________________");
@@ -128,21 +126,19 @@ public class Main {
     }
 
     private static void changeStatus(Scanner scanner, Repository repository) {
-        while (true) {
-            // todo 3 - сет собирается на каждой итерации
-            Set<Transition> set = new HashSet<>();
-            set.add(new Transition(Status.OPEN, Status.IN_PROGRESS));
-            set.add(new Transition(Status.IN_PROGRESS, Status.READY_FOR_TESTING));
-            set.add(new Transition(Status.READY_FOR_TESTING, Status.TESTING));
-            set.add(new Transition(Status.TESTING, Status.DONE));
-            set.add(new Transition(Status.IN_PROGRESS, Status.CLOSED));
+        Set<Transition> set = new HashSet<>();
+        set.add(new Transition(Status.OPEN, Status.IN_PROGRESS));
+        set.add(new Transition(Status.IN_PROGRESS, Status.READY_FOR_TESTING));
+        set.add(new Transition(Status.READY_FOR_TESTING, Status.TESTING));
+        set.add(new Transition(Status.TESTING, Status.DONE));
+        set.add(new Transition(Status.IN_PROGRESS, Status.CLOSED));
 
+        while (true) {
             try {
                 System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
                 long changeId = Long.parseLong(scanner.nextLine());
-                Defect defect = repository.getAll().get(changeId); // todo 3 - достали дефект первый раз, причем в обход
 
-                if (repository.getById(changeId) == null) { // todo 3 - достали дефект второй раз
+                if (repository.getById(changeId) == null) {
                     System.out.println("Дефекта с таким id не существует");
                     continue;
                 }
@@ -162,13 +158,21 @@ public class Main {
                         System.out.println("Введенный статус отсутствует в списке. Введите еще раз.");
                     }
                 }
-                if (set.contains(new Transition(defect.getStatus(), to))) {
-                    repository.getById(changeId).setStatus(status); // todo 5 - status всегда null, NPE после смены
-                } else {
-                    System.out.println("Переход в этот статус невозможен");
-                    System.out.println("\n");
-                }
-                break;
+
+               // try {
+                    if (set.contains(new Transition(repository.getById(changeId).getStatus(), to))) {
+                        repository.getById(changeId).setStatus(status); // todo 5 - status всегда null, NPE после смены
+                    } else {
+                        System.out.println("Переход в этот статус невозможен");
+                        System.out.println("\n");
+                    }
+                    break;
+//                } catch (NullPointerException e){
+//                    System.out.println("======");
+//                }
+
+
+
             } catch (NumberFormatException e) {
                 System.out.println("Не верный формат.");
             }
