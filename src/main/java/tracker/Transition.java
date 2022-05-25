@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Transition {
     private final Status from;
-    private Status to;
+    private Status to; // todo 3 - можно зафиналить
 
     public Transition(Status from, Status to) {
         this.from = from;

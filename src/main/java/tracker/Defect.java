@@ -33,6 +33,7 @@ public class Defect {
     }
 
     public String toString() {
+        // todo 3 - attachment не может быть нулевым в текущей реализации
         return attachment == null ? "Defect:"+"\nНомер дефекта: "+ id +"\nНазвание = "+summary+
                 "\nКритичность = "+severity.getName()+"\nКол-во дней = "+countDay+
                 "\nСтатус = "+status.getRuName()+"\n":

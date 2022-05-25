@@ -126,6 +126,7 @@ public class Main {
     }
 
     public static void changeStatus(Scanner scanner, Repository repository) {
+        // todo 3 - сет все еще собирается заново на каждом изменении дефекта + Main отвечает за валидацию вместо консоли
         Set<Transition> set = new LinkedHashSet<>();
         Collections.addAll(set, new Transition(Status.OPEN, Status.IN_PROGRESS),
                 new Transition(Status.OPEN, Status.READY_FOR_TESTING),
@@ -140,7 +141,7 @@ public class Main {
                 System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
                 long changeId = Long.parseLong(scanner.nextLine());
 
-                if (repository.getById(changeId) == null) {
+                if (repository.getById(changeId) == null) { // todo 3 - достали дефект первый раз
                     System.out.println("Дефекта с таким id не существует");
                     continue;
                 }
@@ -161,8 +162,8 @@ public class Main {
                     }
                 }
 
-                if (set.contains(new Transition(repository.getById(changeId).getStatus(), to))) {
-                    repository.getById(changeId).setStatus(to);
+                if (set.contains(new Transition(repository.getById(changeId).getStatus(), to))) { // todo 3 - достали дефект второй раз
+                    repository.getById(changeId).setStatus(to); // todo 3 - достали дефект третий раз
                     break;
                 } else {
                     System.out.println("Переход в этот статус невозможен, попробуйте еще раз");
