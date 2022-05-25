@@ -161,7 +161,7 @@ public class Main {
 
                // try {
                     if (set.contains(new Transition(repository.getById(changeId).getStatus(), to))) {
-                        repository.getById(changeId).setStatus(status); // todo 5 - status всегда null, NPE после смены
+                        repository.getById(changeId).setStatus(to); // todo 5 - status всегда null, NPE после смены
                     } else {
                         System.out.println("Переход в этот статус невозможен");
                         System.out.println("\n");
