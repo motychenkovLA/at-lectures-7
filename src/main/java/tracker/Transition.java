@@ -1,14 +1,28 @@
 package tracker;
 
-import java.util.Objects;
+import java.util.*;
 
 public class Transition {
-    private Status from; // todo 3 - можно зафиналить
-    private Status to;
+    private final Status from;
+    private final Status to;
+
+    private static Set<Transition> set = new HashSet<>();
 
     public Transition(Status from, Status to) {
         this.from = from;
         this.to = to;
+    }
+
+    static {
+        set.add(new Transition(Status.OPEN, Status.IN_PROGRESS));
+        set.add(new Transition(Status.IN_PROGRESS, Status.READY_FOR_TESTING));
+        set.add(new Transition(Status.READY_FOR_TESTING, Status.TESTING));
+        set.add(new Transition(Status.TESTING, Status.DONE));
+        set.add(new Transition(Status.IN_PROGRESS, Status.CLOSED));
+    }
+
+    public static boolean checkTransition(Status from, Status to){
+        return set.contains(new Transition(from, to));
     }
 
     @Override

@@ -36,7 +36,7 @@ public class Defect {
 
     public String toString() {
         return "Номер дефекта: " + id + ", Название: " + description + ", Критичность: "
-                + severity + ", Кол-во дней: " + amountOfDays + " , " + attachment.asString() + " , Статус " +
+                + severity + ", Кол-во дней: " + amountOfDays + " , " + attachment.toString() + " , Статус " +
                 status.getRuName();
     }
 

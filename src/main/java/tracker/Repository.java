@@ -1,8 +1,6 @@
 package tracker;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Repository {
 
@@ -12,9 +10,8 @@ public class Repository {
         listDefect.put(defect.getId(), defect);
     }
 
-    // todo 3 - все еще не коллекция дефектов
-    public Set<Map.Entry<Long, Defect>> getAll() {
-        return listDefect.entrySet();
+    public Collection<Defect> getAll() {
+        return listDefect.values();
     }
 
     public Defect getById(long id) {

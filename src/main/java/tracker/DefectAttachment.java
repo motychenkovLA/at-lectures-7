@@ -1,5 +1,7 @@
 package tracker;
 
+import java.util.Objects;
+
 public class DefectAttachment extends Attachment {
     private final long linkId;
 
@@ -9,9 +11,20 @@ public class DefectAttachment extends Attachment {
     }
 
     @Override
-    public String asString() {
+    public String toString() {
         return "Ссылка на дефект по id: " + linkId;
     }
 
-    // todo 5+++ - ТЗ: реализовать методы equals(...) и hashCode() у Defect и Attachment-ов
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DefectAttachment that = (DefectAttachment) o;
+        return linkId == that.linkId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(linkId);
+    }
 }

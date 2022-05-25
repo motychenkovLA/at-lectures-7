@@ -9,7 +9,7 @@ public class CommentAttachment extends Attachment {
         this.comment = comment;
     }
 
-    public String asString() {
+    public String toString() {
         return "Комментарий: " + comment;
     }
 
@@ -25,4 +25,6 @@ public class CommentAttachment extends Attachment {
     public int hashCode() {
         return Objects.hash(comment);
     }
+
 }
+
