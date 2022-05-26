@@ -26,7 +26,7 @@ public class Main {
                         break;
 
                     case "list":
-                        System.out.println(repository.getArray());
+                        System.out.println(repository.getAll());
                         System.out.println("_____________________________________________________________________");
                         break;
 
@@ -126,22 +126,13 @@ public class Main {
     }
 
     public static void changeStatus(Scanner scanner, Repository repository) {
-        // todo 3 - сет все еще собирается заново на каждом изменении дефекта + Main отвечает за валидацию вместо консоли
-        Set<Transition> set = new LinkedHashSet<>();
-        Collections.addAll(set, new Transition(Status.OPEN, Status.IN_PROGRESS),
-                new Transition(Status.OPEN, Status.READY_FOR_TESTING),
-                new Transition(Status.IN_PROGRESS, Status.READY_FOR_TESTING),
-                new Transition(Status.IN_PROGRESS, Status.CLOSED),
-                new Transition(Status.READY_FOR_TESTING, Status.TESTING),
-                new Transition(Status.TESTING, Status.DONE),
-                new Transition(Status.IN_PROGRESS, Status.CLOSED));
 
         while (true) {
             try {
                 System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
                 long changeId = Long.parseLong(scanner.nextLine());
-
-                if (repository.getById(changeId) == null) { // todo 3 - достали дефект первый раз
+                Defect defect = repository.getById(changeId);
+                if (defect == null) {
                     System.out.println("Дефекта с таким id не существует");
                     continue;
                 }
@@ -162,9 +153,8 @@ public class Main {
                     }
                 }
 
-                if (set.contains(new Transition(repository.getById(changeId).getStatus(), to))) { // todo 3 - достали дефект второй раз
-                    repository.getById(changeId).setStatus(to); // todo 3 - достали дефект третий раз
-                    break;
+                if (Transition.checkTransition(defect.getStatus(), to)) {
+                    defect.setStatus(to);
                 } else {
                     System.out.println("Переход в этот статус невозможен, попробуйте еще раз");
                     System.out.println("\n");

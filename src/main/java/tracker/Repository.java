@@ -12,8 +12,7 @@ public class Repository {
         listDefect.put(defect.getID(), defect);
     }
 
-    // todo 1 - называется getArray, возвращает Collection
-    public Collection<Defect> getArray() {
+    public Collection<Defect> getAll() {
         return listDefect.values();
     }
 
