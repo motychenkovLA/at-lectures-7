@@ -8,7 +8,8 @@ public class Tracker {
         try (Scanner sc = new Scanner(System.in)) {
 
             while (true) {
-                System.out.println("Введите операцию из списка:\n\"add\" - добавить новый дефект\n\"change\" - изменить статус дефекта\n\"list\" - вывести список дефектов\n\"quit\" - выход");
+                System.out.println("Введите операцию из списка:\n\"add\" - добавить новый дефект\n\"change\" - изменить статус дефекта\n\"list\" - вывести список дефектов" +
+                        "\n\"stats\" - статистика по дефектам\n\"quit\" - выход");
                 System.out.println();
 
                 switch (sc.nextLine()) {
@@ -21,9 +22,11 @@ public class Tracker {
                         System.out.println();
                         break;
                     case "list":
-                        for (HashMap.Entry<Long, Defect> entry :repository.getAll().entrySet())
-                            System.out.println(entry.getValue());
+                            System.out.println(repository.getAllDefect());
                             System.out.println("________________________");
+                        break;
+                    case "stats":
+                            stats(repository);
                         break;
                     case "quit":
                         System.out.println("Выход из системы");
@@ -42,7 +45,13 @@ public class Tracker {
         System.out.println("Введите резюме дефекта");
         String summary = scanner.nextLine();
 
-        System.out.println("Введите критичность дефекта из списка:" + "\n\"trivial\", \"minor\", \"major\", \"critical\", \"blocker\"");
+        System.out.println("Введите критичность дефекта из списка:");
+        Criticality[] cr = Criticality.values();
+        for (Criticality criticality1 : cr) {
+            System.out.print("\"" + criticality1.getName() + "\"" + " ");
+        }
+        System.out.println();
+
         Criticality criticality = null;
         while (criticality == null) {
             try {
@@ -70,8 +79,7 @@ public class Tracker {
             if (choice.equals("N")) {
                 Defect defect = new Defect(summary, criticality, countDay);
                 repository.addDef(defect);
-            }
-            if (choice.equals("Y")) {
+            }else if (choice.equals("Y")) {
                 System.out.println("Введите тип вложения из списка: \n\"comment\" - комментарий к дефекту или \"link\" - ссылка к дефекту");
                 String attachment = scanner.nextLine();
                 switch (attachment) {
@@ -94,18 +102,22 @@ public class Tracker {
                         repository.addDef(defect);
                         break;
                 }
+            } else {
+                System.out.println("Введена не существующая операция, по умолчанию вложения не будет");
+                Defect defect = new Defect(summary, criticality, countDay);
+                repository.addDef(defect);
             }
     }
 
     public static void changeStatus(Scanner scanner, Repository repository) {
-        Set <Transition> set = new LinkedHashSet<>();
+        Set <Transition> set = new HashSet<>();
         Collections.addAll(set, new Transition(Status.OPEN, Status.IN_PROCESS),
                 new Transition(Status.OPEN, Status.TEST), new Transition(Status.IN_PROCESS, Status.TEST),
                 new Transition(Status.IN_PROCESS, Status.CLOSE), new Transition(Status.TEST, Status.DONE),
                 new Transition(Status.TEST, Status.DONE), new Transition(Status.TEST, Status.CLOSE));
 
         System.out.println("Введите ID дефекта у которого нужно изменить статус");
-        Defect defect = repository.getAll().get(scanner.nextLong());
+        Long idDef = scanner.nextLong();
         scanner.nextLine();
 
         System.out.println("Выберите статус из списка: \n\"open\", \"in_process\", \"test\", \"close\", \"done\"");
@@ -119,11 +131,38 @@ public class Tracker {
             }
         }
 
-        if (set.contains(new Transition(defect.getStatus(), to))) {
-                defect.setStatus(to);
-        } else {
-            System.out.println("Невалидное перемещение");
+        try {
+            if (set.contains(new Transition(repository.getById(idDef).getStatus(), to))) {
+                repository.getById(idDef).setStatus(to);
+            } else {
+                System.out.println("Невалидное перемещение");
+            }
+        } catch (NullPointerException e) {
+            System.out.println("Введен несуществующий ID дефекта");
         }
+    }
+
+    public static void stats(Repository repository) {
+        long countOpen = repository.getAllDefect().stream().filter(e -> e.getStatus().equals(Status.OPEN)).count();
+        long countTest = repository.getAllDefect().stream().filter(e -> e.getStatus().equals(Status.TEST)).count();
+        long countProcess = repository.getAllDefect().stream().filter(e -> e.getStatus().equals(Status.IN_PROCESS)).count();
+        long countClose = repository.getAllDefect().stream().filter(e -> e.getStatus().equals(Status.CLOSE)).count();
+        long countDone = repository.getAllDefect().stream().filter(e -> e.getStatus().equals(Status.DONE)).count();
+
+        int maxDay = repository.getCounterDay().stream().mapToInt(Integer ::intValue).max().orElseThrow(NoSuchElementException ::new);
+        int minDay = repository.getCounterDay().stream().mapToInt(Integer ::intValue).min().orElseThrow(NoSuchElementException ::new);
+        double average = repository.getCounterDay().stream().mapToInt(Integer ::intValue).average().orElse(Double.NaN);
+
+//          Второй вариант вывести всю статистику по количеству дней
+//        IntSummaryStatistics statistics = repository.getCounter().stream().mapToInt(Integer ::intValue).summaryStatistics();
+//        System.out.println(statistics);
+
+        System.out.println("Максимальное колич. дней на работу: " + maxDay
+                + ", \nМиниимальное колич. дней на работу: " + minDay
+                + ", \nСреднее количество дней на исправление: " + average
+                + ", \nДефекты со статусом Открыто: "+countOpen + ", Дефекты со статусом Тестирование: " + countTest
+                + ", \nДефекты со статусом В работе: "+countProcess + ", Дефекты со статусом Выполненно: "+countDone
+                + ", \nДефекты со статусом Закрыто: "+countClose);
     }
 }
 

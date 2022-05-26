@@ -29,6 +29,10 @@ public class Defect {
         return ID;
     }
 
+    public int getCountDay() {
+        return countDay;
+    }
+
     public Status getStatus() {
         return status;
     }

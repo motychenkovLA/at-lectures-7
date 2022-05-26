@@ -1,7 +1,6 @@
 package tracker;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Repository {
 
@@ -11,10 +10,23 @@ public class Repository {
         listDefect.put(defect.getID(), defect);
     }
 
-    public Map<Long, Defect> getAll() {
-        return listDefect;
+    public List<Integer> getCounterDay() {
+        List<Integer> deff = new ArrayList<>();
+        for(Map.Entry<Long, Defect> entry :listDefect.entrySet()) {
+            deff.add(entry.getValue().getCountDay());
+        }
+        return deff;
     }
 
+    public List<Defect> getAllDefect() {
+        List<Defect> def = new ArrayList<>();
+        for(Map.Entry<Long, Defect> entry :listDefect.entrySet()) {
+           def.add(entry.getValue());
+        }
+        return def;
+    }
 
-
+    public Defect getById(long id) {
+            return listDefect.get(id);
+    }
 }
