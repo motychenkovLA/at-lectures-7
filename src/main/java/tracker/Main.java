@@ -168,6 +168,7 @@ public class Main {
     }
 
     public static void seeStatus(Repository repository) {
+        // todo 3 - делается в одно выражение + хардкод всех статусов
         long countOpen = repository.getAll().stream().filter(e -> e.getStatus().equals(Status.OPEN)).count();
         long countInProgress = repository.getAll().stream().filter(e -> e.getStatus().equals(Status.IN_PROGRESS)).count();
         long countRft = repository.getAll().stream().filter(e -> e.getStatus().equals(Status.READY_FOR_TESTING)).count();
@@ -175,7 +176,7 @@ public class Main {
         long countDone = repository.getAll().stream().filter(e -> e.getStatus().equals(Status.DONE)).count();
         long countClosed = repository.getAll().stream().filter(e -> e.getStatus().equals(Status.CLOSED)).count();
 
-
+        // todo 3 - большие повторяющиеся куски в каждом пункте
         int minAmountOfDay = repository.getCountAmountOfDay()
                 .stream()
                 .mapToInt(Integer::intValue)
