@@ -1,6 +1,8 @@
 package tracker;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class Defect {
     private static long num = 0L;
@@ -56,6 +58,10 @@ public class Defect {
         return day;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     public String getAttach() {
         if (attach != null) {
             return attach.toString();
@@ -73,12 +79,25 @@ public class Defect {
 
     }
 
+    public boolean checkTransition(Status statusFrom, Status statusTo) {
+        Transition checkedTrans = new Transition(statusFrom, statusTo);
+        Set<Transition> setTransition = new HashSet<>();
+
+        setTransition.add(new Transition(Status.OPEN, Status.IN_PROGRESS));
+        setTransition.add(new Transition(Status.IN_TESTING, Status.CLOSED));
+        setTransition.add(new Transition(Status.IN_PROGRESS, Status.IN_TESTING));
+        setTransition.add(new Transition(Status.IN_TESTING, Status.IN_PROGRESS));
+        setTransition.add(new Transition(Status.CLOSED, Status.IN_TESTING));
+        return setTransition.contains(checkedTrans);
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Defect defect = (Defect) o;
-        if (id==defect.id) return true;
+        if (id == defect.id) return true;
         return day == defect.day &&
                 summary.equals(defect.summary) && severity.ordinal() == defect.severity.ordinal() &&
                 attach.equals(defect.attach) && status.ordinal() == defect.status.ordinal();
@@ -86,7 +105,7 @@ public class Defect {
 
     @Override
     public int hashCode() {
-        return summary.length()+severity.ordinal()+day+attach.toString().length()+status.ordinal();
+        return summary.length() + severity.ordinal() + day + attach.toString().length() + status.ordinal();
     }
 
 

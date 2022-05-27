@@ -1,33 +1,26 @@
 package tracker;
 
-public class Repository {
-    private Defect[] defectRep;
-    private int currentNumber = 0;
+import java.util.HashMap;
+import java.util.Map;
 
-    public Repository(int maxCount) {
-        this.defectRep = new Defect[maxCount];
-    }
+public class Repository {
+    private Map<Long, Defect> defectRep = new HashMap<>();
+
 
     public void addDefect(Defect defect) {
-        if (currentNumber < defectRep.length) {
-            defectRep[currentNumber] = defect;
-            currentNumber++;
-        }
+        defectRep.put(defect.getId(), defect);
     }
 
-    public Defect[] getAll() {
+    public Map<Long, Defect> getAll() {
         return defectRep;
     }
 
+
     public boolean defectIsFound(long id) throws MyExeption {
-        for (Defect d1 : this.defectRep) {
-            if (d1 != null) {
-                if (d1.getId() == id) {
-                    return true;
-                }
-            }
-        }
-       throw new MyExeption();
+
+        if (this.defectRep.containsKey(id)) return true;
+        else throw new MyExeption();
+
     }
 
 }
