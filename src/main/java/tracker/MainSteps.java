@@ -46,14 +46,14 @@ public class MainSteps {
         switch (attachType) {
             case "1":
                 System.out.println("Введитие комментарий");
-                String attachComment = scanner.nextLine();
+                CommentAttachment attachComment = new CommentAttachment(scanner.nextLine());
                 defect = new Defect(summary, severity, day, attachComment);
                 break;
             case "2":
                 while (!goodId) {
                     try {
                         System.out.println("Введите ID связанного дефекта");
-                        Long attachDefect = scanner.nextLong();
+                        DefectAttachment attachDefect = new DefectAttachment(scanner.nextLong());
                         scanner.nextLine();
                         defect = new Defect(summary, severity, day, attachDefect);
                         goodId = true;
@@ -84,6 +84,7 @@ public class MainSteps {
         boolean goodId = false;
         Status status = null;
         long id;
+        Map<Long, Defect> defects;
 
         while (!goodId) {
             try {
@@ -112,9 +113,9 @@ public class MainSteps {
                     System.out.println("попробуйте еще раз");
                     continue;
                 }
-
-                if (rep.getAll().containsKey(id) && rep.getAll().get(id).checkTransition(rep.getAll().get(id).getStatus(), status)) {
-                    rep.getAll().get(id).changeStatus(status);
+                defects = rep.getAll();
+                if (defects.containsKey(id) && defects.get(id).checkTransition(defects.get(id).getStatus(), status)) {
+                    defects.get(id).changeStatus(status);
                 } else System.out.println("такое изменение статуса запрещено");
             }
         }
