@@ -21,6 +21,10 @@ public class Defect {
         counter++;
     }
 
+    public int getAmountOfDays() {
+        return amountOfDays;
+    }
+
     public Status getStatus() {
         return status;
     }

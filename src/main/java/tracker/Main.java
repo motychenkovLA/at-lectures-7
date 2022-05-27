@@ -10,7 +10,8 @@ public class Main {
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
                 System.out.println("Введите операцию из списка:\nadd - добавить новый дефект; " +
-                        "\nchange - именить статус дефекта" + "\nlist - вывести список дефектов; \nquit - выход");
+                        "\nchange - именить статус дефекта" + "\nstats - вывести статистику" +
+                        "\nlist - вывести список дефектов; \nquit - выход");
                 String operation = scanner.nextLine();
 
                 switch (operation) {
@@ -28,6 +29,10 @@ public class Main {
                             System.out.println("________________________");
                         }
                         break;
+
+                    case "stats":
+                        seeStatus(repository);
+                        return;
 
                     case "quit":
                         System.out.println("Выход из системы");
@@ -160,6 +165,43 @@ public class Main {
             }
             break;
         }
+    }
+
+    public static void seeStatus(Repository repository) {
+        long countOpen = repository.getAll().stream().filter(e -> e.getStatus().equals(Status.OPEN)).count();
+        long countInProgress = repository.getAll().stream().filter(e -> e.getStatus().equals(Status.IN_PROGRESS)).count();
+        long countRft = repository.getAll().stream().filter(e -> e.getStatus().equals(Status.READY_FOR_TESTING)).count();
+        long countTesting = repository.getAll().stream().filter(e -> e.getStatus().equals(Status.TESTING)).count();
+        long countDone = repository.getAll().stream().filter(e -> e.getStatus().equals(Status.DONE)).count();
+        long countClosed = repository.getAll().stream().filter(e -> e.getStatus().equals(Status.CLOSED)).count();
+
+
+        int minAmountOfDay = repository.getCountAmountOfDay()
+                .stream()
+                .mapToInt(Integer::intValue)
+                .min().orElse(0);
+        int maxAmountOfDay = repository.getCountAmountOfDay()
+                .stream()
+                .mapToInt(Integer::intValue)
+                .max()
+                .orElse(0);
+        double averageAmountOfDay = repository.getCountAmountOfDay()
+                .stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElse(0);
+
+        System.out.println("Максимальное количество дней на исправление: " + maxAmountOfDay + "\n" +
+                "Среднее количество дней на исправление: " + averageAmountOfDay + "\n" +
+                "Минимальное количество дней на исправление: " + minAmountOfDay + "\n\n" +
+                "Статус    |  Количество дефектов в этом статусе\n" +
+                "------------------------------------------------\n" +
+                "ОТКРЫТ:               | " + countOpen + "\n" +
+                "В РАБОТЕ:             | " + countInProgress + "\n" +
+                "ГОТОВ К ТЕСТИРОВАНИЮ: | " + countRft + "\n" +
+                "ТЕСТИРОВАНИЕ:         | " + countTesting + "\n" +
+                "СДЕЛАНО:              | " + countDone + "\n" +
+                "ЗАКРЫТ:               | " + countClosed);
     }
 }
 
