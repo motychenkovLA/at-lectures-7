@@ -1,12 +1,12 @@
 package tracker;
 import org.jetbrains.annotations.NotNull;
 import java.util.InputMismatchException;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        final int MAX_CAPACITY = 2;
-        Repository repository = new Repository(MAX_CAPACITY);
+        Repository repository = new Repository();
         boolean programRun = true;
         try(Scanner scanner = new Scanner(System.in)) {
             while (programRun) {
@@ -22,8 +22,7 @@ public class Main {
                         break;
                     }
                     case "list": {
-                        Defect[] all = repository.getAll();
-                        showList(all);
+                        showList(repository.getAll());
                         break;
                     }
                     case "change": {
@@ -149,26 +148,32 @@ public class Main {
         return linkAttachment;
     }
 
-    private static void showList(Defect @NotNull [] repository) {
-        for (int a = 0; a <= (repository.length - 1); a++) {
-            System.out.println(repository[a].getId() + " | Описание: " + repository[a].getSummary() +
-                    " | Критичность: " + repository[a].getSeverity() + " | Количество дней для " +
-                    "исправления: " +
-                    repository[a].getDays() + " | " + repository[a].getAttachment().toString() +
-                    " | Статус: " + repository[a].getStatus().ruName);
+    private static void showList(Map<Long,Defect> repository) {
+//        for (int a = 0; a <= (repository.length - 1); a++) {
+//            System.out.println(repository[a].getId() + " | Описание: " + repository[a].getSummary() +
+//                    " | Критичность: " + repository[a].getSeverity() + " | Количество дней для " +
+//                    "исправления: " +
+//                    repository[a].getDays() + " | " + repository[a].getAttachment().toString() +
+//                    " | Статус: " + repository[a].getStatus().ruName);
+//        }
+        for (Map.Entry<Long, Defect> entry : repository.entrySet()) {
+            Defect defect = entry.getValue();
+            System.out.println(entry.getKey()  + " | Описание: " + defect.getSummary() +
+                    " | Критичность: " + defect.getSeverity() + " | Количество дней для " +
+                    "исправления: " + defect.getDays() + " | " + defect.getAttachment().toString() +
+                    " | Статус: " + defect.getStatus().ruName);
         }
     }
 
-    private static void changeStatus(Defect @NotNull [] repository, Scanner scanner) {
-        int id;
+    private static void changeStatus(Map<Long,Defect> repository, Scanner scanner) {
+        long id;
+        System.out.println("Введите id дефекта не больше " + (repository.size() - 1));
         boolean runInputId = true;
-        System.out.println("Введите id дефекта от 0 до " + (repository.length - 1));
         while (runInputId) {
-
             try {
                 id = scanner.nextInt();
 
-                if (id < repository.length) {
+                if (id < repository.size()) {
 
                     System.out.println("Введите статус дефекта:\n" +
                             "\"OPEN\" - открыт,\n\"CLOSED\" - закрыт");
@@ -177,7 +182,8 @@ public class Main {
 
                     while (runInputStatusDefect) {
                         try {
-                            repository[id].setStatus(scanner.nextLine());
+                            Defect defect = repository.get(id);
+                            defect.setStatus(scanner.nextLine());
                             runInputStatusDefect = false;
 
                         } catch (IllegalArgumentException e) {
@@ -193,7 +199,7 @@ public class Main {
                 runInputId = false;
 
             } catch (InputMismatchException i) {
-                System.out.println("Введите значение от 0 до " + (repository.length - 1)
+                System.out.println("Введите значение от 0 до " + (repository.size() - 1)
                         + " включительно");
                 scanner.nextLine();
             }
