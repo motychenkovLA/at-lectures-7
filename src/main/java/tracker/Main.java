@@ -1,6 +1,9 @@
 package tracker;
 
-import java.util.*;
+import java.util.IntSummaryStatistics;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -10,11 +13,11 @@ public class Main {
 
             while (true) {
                 System.out.println("Выберите действие:\n" + "Добавить новый дефект - add,\n" +
-                        "Изменить статус дефекта - change,\n" + "Вывести список - list,\n" +
+                        "Изменить статус дефекта - change,\n" + "Вывести статистику - stats,\n" + "Вывести список - list,\n" +
                         "Выйти из программы - quit");
-                System.out.println();
+                String operation = scanner.nextLine();
 
-                switch (scanner.nextLine()) {
+                switch (operation) {
                     case "add":
                         addDefect(scanner, repository);
                         System.out.println();
@@ -26,8 +29,14 @@ public class Main {
                         break;
 
                     case "list":
-                        System.out.println(repository.getAll());
-                        System.out.println("_____________________________________________________________________");
+                        for (Defect defect : repository.getAll()) {
+                            System.out.println(defect);
+                            System.out.println("_____________________________________________________________________");
+                        }
+                        break;
+
+                    case "stats":
+                        seeStatusForStatistic(repository);
                         break;
 
                     case "quit":
@@ -165,5 +174,19 @@ public class Main {
             }
             break;
         }
+    }
+
+    public static void seeStatusForStatistic(Repository repository) {
+        Map<Status, Long> stat = repository.getAll().stream()
+                .collect(Collectors.groupingBy(Defect::getStatus, Collectors.counting()));
+
+        stat.forEach((Status, Long) -> System.out.println("Количество дефектов в статусе " + Status.getRuName() +
+                " равно " + Long));
+
+        IntSummaryStatistics intSummaryStatistics = repository.getAll()
+                .stream().collect(Collectors.summarizingInt(Defect::getCountDay));
+        System.out.println("Максимальное количество дней на исправление: " + intSummaryStatistics.getMax() + "\n" +
+                "Минимальное количество дней на исправление: " + intSummaryStatistics.getMin() + "\n" +
+                "Среднее количество дней на исправление: " + intSummaryStatistics.getAverage() + "\n");
     }
 }

@@ -20,6 +20,10 @@ public class Defect {
         this.id = numberDefects++;
     }
 
+    public int getCountDay() {
+        return countDay;
+    }
+
     public Status getStatus() {
         return status;
     }
