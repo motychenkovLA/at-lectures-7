@@ -1,6 +1,7 @@
 package tracker;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -31,7 +32,7 @@ public class Main {
                         break;
 
                     case "stats":
-                        seeStatus(repository);
+                        seeStatusForStatistic(repository);
                         return;
 
                     case "quit":
@@ -167,42 +168,20 @@ public class Main {
         }
     }
 
-    public static void seeStatus(Repository repository) {
-        // todo 3 - делается в одно выражение + хардкод всех статусов
-        long countOpen = repository.getAll().stream().filter(e -> e.getStatus().equals(Status.OPEN)).count();
-        long countInProgress = repository.getAll().stream().filter(e -> e.getStatus().equals(Status.IN_PROGRESS)).count();
-        long countRft = repository.getAll().stream().filter(e -> e.getStatus().equals(Status.READY_FOR_TESTING)).count();
-        long countTesting = repository.getAll().stream().filter(e -> e.getStatus().equals(Status.TESTING)).count();
-        long countDone = repository.getAll().stream().filter(e -> e.getStatus().equals(Status.DONE)).count();
-        long countClosed = repository.getAll().stream().filter(e -> e.getStatus().equals(Status.CLOSED)).count();
 
-        // todo 3 - большие повторяющиеся куски в каждом пункте
-        int minAmountOfDay = repository.getCountAmountOfDay()
-                .stream()
-                .mapToInt(Integer::intValue)
-                .min().orElse(0);
-        int maxAmountOfDay = repository.getCountAmountOfDay()
-                .stream()
-                .mapToInt(Integer::intValue)
-                .max()
-                .orElse(0);
-        double averageAmountOfDay = repository.getCountAmountOfDay()
-                .stream()
-                .mapToInt(Integer::intValue)
-                .average()
-                .orElse(0);
+    public static void seeStatusForStatistic(Repository repository) {
+        Map<Status, Long> stat = repository.getAll()
+                .stream().collect(Collectors.groupingBy(Defect::getStatus, Collectors.counting()));
 
-        System.out.println("Максимальное количество дней на исправление: " + maxAmountOfDay + "\n" +
-                "Среднее количество дней на исправление: " + averageAmountOfDay + "\n" +
-                "Минимальное количество дней на исправление: " + minAmountOfDay + "\n\n" +
-                "Статус    |  Количество дефектов в этом статусе\n" +
-                "------------------------------------------------\n" +
-                "ОТКРЫТ:               | " + countOpen + "\n" +
-                "В РАБОТЕ:             | " + countInProgress + "\n" +
-                "ГОТОВ К ТЕСТИРОВАНИЮ: | " + countRft + "\n" +
-                "ТЕСТИРОВАНИЕ:         | " + countTesting + "\n" +
-                "СДЕЛАНО:              | " + countDone + "\n" +
-                "ЗАКРЫТ:               | " + countClosed);
+        for (Map.Entry<Status, Long> entry : stat.entrySet()) {
+            System.out.println("Количество дефектов в статусе " + entry);
+        }
+
+        IntSummaryStatistics intSummaryStatistics = repository.getAll()
+                .stream().collect(Collectors.summarizingInt(Defect::getAmountOfDays));
+        System.out.println("Максимальное количество дней на исправление: " + intSummaryStatistics.getMax() + "\n" +
+                 "Минимальное количество дней на исправление: " + intSummaryStatistics.getMin() + "\n" +
+                 "Среднее количество дней на исправление: " + intSummaryStatistics.getAverage() + "\n");
     }
 }
 

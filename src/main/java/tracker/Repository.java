@@ -17,13 +17,4 @@ public class Repository {
     public Defect getById(long id) {
         return listDefect.get(id);
     }
-
-    // todo 1 - getAll должно быть достаточно
-    public List<Integer> getCountAmountOfDay() {
-        List<Integer> bug = new ArrayList<>();
-        for (Map.Entry<Long, Defect> entry : listDefect.entrySet()) {
-            bug.add(entry.getValue().getAmountOfDays());
-        }
-        return bug;
-    }
 }
