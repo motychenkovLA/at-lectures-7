@@ -33,7 +33,7 @@ public class Main {
 
                     case "stats":
                         seeStatusForStatistic(repository);
-                        return; // todo 3 - почему выходит из программы?
+                        break;
 
                     case "quit":
                         System.out.println("Выход из системы");
@@ -170,18 +170,17 @@ public class Main {
 
 
     public static void seeStatusForStatistic(Repository repository) {
-        Map<Status, Long> stat = repository.getAll()
-                .stream().collect(Collectors.groupingBy(Defect::getStatus, Collectors.counting()));
-        // todo 3 - неплохо бы перебирать сразу в предыдущем выражении .forEach(), чтобы не смешивать стримы и циклы
-        for (Map.Entry<Status, Long> entry : stat.entrySet()) {
-            System.out.println("Количество дефектов в статусе " + entry);
-        }
+        Map<Status, Long> stat = repository.getAll().stream()
+                .collect(Collectors.groupingBy(Defect::getStatus, Collectors.counting()));
+
+        stat.forEach((Status, Long) -> System.out.println("Количество дефектов в статусе " + Status.getRuName() +
+                " равно " + Long));
 
         IntSummaryStatistics intSummaryStatistics = repository.getAll()
                 .stream().collect(Collectors.summarizingInt(Defect::getAmountOfDays));
         System.out.println("Максимальное количество дней на исправление: " + intSummaryStatistics.getMax() + "\n" +
-                 "Минимальное количество дней на исправление: " + intSummaryStatistics.getMin() + "\n" +
-                 "Среднее количество дней на исправление: " + intSummaryStatistics.getAverage() + "\n");
+                "Минимальное количество дней на исправление: " + intSummaryStatistics.getMin() + "\n" +
+                "Среднее количество дней на исправление: " + intSummaryStatistics.getAverage() + "\n");
     }
 }
 
