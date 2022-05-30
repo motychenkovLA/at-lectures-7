@@ -13,8 +13,8 @@ public class Main {
 
             while (true) {
                 System.out.println("Выберите действие:\n" + "Добавить новый дефект - add,\n" +
-                        "Изменить статус дефекта - change,\n" + "Вывести статистику - stats,\n" + "Вывести список - list,\n" +
-                        "Выйти из программы - quit");
+                        "Изменить статус дефекта - change,\n" + "Вывести статистику - stats,\n" +
+                        "Вывести список - list,\n" + "Выйти из программы - quit");
                 String operation = scanner.nextLine();
 
                 switch (operation) {
