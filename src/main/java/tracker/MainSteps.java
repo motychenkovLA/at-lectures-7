@@ -1,8 +1,6 @@
 package tracker;
 
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.util.*;
 
 public class MainSteps {
     private static int count = 0;
@@ -121,12 +119,16 @@ public class MainSteps {
         }
     }
 
+    public static void caseStats() {
+        rep.getStatistic();
+    }
 
     public static String chooseAction(Scanner scanner) {
         System.out.println("--------------" + "\n" +
                 "Для добавления дефекта введите add" + "\n"
                 + "Для вывода списка дефектов введите list" + "\n"
                 + "Для изменения статуса дефекта введите change" + "\n"
+                + "Для просмотра статистики введите stats" + "\n"
                 + "Для выхода из программы введите quit");
         String choise = scanner.nextLine();
         return choise;

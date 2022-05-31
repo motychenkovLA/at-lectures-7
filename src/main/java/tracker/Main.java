@@ -23,6 +23,10 @@ public class Main {
                         MainSteps.caseChange(scanner);
                         break;
                     }
+                    case "stats": {
+                        MainSteps.caseStats();
+                        break;
+                    }
                     case "quit":
                         break;
                     default:
