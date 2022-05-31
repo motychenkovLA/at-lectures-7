@@ -3,12 +3,11 @@ package tracker;
 import java.util.Locale;
 import java.util.Scanner;
 
-import static tracker.Repository.numberDefects;
 
 public class Main {
 
     public static void main(String[] args) {
-        Repository repository = new Repository(10);
+        Repository repository = new Repository();
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
                 System.out.println("Введите действие: добавить новый дефект (\"add\") или изменить статус дефекта (\"change\") или вывести список (\"list\") или выйти из программы (\"quit\") - главное меню ");
@@ -122,26 +121,32 @@ public class Main {
                 try {
                     System.out.println("Укажите ID дефекта, у которого необходимо изменить статус:");
                     long changeId = Long.parseLong(scanner.nextLine());
-                    if (repository.getById(changeId) == null) {
+                    Defect defect = repository.getById(changeId);
+                    if (defect==null) {
                         System.out.println("Такого id не существует");
                         continue;
                     }
                     System.out.println("Изменить статус дефекта на:");
                     Status[] values = Status.values();
-                    Status status = null;
+                    Status to;
 
-                    while (status == null) {
+                    while (true) {
                         for (Status value : values) {
                             System.out.println(value);
                         }
                         try {
-                            status = Status.valueOf(scanner.nextLine().toUpperCase());
-                            status = Status.valueOf(scanner.nextLine());
+                            to = Status.valueOf(scanner.nextLine());
+                            break;
                         } catch (IllegalArgumentException e) {
                             System.out.println("Такого статуса нет в списке, выберете значение из списка");
                         }
                     }
-                    repository.getById(changeId).setStatus(status);
+                    if (Transition.checkTransition(defect.getStatus(), to)){
+                        defect.setStatus(to);
+                    } else {
+                        System.out.println("Перевод в этот статус невозможен, попробуйте еще раз");
+                        continue;
+                    }
                 } catch (NumberFormatException e) {
                     System.out.println("Неверный статус");
                 }

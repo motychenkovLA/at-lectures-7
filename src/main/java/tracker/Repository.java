@@ -1,24 +1,21 @@
 package tracker;
 
+import java.util.Collection;
+import java.util.HashMap;
+
 public class Repository {
 
-    private final Defect[] defects;
-    private final int count;
-    public static int numberDefects = 0;
+    private final HashMap<Long, Defect> listDefect = new HashMap<>();
 
-    public Repository(int count) {
-        this.count = count;
-        this.defects = new Defect[count];
+    public void add(Defect defect){
+        listDefect.put(defect.getId(), defect);
     }
 
-    void add(Defect defect){
-        if(numberDefects <= count) {
-            defects[numberDefects] = defect;
-            numberDefects++;
-        }
+    public Collection<Defect> getAll(){
+        return listDefect.values();
     }
 
-    Defect[] getAll(){
-       return defects;
+    public Defect getById(long id){
+       return listDefect.get(id);
     }
 }

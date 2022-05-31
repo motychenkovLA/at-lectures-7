@@ -1,9 +1,6 @@
 package tracker;
 
 import java.util.Objects;
-import java.util.Scanner;
-
-import static tracker.Repository.numberDefects;
 
 public class Defect {
      private final long id;
@@ -12,12 +9,13 @@ public class Defect {
      private int days;
      private Attachment attachment;
      private Status status;
+     private static long numberDefects=1;
 
     public Defect(String summary, String severity, int days, Attachment attachment) {
         this.summary = summary;
         this.severity = severity;
         this.days = days;
-        this.id = numberDefects;
+        this.id = numberDefects++ ;
         this.attachment = attachment;
         this.status=Status.OPENED;
     }
