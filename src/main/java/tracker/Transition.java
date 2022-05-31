@@ -17,7 +17,7 @@ public class Transition {
         if (o == null || this.getClass() != o.getClass()) return false;
         Transition transition = (Transition) o;
         if (this.hashCode() != transition.hashCode()) return false;
-        return this.from.equals(transition.from) && this.to == transition.to;
+        return this.from.equals(transition.from) && this.to.equals(transition.to);
     }
 
     @Override

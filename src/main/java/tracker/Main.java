@@ -1,9 +1,7 @@
 package tracker;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,8 +10,8 @@ public class Main {
             boolean isRun = true;
             while (isRun) {
                 System.out.println("Выберите действие: " + "\n" + "add - добавить новый дефект" + "\n" +
-                        "change - изменить статус" + "\n" + "list - вывести список" + "\n" + "quit - выйти из " +
-                        "программы");
+                        "change - изменить статус" + "\n" + "list - вывести список" + "\n" +
+                        "stats - показать статистику" + "\n" + "quit - выйти из программы");
                 switch (scanner.nextLine()) {
                     case "add": {
                         if (repository.isFull()) {
@@ -79,13 +77,11 @@ public class Main {
                                 if (repository.getAll().containsKey(defectID)) {
                                     System.out.println("Выберите новый статус (OPEN, FIXING, TESTING, CLOSED)");
                                     Status status = Status.valueOf(scanner.nextLine());
-                                    for (Map.Entry<Long, Defect> entry: repository.getAll().entrySet()) {
-                                            if (setTransition.contains(new Transition(entry.getValue().getStatus(),
-                                                status))) {
-                                            entry.getValue().setStatus(status);
-                                        } else {
-                                            System.out.println("Невалидный переход между статусами!");
-                                        }
+                                    if (setTransition.contains(new Transition(repository.getAll().get(defectID)
+                                            .getStatus(), status))) {
+                                        repository.getAll().get(defectID).setStatus(status);
+                                    } else {
+                                        System.out.println("Невалидный переход между статусами!");
                                     }
                                 } else {
                                     System.out.println("Дефект с id = " + defectID + " не найден!");
@@ -103,9 +99,34 @@ public class Main {
 
                     case "list": {
                         System.out.println("Список дефектов:");
-                        for (Map.Entry<Long, Defect> entry: repository.getAll().entrySet()) {
+                        for (Map.Entry<Long, Defect> entry : repository.getAll().entrySet()) {
                             System.out.println(entry.getValue());
                         }
+                        break;
+                    }
+
+                    case "stats": {
+                        IntSummaryStatistics stats = repository.getAll().values().stream()
+                                .mapToInt(Defect::getDaysToFix).summaryStatistics();
+                        int maxDay = stats.getMax();
+                        int minDay = stats.getMin();
+                        double average = stats.getAverage();
+
+                        long open = repository.getAll().values().stream().filter(e -> e.getStatus()
+                                .equals(Status.OPEN)).count();
+                        long fixing = repository.getAll().values().stream().filter(e -> e.getStatus()
+                                .equals(Status.FIXING)).count();
+                        long testing = repository.getAll().values().stream().filter(e -> e.getStatus()
+                                .equals(Status.TESTING)).count();
+                        long closed = repository.getAll().values().stream().filter(e -> e.getStatus()
+                                .equals(Status.CLOSED)).count();
+
+                        System.out.println("Максимальное кол-во дней на исправление: " + maxDay + "\n" +
+                                "Минимальное кол-во дней на исправление: " + minDay + "\n" +
+                                "Среднее кол-во дней на исправление: " + average + "\n" +
+                                "Количество дефектов по статусам:" + "\n" + "Открыт - " + open + "\n" +
+                                "На исправлении - " + fixing + "\n" + "В тестировании - " + testing + "\n" +
+                                "Закрыт - " + closed);
                         break;
                     }
 
