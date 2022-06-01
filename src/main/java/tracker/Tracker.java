@@ -195,8 +195,6 @@ public class Tracker {
                 + ", \nДефекты со статусом Открыто: "+countOpen + ", Дефекты со статусом Тестирование: " + countTest
                 + ", \nДефекты со статусом В работе: "+countProcess + ", Дефекты со статусом Выполненно: "+countDone
                 + ", \nДефекты со статусом Закрыто: "+countClose);
-
-//        System.out.println();
     }
 }
 
