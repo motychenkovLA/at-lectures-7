@@ -1,7 +1,10 @@
 package tracker;
 
+import java.util.IntSummaryStatistics;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 
 public class Main {
@@ -10,7 +13,7 @@ public class Main {
         Repository repository = new Repository();
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
-                System.out.println("Введите действие: добавить новый дефект (\"add\") или изменить статус дефекта (\"change\") или вывести список (\"list\") или выйти из программы (\"quit\") - главное меню ");
+                System.out.println("Введите действие: добавить новый дефект (\"add\") или изменить статус дефекта (\"change\") или вывести статистику (\"stats\") или вывести список (\"list\") или выйти из программы (\"quit\") - главное меню ");
                 switch (scanner.nextLine()) {
                     case ("add"):
                         add(scanner, repository);
@@ -24,6 +27,9 @@ public class Main {
                        for (Defect defect:repository.getAll()){
                            System.out.println(defect);
                        }
+                        break;
+                    case ("stats"):
+                        statusStatistic(repository);
                         break;
 
                     case ("quit"):
@@ -153,4 +159,13 @@ public class Main {
                 break;
                 }
             }
-        }
+
+            public static void statusStatistic(Repository repository) {
+                Map<Status, Long> stat = repository.getAll().stream().collect(Collectors.groupingBy(Defect::getStatus, Collectors.counting()));
+                stat.forEach((Status, Long) -> System.out.println("Количество дефектов в статусе" + Status.getRuName() + "-" + Long));
+
+                IntSummaryStatistics intSummaryStatistics = repository.getAll().stream().collect(Collectors.summarizingInt(Defect::getDays));
+                System.out.println("Максимальное количество дней -" + intSummaryStatistics.getMax() + "\n" + "Минимальное количество дней на исправление -"
+                        + intSummaryStatistics.getMin() + "\n" + "Среднее количество дней на исправление -" + intSummaryStatistics.getAverage() + "\n");
+            }
+}

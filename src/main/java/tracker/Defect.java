@@ -20,6 +20,10 @@ public class Defect {
         this.status=Status.OPENED;
     }
 
+    public int getDays(){
+        return days;
+    }
+
     public Status getStatus(){
         return status;
     }
