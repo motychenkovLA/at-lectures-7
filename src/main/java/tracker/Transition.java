@@ -16,12 +16,12 @@ public class Transition {
         if (this == o) return true;
         if (!(o instanceof Transition)) return false;
         Transition that = (Transition) o;
-        return from == that.from && to == that.to;
+        return this.from == that.from && this.to == that.to;
     }
 
     @Override
     public int hashCode() {
-        return from.toString().hashCode() + to.toString().hashCode();
+        return this.from.toString().hashCode() + this.to.toString().hashCode();
 
     }
 }

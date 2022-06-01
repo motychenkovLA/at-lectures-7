@@ -21,11 +21,11 @@ public class DefectAttachment extends Attachment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefectAttachment defAtt = (DefectAttachment) o;
-        return attachDefectID == defAtt.attachDefectID;
+        return this.attachDefectID == defAtt.attachDefectID;
     }
 
     @Override
     public int hashCode() {
-        return (int) attachDefectID;
+        return (int) this.attachDefectID;
     }
 }

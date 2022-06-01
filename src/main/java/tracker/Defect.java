@@ -86,13 +86,13 @@ public class Defect {
         Defect defect = (Defect) o;
         if (id == defect.id) return true;
         return day == defect.day &&
-                summary.equals(defect.summary) && severity.ordinal() == defect.severity.ordinal() &&
-                attach.equals(defect.attach) && status.ordinal() == defect.status.ordinal();
+                this.summary.equals(defect.summary) && this.severity.ordinal() == defect.severity.ordinal() &&
+                this.attach.equals(defect.attach) && this.status.ordinal() == defect.status.ordinal();
     }
 
     @Override
     public int hashCode() {
-        return summary.length() + severity.ordinal() + day + attach.toString().length() + status.ordinal();
+        return this.summary.length() + this.severity.ordinal() + this.day + this.attach.toString().length() + this.status.ordinal();
     }
 
 

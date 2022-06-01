@@ -3,8 +3,6 @@ package tracker;
 import java.util.*;
 
 public class MainSteps {
-    private static int count = 0;
-    private static int maxCount = 10;
     private static Repository rep = new Repository();
     private static Defect defect;
 
@@ -14,6 +12,7 @@ public class MainSteps {
         boolean goodSeverity = false;
         boolean goodDay = false;
         boolean goodId = false;
+        boolean goodComment = false;
 
         System.out.println("Введите резюме дефекта:");
         String summary = scanner.nextLine();
@@ -43,9 +42,17 @@ public class MainSteps {
         String attachType = scanner.nextLine();
         switch (attachType) {
             case "1":
-                System.out.println("Введитие комментарий");
-                CommentAttachment attachComment = new CommentAttachment(scanner.nextLine());
-                defect = new Defect(summary, severity, day, attachComment);
+                while (!goodComment) {
+                    try {
+                        System.out.println("Введитие комментарий");
+
+                        CommentAttachment attachComment = new CommentAttachment(scanner.nextLine());
+                        defect = new Defect(summary, severity, day, attachComment);
+                        goodComment = true;
+                    } catch (Exception e) {
+                        System.out.println("Что-то пошло не так, введите комментарий еще раз");
+                    }
+                }
                 break;
             case "2":
                 while (!goodId) {
@@ -58,7 +65,6 @@ public class MainSteps {
                     } catch (NoSuchElementException e) {
                         scanner.nextLine();
                         System.out.println("Неверный формать номера, попробуйте еще раз");
-                        continue;
                     }
                 }
                 break;
@@ -67,7 +73,6 @@ public class MainSteps {
                 break;
         }
         rep.addDefect(defect);
-        count++;
     }
 
     public static void caseList() {
@@ -80,7 +85,7 @@ public class MainSteps {
     public static void caseChange(Scanner scanner) {
         boolean goodStatus = false;
         boolean goodId = false;
-        Status status = null;
+        Status status;
         long id;
         Map<Long, Defect> defects;
 
