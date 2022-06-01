@@ -143,26 +143,60 @@ public class Tracker {
     }
 
     public static void stats(Repository repository) {
-        long countOpen = repository.getAllDefect().stream().filter(e -> e.getStatus().equals(Status.OPEN)).count();
-        long countTest = repository.getAllDefect().stream().filter(e -> e.getStatus().equals(Status.TEST)).count();
-        long countProcess = repository.getAllDefect().stream().filter(e -> e.getStatus().equals(Status.IN_PROCESS)).count();
-        long countClose = repository.getAllDefect().stream().filter(e -> e.getStatus().equals(Status.CLOSE)).count();
-        long countDone = repository.getAllDefect().stream().filter(e -> e.getStatus().equals(Status.DONE)).count();
+        long countOpen = repository.getAllDefect().stream()
+                .filter(e -> e.getStatus().equals(Status.OPEN)).count();
+        long countTest = repository.getAllDefect().stream()
+                .filter(e -> e.getStatus().equals(Status.TEST)).count();
+        long countProcess = repository.getAllDefect().stream()
+                .filter(e -> e.getStatus().equals(Status.IN_PROCESS)).count();
+        long countClose = repository.getAllDefect().stream()
+                .filter(e -> e.getStatus().equals(Status.CLOSE)).count();
+        long countDone = repository.getAllDefect().stream()
+                .filter(e -> e.getStatus().equals(Status.DONE)).count();
 
-        int maxDay = repository.getCounterDay().stream().mapToInt(Integer ::intValue).max().orElseThrow(NoSuchElementException ::new);
-        int minDay = repository.getCounterDay().stream().mapToInt(Integer ::intValue).min().orElseThrow(NoSuchElementException ::new);
-        double average = repository.getCounterDay().stream().mapToInt(Integer ::intValue).average().orElse(Double.NaN);
 
-//          Второй вариант вывести всю статистику по количеству дней
-//        IntSummaryStatistics statistics = repository.getCounter().stream().mapToInt(Integer ::intValue).summaryStatistics();
-//        System.out.println(statistics);
+        int maxDay = repository.getAllDefect().stream()
+                .mapToInt(Defect ::getCountDay)
+                .max()
+                .orElse(0);
+
+        int minDay = repository.getAllDefect().stream()
+                .mapToInt(Defect ::getCountDay)
+                .max()
+                .orElse(0);
+
+//        Defect maxDay = repository.getAllDefect().stream()
+//                .max(Comparator.comparingInt(Defect::getCountDay))
+//                .get();
+
+        double statistics = repository.getAllDefect().stream()
+                .mapToInt(Defect ::getCountDay)
+                .summaryStatistics()
+                .getAverage();
+
+
+//        int maxDay = repository.getCounterDay().stream()
+//                .max(Integer ::compareTo)
+//                .orElse(0);
+//
+//        int minDay = repository.getCounterDay().stream()
+//                .mapToInt(Integer ::intValue)
+//                .min()
+//                .orElse(0);
+//
+//        double average = repository.getCounterDay().stream()
+//                .mapToInt(Integer ::intValue)
+//                .average()
+//                .orElse(0.0);
 
         System.out.println("Максимальное колич. дней на работу: " + maxDay
                 + ", \nМиниимальное колич. дней на работу: " + minDay
-                + ", \nСреднее количество дней на исправление: " + average
+                + ", \nСреднее количество дней на исправление: " + statistics
                 + ", \nДефекты со статусом Открыто: "+countOpen + ", Дефекты со статусом Тестирование: " + countTest
                 + ", \nДефекты со статусом В работе: "+countProcess + ", Дефекты со статусом Выполненно: "+countDone
                 + ", \nДефекты со статусом Закрыто: "+countClose);
+
+        System.out.println();
     }
 }
 
