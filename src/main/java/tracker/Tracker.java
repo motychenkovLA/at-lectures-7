@@ -196,7 +196,7 @@ public class Tracker {
                 + ", \nДефекты со статусом В работе: "+countProcess + ", Дефекты со статусом Выполненно: "+countDone
                 + ", \nДефекты со статусом Закрыто: "+countClose);
 
-        System.out.println();
+//        System.out.println();
     }
 }
 
