@@ -3,7 +3,7 @@ package tracker;
 public enum Status {
 
     OPEN ("открыт"),
-    ANALIS("анализ"),
+    ANALISYS("в анализе"),
     DEVELOP("разработка"),
     TESTING("тестирование"),
     CLOSED("закрыт");

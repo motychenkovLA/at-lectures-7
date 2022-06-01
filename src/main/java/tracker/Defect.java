@@ -22,13 +22,17 @@ public class Defect {
     }
 
 
-    public int getId() {
-        return (int) id;
+    public long getId() {
+        return id;
     }
 
     public void setStatus(Status status) {
 
         this.status = status;
+    }
+
+    public  Status getStatus() {
+        return status;
     }
 
     public String toString() {

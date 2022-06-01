@@ -1,13 +1,13 @@
 package tracker;
 
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Repository repository = new Repository(10);
-
+        Repository repository = new Repository();
         try (Scanner scanner = new Scanner(System.in)) {
 
             while (true) {
@@ -46,11 +46,6 @@ public class Main {
     }
 
     public static void addDefect(Scanner scanner, Repository repository) {
-        if (repository.isFull()) {
-            System.out.println("Уже заведено 10 дефектов");
-            return;
-        }
-
         System.out.println("Введите резюме дефекта:");
         String resume = scanner.nextLine();
 
@@ -114,25 +109,33 @@ public class Main {
 
     public static void changeStatus(Scanner scanner, Repository repository) {
         while (true) {
-            System.out.println("Введите ID дефекта");
-            long defectId = Long.parseLong(scanner.nextLine());
-            System.out.println("Введите статус дефекта из списка");
-            Status[] values = Status.values();
-            Status status = null;
-            while (status == null) {
-                for (Status value : values) {
-                    System.out.println(value);
+            try {
+                System.out.println("Введите ID дефекта");
+                long defectId = Long.parseLong(scanner.nextLine());
+                Defect def = repository.getById(defectId);
+                System.out.println("Введите статус дефекта из списка");
+                Status[] values = Status.values();
+                Status to;
+                while (true) {
+                    for (Status value : values) {
+                        System.out.println(value);
+                    }
+                    try {
+                        to = Status.valueOf(scanner.nextLine());
+                        break;
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Введенный статус не существует. Попробуйте еще раз.");
+                    }
                 }
-                try {
-                    status = Status.valueOf(scanner.nextLine());
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Введенный статус отсутствует в списке. Введите еще раз.");
+                if (Transition.checkTransition(def.getStatus(), to)) {
+                    def.setStatus(to);
+                } else {
+                    System.out.println("Перевод в данный статус не соответствует жизненному циклу дефекта."
+                            + "Введите другой статус");
                 }
-            }
-            for (Defect defect : repository.getAll()) {
-                if (defect.getId() == defectId) {
-                    defect.setStatus(status);
-                }
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Не верный формат.");
             }
             break;
         }
