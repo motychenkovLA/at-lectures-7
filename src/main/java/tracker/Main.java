@@ -1,8 +1,9 @@
 package tracker;
 import org.jetbrains.annotations.NotNull;
-import java.util.InputMismatchException;
-import java.util.Map;
-import java.util.Scanner;
+
+import java.util.*;
+
+import static tracker.Status.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -166,6 +167,16 @@ public class Main {
     }
 
     private static void changeStatus(Map<Long,Defect> repository, Scanner scanner) {
+
+        Set<Transition> statusesTransition = new HashSet<>();
+        statusesTransition.add(new Transition(OPEN, ANALYSIS));
+        statusesTransition.add(new Transition(ANALYSIS, FIXED));
+        statusesTransition.add(new Transition(ANALYSIS, CLOSED));
+        statusesTransition.add(new Transition(FIXED, TEST));
+        statusesTransition.add(new Transition(TEST, CLOSED));
+        statusesTransition.add(new Transition(TEST, ANALYSIS));
+
+
         long id;
         System.out.println("Введите id дефекта не больше " + (repository.size() - 1));
         boolean runInputId = true;
@@ -175,20 +186,31 @@ public class Main {
 
                 if (id < repository.size()) {
 
+                    scanner.nextLine();
                     System.out.println("Введите статус дефекта:\n" +
                             "\"OPEN\" - открыт,\n\"CLOSED\" - закрыт");
-                    scanner.nextLine();
                     boolean runInputStatusDefect = true;
 
                     while (runInputStatusDefect) {
                         try {
                             Defect defect = repository.get(id);
-                            defect.setStatus(scanner.nextLine());
-                            runInputStatusDefect = false;
+                            Status newStatus = Status.valueOf(scanner.nextLine());
+                            if (statusesTransition.contains(new Transition(defect.getStatus(), newStatus))) {
 
+                                    defect.setStatus(String.valueOf(newStatus));
+                                    runInputStatusDefect = false;
+
+                            } else {
+                                System.out.println("Нельзя перевести дефект в этот статус!\n" +
+                                        "Попробуйте снова!");
+                                System.out.println("Список возможных переходов статусов:\n ");
+                                for (Transition el : statusesTransition) {
+                                    System.out.println(el.from + " / " + el.from.ruName + " -> " +
+                                            el.to + " / " + el.to.ruName);
+                                }
+                            }
                         } catch (IllegalArgumentException e) {
-                            System.out.println("Такой статус установить нельзя! " +
-                                    "Попробуйте ещё раз!");
+                                System.out.println("Такой статус установить нельзя! ");
                         }
                     }
                 } else {
