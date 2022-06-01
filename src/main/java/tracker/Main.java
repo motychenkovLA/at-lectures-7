@@ -116,6 +116,7 @@ public class Main {
 
                 System.out.println("Неверное значение. Нужно вводить число.");
                 System.out.println("Попробуйте ещё раз");
+                scanner.nextLine();
             }
         }
         return number;
