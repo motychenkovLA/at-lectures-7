@@ -2,6 +2,7 @@ package tracker;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static tracker.Status.*;
 
@@ -25,6 +26,11 @@ public class Main {
                     case "list": {
                         showList(repository.getAll());
                         break;
+                    }
+                    case "1": {
+                        stats(repository.getAll());
+                        break;
+
                     }
                     case "change": {
                         changeStatus(repository.getAll(), scanner);
@@ -151,13 +157,6 @@ public class Main {
     }
 
     private static void showList(Map<Long,Defect> repository) {
-//        for (int a = 0; a <= (repository.length - 1); a++) {
-//            System.out.println(repository[a].getId() + " | Описание: " + repository[a].getSummary() +
-//                    " | Критичность: " + repository[a].getSeverity() + " | Количество дней для " +
-//                    "исправления: " +
-//                    repository[a].getDays() + " | " + repository[a].getAttachment().toString() +
-//                    " | Статус: " + repository[a].getStatus().ruName);
-//        }
         for (Map.Entry<Long, Defect> entry : repository.entrySet()) {
             Defect defect = entry.getValue();
             System.out.println(entry.getKey()  + " | Описание: " + defect.getSummary() +
@@ -227,6 +226,36 @@ public class Main {
                 scanner.nextLine();
             }
         }
+    }
+
+    private static void stats(Map<Long,Defect> repository) {
+        List<Integer> days = new ArrayList<>();
+        List<Status> statuses = new ArrayList<>();
+        for (Map.Entry<Long, Defect> entry : repository.entrySet()) {
+            days.add(entry.getValue().getDays());
+            statuses.add(entry.getValue().getStatus());
+        }
+
+        DoubleSummaryStatistics daysStats = days.stream()
+                .mapToDouble(Integer::intValue)
+                .summaryStatistics();
+
+        long countOpenStatus = statuses.stream().filter(q -> q.equals(Status.valueOf("OPEN"))).count();
+        long countAnalysisStatus = statuses.stream().filter(q -> q.equals(Status.valueOf("ANALYSIS"))).count();
+        long countFixedStatus = statuses.stream().filter(q -> q.equals(Status.valueOf("FIXED"))).count();
+        long countTestStatus = statuses.stream().filter(q -> q.equals(Status.valueOf("TEST"))).count();
+        long countClosedStatus = statuses.stream().filter(q -> q.equals(Status.valueOf("CLOSED"))).count();
+
+        System.out.println("Максимальное количество дней: " + daysStats.getMax() +
+                "\nСреднее количество дней: " +  daysStats.getAverage()+
+                "\nМинимальное количество дней: " + daysStats.getMin());
+
+        System.out.println("Статус: " + "/" + "Количество дефектов в этом статусе: \n" +
+                OPEN + " / " + countOpenStatus + "\n" +
+                ANALYSIS + " / " + countAnalysisStatus + "\n" +
+                FIXED + " / " + countFixedStatus + "\n" +
+                TEST + " / " + countTestStatus + "\n" +
+                CLOSED + " / " + countClosedStatus + "\n");
     }
 }
 

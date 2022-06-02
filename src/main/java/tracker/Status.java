@@ -1,5 +1,7 @@
 package tracker;
 
+import java.util.function.Predicate;
+
 public enum Status {
 
     OPEN("Открыт"),
@@ -13,4 +15,5 @@ public enum Status {
     Status(String ruName) {
         this.ruName = ruName;
     }
+
 }

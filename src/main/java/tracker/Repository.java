@@ -1,6 +1,7 @@
 package tracker;
 
 import java.util.HashMap;
+import java.util.IntSummaryStatistics;
 import java.util.Map;
 
 public class Repository {
@@ -28,7 +29,7 @@ public class Repository {
 //    }
 
 
-    private final int max_capacity = 3;
+    private final int max_capacity = 4;
     private final Map<Long, Defect> repository = new HashMap<>();
     private int defectNumber = 0;
 
@@ -46,4 +47,6 @@ public class Repository {
     public boolean isFull() {
         return defectNumber >= max_capacity;
     }
+
+
 }
