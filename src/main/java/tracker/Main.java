@@ -90,7 +90,7 @@ public class Main {
     private static void printMenu() {
         System.out.println("Введите команду:\n\"add\" - добавить новый дефект,\n" +
                 "\"list\" - вывести список дефектов,\n" + "\"change\" - изменить статус дефекта,\n" +
-                "\"quit\" - выйти");
+                 "\"stats\" - вывести статистику по дефектам\n" + "\"quit\" - выйти\n");
     }
 
     private static Severity inputSeverity(Severity severity, Scanner scanner) {
@@ -188,7 +188,9 @@ public class Main {
 
                     scanner.nextLine();
                     System.out.println("Введите статус дефекта:\n" +
-                            "\"OPEN\" - открыт,\n\"CLOSED\" - закрыт");
+                            "\"OPEN\" - открыт,\n\"CLOSED\" - закрыт\n" +
+                            "\"ANALYSIS\" - в анализе,\n\"TEST\" - тестирование\n" +
+                            "\"FIXED\" - иправление");
                     boolean runInputStatusDefect = true;
 
                     while (runInputStatusDefect) {
@@ -240,22 +242,20 @@ public class Main {
                 .mapToDouble(Integer::intValue)
                 .summaryStatistics();
 
-        long countOpenStatus = statuses.stream().filter(q -> q.equals(Status.valueOf("OPEN"))).count();
-        long countAnalysisStatus = statuses.stream().filter(q -> q.equals(Status.valueOf("ANALYSIS"))).count();
-        long countFixedStatus = statuses.stream().filter(q -> q.equals(Status.valueOf("FIXED"))).count();
-        long countTestStatus = statuses.stream().filter(q -> q.equals(Status.valueOf("TEST"))).count();
-        long countClosedStatus = statuses.stream().filter(q -> q.equals(Status.valueOf("CLOSED"))).count();
+        Map<String, Long> stats = new HashMap<>();
+        for (Status el : statuses) {
+            stats.put(String.valueOf(el), statuses.stream().filter(q -> q.equals(Status.valueOf(String.valueOf(el)))).count());
+        }
 
         System.out.println("Максимальное количество дней: " + daysStats.getMax() +
                 "\nСреднее количество дней: " +  daysStats.getAverage()+
                 "\nМинимальное количество дней: " + daysStats.getMin());
 
-        System.out.println("Статус: " + "/" + "Количество дефектов в этом статусе: \n" +
-                OPEN + " / " + countOpenStatus + "\n" +
-                ANALYSIS + " / " + countAnalysisStatus + "\n" +
-                FIXED + " / " + countFixedStatus + "\n" +
-                TEST + " / " + countTestStatus + "\n" +
-                CLOSED + " / " + countClosedStatus + "\n");
+        for (Map.Entry<String, Long> entry : stats.entrySet()) {
+            System.out.println(" Статус: " + entry.getKey() + " / " + "Количество дефектов в этом статусе: " +
+                    entry.getValue());
+        }
+
     }
 }
 
