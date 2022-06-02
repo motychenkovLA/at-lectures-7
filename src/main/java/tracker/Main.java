@@ -27,7 +27,7 @@ public class Main {
                         showList(repository.getAll());
                         break;
                     }
-                    case "1": {
+                    case "stats": {
                         stats(repository.getAll());
                         break;
 
@@ -231,20 +231,18 @@ public class Main {
     }
 
     private static void stats(Map<Long,Defect> repository) {
-        List<Integer> days = new ArrayList<>();
         List<Status> statuses = new ArrayList<>();
         for (Map.Entry<Long, Defect> entry : repository.entrySet()) {
-            days.add(entry.getValue().getDays());
             statuses.add(entry.getValue().getStatus());
         }
 
-        DoubleSummaryStatistics daysStats = days.stream()
-                .mapToDouble(Integer::intValue)
+        IntSummaryStatistics daysStats = repository.values().stream()
+                .mapToInt(Defect::getDays)
                 .summaryStatistics();
 
         Map<String, Long> stats = new HashMap<>();
         for (Status el : statuses) {
-            stats.put(String.valueOf(el), statuses.stream().filter(q -> q.equals(Status.valueOf(String.valueOf(el)))).count());
+            stats.put(String.valueOf(el), statuses.stream().filter(q -> q.equals(el)).count());
         }
 
         System.out.println("Максимальное количество дней: " + daysStats.getMax() +
