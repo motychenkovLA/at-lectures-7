@@ -1,7 +1,7 @@
 package tracker;
 
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -15,6 +15,7 @@ public class Main {
                         "\n add - Завести дефект" +
                         "\n list - Показать список дефектов" +
                         "\n change - сменить статус дефекта" +
+                        "\n stats - показать статистику по дефектам" +
                         "\n quit - Выход из программы");
 
                 switch (scanner.nextLine()) {
@@ -31,6 +32,10 @@ public class Main {
 
                     case "change":
                         changeStatus(scanner, repository);
+                        break;
+
+                    case "stats":
+                        showStats(repository);
                         break;
 
                     case "quit":
@@ -106,6 +111,15 @@ public class Main {
         }
         return critical;
     }
+
+    public static void showStats (Repository repository) {
+            Map<Status, Long> statStatus = repository.getAll().stream().collect(Collectors.groupingBy(Defect::getStatus, Collectors.counting()));
+            statStatus.forEach((Status, Long) -> System.out.println("Количество дефектов в статусе " + Status.getRuNameStatus() + " - " + Long));
+
+            IntSummaryStatistics intSummaryStatistics = repository.getAll().stream().collect(Collectors.summarizingInt(Defect::getDayToRepair));
+            System.out.println("Максимальное количество дней - " + intSummaryStatistics.getMax() + "\n" + "Минимальное количество дней на исправление - "
+                    + intSummaryStatistics.getMin() + "\n" + "Среднее количество дней на исправление - " + intSummaryStatistics.getAverage() + "\n");
+        }
 
     public static void changeStatus(Scanner scanner, Repository repository) {
         while (true) {

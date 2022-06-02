@@ -21,6 +21,9 @@ public class Defect {
         iteration++;
     }
 
+    public int getDayToRepair(){
+        return dayToRepair;
+    }
 
     public long getId() {
         return id;
