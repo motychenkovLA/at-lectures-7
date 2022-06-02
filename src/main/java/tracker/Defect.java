@@ -1,5 +1,7 @@
 package tracker;
 
+import java.util.Objects;
+
 public class Defect {
 
     private final int WORKING_DAYS_IN_WEEK = 5;     // Рабочая неделя
@@ -60,5 +62,24 @@ public class Defect {
                         "\n Вложения: " + attachment +
                         "\n________________________________________________________";
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Defect defect = (Defect) o;
+        if (this.hashCode() != o.hashCode()) return false;
+        return  ID == defect.ID &&
+                dayToFix == defect.dayToFix &&
+                resume.equals(defect.resume) &&
+                critical == defect.critical &&
+                attachment.equals(defect.attachment) &&
+                status == defect.status;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(WORKING_DAYS_IN_WEEK, ID, resume, critical, attachment, dayToFix, status);
     }
 }

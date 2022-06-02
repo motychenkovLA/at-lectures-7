@@ -6,46 +6,47 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Repository repository = new Repository(10);
+        Repository repository = new Repository();
 
-        Scanner scanner = new Scanner(System.in);
+        try (Scanner scanner = new Scanner(System.in)) {
 
-        while (true) {
-            System.out.println("Введите одно из действий:" +
-                    "\n add - Завести новый дефект" +
-                    "\n list - Показать перечень дефектов" +
-                    "\n change - Изменить статус дефекта" +
-                    "\n quit - Выход из программы");
+            while (true) { //избавиться от тру
+                System.out.println("Введите одно из действий:" +
+                        "\n add - Завести новый дефект" +
+                        "\n list - Показать перечень дефектов" +
+                        "\n change - Изменить статус дефекта" +
+                        "\n quit - Выход из программы");
 
-            switch (scanner.nextLine()) {
+                switch (scanner.nextLine()) {
 
-                case "add":
+                    case "add":
 
-                    add(scanner, repository);
-                    break;
+                        add(scanner, repository);
+                        break;
 
-                case "change":
-                    changeStatus(scanner, repository);
-                    break;
+                    case "change":
+                        changeStatus(scanner, repository);
+                        break;
 
-                case "list":
-                    for (int i = 0; i < repository.getCounterArray(); i++) {
-                        System.out.println(repository.getAll()[i]);
-                        System.out.println("________________________");
-                    }
-                    break;
+                    case "list":
+                        for (int i = 0; i < repository.getCounterArray(); i++) {
+                            System.out.println(repository.getAll()[i]);
+                            System.out.println("________________________");
+                        }
+                        break;
 
-                case "quit":
-                    System.out.println("Quit");
-                    return;
+                    case "quit":
+                        System.out.println("Quit");
+                        return;
 
-                default:
-                    System.out.println("Возврат в главное меню");
-                    break;
+                    default:
+                        System.out.println("Возврат в главное меню");
+                        break;
+                }
+
             }
 
         }
-
     }
 
     public static void add(Scanner scanner, Repository repository) {
@@ -58,7 +59,15 @@ public class Main {
         String resume = scanner.nextLine();
 
         System.out.println("Введите критичность дефекта из списка:" + "\n\"trivial\", \"minor\", \"major\", \"blocker\"");
-        Critical critical = Critical.valueOf(scanner.nextLine().toUpperCase());
+        Critical critical;
+        while (true) {
+            try {
+                critical = Critical.valueOf(scanner.nextLine().toUpperCase());
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Введено не корретное значение. Введите повторно критичность дефекта");
+            }
+        }
 
         System.out.println("Введите количество дней на исправление:");
         int dayToFix = scanner.nextInt();
@@ -97,9 +106,19 @@ public class Main {
 
         System.out.println("Введите статус: \n\"open\", \"in_process\", \"test\", \"done\"");
 
-        Status status = Status.valueOf(scanner.nextLine().toUpperCase());
+        Status status;
 
-        for (Defect defect : repository.getAll()) {
+        while (true) {
+            try {
+                status = Status.valueOf(scanner.nextLine().toUpperCase());
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Введено не корретное значение. Введите повторно статус дефекта");
+            }
+        }
+
+        for (
+                Defect defect : repository.getAll()) {
             if (defect.getID() == idDefect) {
                 defect.setStatus(status);
             }
