@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Defect {
 
     private final int WORKING_DAYS_IN_WEEK = 5;     // Рабочая неделя
-    private int ID;
+    private final long id;
     private static int iteration = 1;
     private String resume;
     private Critical critical;
@@ -19,7 +19,7 @@ public class Defect {
         this.critical = critical;
         this.dayToFix = dayToFix;
         this.status = Status.OPEN;
-        ID = iteration;
+        id = iteration;
         iteration++;
     }
 
@@ -28,24 +28,20 @@ public class Defect {
         this.attachment = attachment;
     }
 
-    public String getResume() {
-        return resume;
-    }
-
-    public int getDayToFix() {
-        return dayToFix;
-    }
-
-    public int getID() {
-        return ID;
+    public long getID() {
+        return id;
     }
 
     public void setStatus(Status status) {
         this.status = status;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     public String toString() {
-        return attachment == null ? "id дефекта " + ID + ":" +
+        return attachment == null ? "id дефекта " + id + ":" +
                 "\n Описание дефекта: " + resume +
                 "\n Критичность: " + critical +
                 "\n Количество дней на исправление: " + dayToFix +
@@ -53,7 +49,7 @@ public class Defect {
                 "\n Статус: " + status.getTranslation() +
                 "\n________________________________________________________"
                 :
-                "id дефекта " + ID + ":" +
+                "id дефекта " + id + ":" +
                         "\n Описание дефекта: " + resume +
                         "\n Критичность: " + critical +
                         "\n Количество дней на исправление: " + dayToFix +
@@ -70,7 +66,7 @@ public class Defect {
         if (o == null || getClass() != o.getClass()) return false;
         Defect defect = (Defect) o;
         if (this.hashCode() != o.hashCode()) return false;
-        return  ID == defect.ID &&
+        return id == defect.id &&
                 dayToFix == defect.dayToFix &&
                 resume.equals(defect.resume) &&
                 critical == defect.critical &&
@@ -80,6 +76,6 @@ public class Defect {
 
     @Override
     public int hashCode() {
-        return Objects.hash(WORKING_DAYS_IN_WEEK, ID, resume, critical, attachment, dayToFix, status);
+        return Objects.hash(WORKING_DAYS_IN_WEEK, id, resume, critical, attachment, dayToFix, status);
     }
 }
