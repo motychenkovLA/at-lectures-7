@@ -8,7 +8,7 @@ import java.time.Duration;
 
 public class ClickButton {
     public static void main(String[] args) {
-        System.setProperty("webdriver.chrome.driver", "C:\\Driver\\chromedriver_win32_103.05060.53\\chromedriver.exe");
+//        System.setProperty("webdriver.chrome.driver", "C:\\Driver\\chromedriver_win32_103.05060.53\\chromedriver.exe");
 
         WebDriver webDriver = new ChromeDriver();
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
@@ -19,7 +19,12 @@ public class ClickButton {
         WebElement rightClick = webDriver.findElement(By.xpath("//button[.='Right Click Me']"));
         WebElement click = webDriver.findElement(By.xpath("//button[.='Click Me']"));
 
-        new Actions(webDriver).doubleClick(doubleClick).contextClick(rightClick).click(click).build().perform();
+        new Actions(webDriver)
+                .doubleClick(doubleClick)
+                .contextClick(rightClick)
+                .click(click)
+                .build()
+                .perform();
 
 
         boolean isHaveDoubleClickText = !webDriver.findElements(By.xpath("//p[.='You have done a double click']")).isEmpty();
