@@ -12,7 +12,7 @@ public class ClickAlert {
 
         System.setProperty("webdriver.chrome.driver", "src/test/chromedriver/chromedriver.exe");
         WebDriver webDriver = new ChromeDriver();
-        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
+        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
         WebDriverWait webDriverWait = new WebDriverWait(webDriver, Duration.ofSeconds(7));
         webDriver.get("https://demoqa.com/alerts");
