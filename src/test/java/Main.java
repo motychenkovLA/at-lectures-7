@@ -34,8 +34,8 @@ public class Main {
             System.out.println("Тест пройден");
         } else {
             System.out.println("Тест не пройден");
-            driver.quit();
         }
+        driver.quit();
     }
 
         public static void clickOnAlert() {

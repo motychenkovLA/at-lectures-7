@@ -10,6 +10,7 @@ import java.util.Set;
 public class ClickNewTab {
 
     private final WebDriver driver;
+    private final By newTab = By.id("tabButton");
 
     public ClickNewTab(WebDriver driver) {
         this.driver = driver;
@@ -18,8 +19,8 @@ public class ClickNewTab {
     public void clickNewTab() {
         driver.get("https://demoqa.com/browser-windows");
         String demoqaDescriptor = driver.getWindowHandle();
-        WebElement newTab = driver.findElement(By.id("tabButton"));
-        newTab.click();
+        WebElement newTabReal = driver.findElement(newTab);
+        newTabReal.click();
 
         Set<String> handles = driver.getWindowHandles();
         handles.remove(demoqaDescriptor);

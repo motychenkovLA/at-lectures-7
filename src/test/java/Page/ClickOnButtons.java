@@ -23,25 +23,25 @@ public class ClickOnButtons {
     }
 
     public void clickDoubleButton() {
-        WebElement doubleClick1 = driver.findElement(doubleClick);
+        WebElement doubleClickReal = driver.findElement(doubleClick);
         new Actions(driver)
-                .doubleClick(doubleClick1)
+                .doubleClick(doubleClickReal)
                 .build()
                 .perform();
     }
 
     public void clickRightButton() {
-        WebElement rightClick1 = driver.findElement(rightClick);
+        WebElement rightClickReal = driver.findElement(rightClick);
         new Actions(driver)
-                .contextClick(rightClick1)
+                .contextClick(rightClickReal)
                 .build()
                 .perform();
     }
 
     public void clickMe() {
-        WebElement clickMe1 = driver.findElement(clickMe);
+        WebElement clickMeReal = driver.findElement(clickMe);
         new Actions(driver)
-                .click(clickMe1)
+                .click(clickMeReal)
                 .build()
                 .perform();
     }
