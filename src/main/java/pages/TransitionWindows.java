@@ -1,36 +1,43 @@
+package pages;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TransitionWindows {
-    public static void main(String[] args) throws InterruptedException {
-//        System.setProperty("webdriver.chrome.driver", "C:\\Driver\\chromedriver_win32_103.05060.53\\chromedriver.exe");
 
-        WebDriver webDriver = new ChromeDriver();
-        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+    private WebDriver webDriver;
 
+    private By tabButtonElement = By.id("tabButton");
+
+
+    public TransitionWindows(WebDriver webDriver) {
+        this.webDriver = webDriver;
+    }
+
+    public void openDemoqaWindows() {
         webDriver.get("https://demoqa.com/browser-windows");
+    }
 
-        WebElement tabButton = webDriver.findElement(By.id("tabButton"));
+    public void clickTabButton() {
+
+        WebElement tabButton = webDriver.findElement(tabButtonElement);
         new Actions(webDriver)
                 .click(tabButton)
                 .build()
                 .perform();
+    }
 
+    public void transitionWindows() throws InterruptedException {
         List<String> description = new ArrayList<>(webDriver.getWindowHandles());
-
         webDriver.switchTo().window(description.get(1));
         webDriver.get("https://google.com");
 
         Thread.sleep(2000);
         webDriver.switchTo().window(description.get(0));
-
-        webDriver.quit();
     }
 }
