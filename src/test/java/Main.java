@@ -37,7 +37,7 @@ public class Main {
         boolean doneClickMe = !chromeDriver.findElements(By.xpath("//p[text()='You have done a dynamic click']"))
                 .isEmpty();
         chromeDriver.quit();
-        if (doneDoubleClick && doneRightClick) {
+        if (doneDoubleClick && doneRightClick && doneClickMe) {
             System.out.println("Тест пройден");
         } else {
             System.out.println("Тест не пройден");
@@ -56,13 +56,18 @@ public class Main {
         WebElement confirmButton = chromeDriver.findElement(By.id("confirmButton"));
 
         alertButton.click();
-        chromeDriver.switchTo().alert().accept();
+        chromeDriver.switchTo()
+                .alert()
+                .accept();
 
         timerAlertButton.click();
-        webDriverWait.until(ExpectedConditions.alertIsPresent()).accept();
+        webDriverWait.until(ExpectedConditions.alertIsPresent())
+                .accept();
 
         confirmButton.click();
-        chromeDriver.switchTo().alert().dismiss();
+        chromeDriver.switchTo()
+                .alert()
+                .dismiss();
 
         boolean cancelSelected = !chromeDriver.findElements(By.xpath("//span[contains(., 'Cancel')]")).isEmpty();
         chromeDriver.quit();
