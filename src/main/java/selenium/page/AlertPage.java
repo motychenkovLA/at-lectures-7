@@ -12,7 +12,7 @@ public class AlertPage {
     private static final By alertBtn = By.id("alertButton");
     private static final By timerAlertBtn = By.id("timerAlertButton");
     private static final By confirmBtn = By.id("confirmButton");
-
+    private static final By cancelText = By.xpath("//span[contains(.,'Cancel')]");
     private static final String url = "https://demoqa.com/alerts";
     WebDriver webDriver;
 
@@ -40,9 +40,10 @@ public class AlertPage {
 
     }
 
-    public boolean pageIsHaveText(String text) {
-        return (!webDriver.findElements(By.xpath("//span[contains(.,'" + text + "')]")).isEmpty());
+    public boolean pageIsHaveText() {
+        return (!webDriver.findElements(cancelText).isEmpty());
     }
+
 
     public void allBtnClick() {
         alertAccept(alertBtn);

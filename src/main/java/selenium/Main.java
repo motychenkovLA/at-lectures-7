@@ -37,7 +37,7 @@ public class Main {
         WebDriver driver = new ChromeDriver();
         AlertPage page = new AlertPage(driver);
         page.allBtnClick();
-        if (page.pageIsHaveText("Cancel")) {
+        if (page.pageIsHaveText()) {
             System.out.println("Тест 2 пройден");
 
         } else System.out.println("Тест 2 не пройден");
