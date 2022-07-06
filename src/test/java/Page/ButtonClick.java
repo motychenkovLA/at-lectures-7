@@ -10,6 +10,9 @@ public class ButtonClick {
     private static final By doubleClick = By.id("doubleClickBtn");
     private static final By rightClick = By.id("rightClickBtn");
     private static final By click = By.xpath("//button[text()='Click Me']");
+    private static final By doubleClickText = By.xpath("//p[text()='You have done a double click']");
+    private static final By rightClickText = By.xpath("//p[text()='You have done a right click']");
+    private static final By clickText = By.xpath("//p[text()='You have done a dynamic click']");
 
     public ButtonClick(ChromeDriver chromeDriver) {
         this.chromeDriver = chromeDriver;
@@ -28,12 +31,9 @@ public class ButtonClick {
     }
 
     public void doneClick() {
-        boolean doneDoubleClick = !chromeDriver.findElements(By.xpath("//p[text()='You have done a double click']"))
-                .isEmpty();
-        boolean doneRightClick = !chromeDriver.findElements(By.xpath("//p[text()='You have done a right click']"))
-                .isEmpty();
-        boolean doneClickMe = !chromeDriver.findElements(By.xpath("//p[text()='You have done a dynamic click']"))
-                .isEmpty();
+        boolean doneDoubleClick = !chromeDriver.findElements(doubleClickText).isEmpty();
+        boolean doneRightClick = !chromeDriver.findElements(rightClickText).isEmpty();
+        boolean doneClickMe = !chromeDriver.findElements(clickText).isEmpty();
         if (doneDoubleClick && doneRightClick && doneClickMe) {
             System.out.println("Тест пройден");
         } else {
