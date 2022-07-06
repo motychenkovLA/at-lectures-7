@@ -14,7 +14,7 @@ public class HomeWork {
     }
 
     public static void exerciseFirst() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\eshnyagina\\IdeaProjects\\at-lectures-7\\src\\test\\chromedriver\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src/test/chromedriver/chromedriver.exe");
         WebDriver webDriver= new ChromeDriver();
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         webDriver.get("https://demoqa.com/buttons");
@@ -58,17 +58,22 @@ public class HomeWork {
         WebElement confirmButton = webDriver.findElement(By.id("confirmButton"));
 
         alertButton.click();
-        webDriver.switchTo().alert().accept();
+        webDriver.switchTo()
+                .alert().accept();
 
         alertTimerButton.click();
-        webDriverWait.until(ExpectedConditions.alertIsPresent()).accept();
+        webDriverWait.until(ExpectedConditions.alertIsPresent())
+                .accept();
 
 
         confirmButton.click();
-        webDriver.switchTo().alert().dismiss();
+        webDriver.switchTo()
+                .alert().dismiss();
 
         boolean isHaveText = !webDriver.findElements(By.xpath(
                 "//span[contains(., 'Cancel')]")).isEmpty();
+        webDriver.quit();
+
         if (isHaveText){
             System.out.println("Тест пройден");
         } else {
