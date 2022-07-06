@@ -13,6 +13,7 @@ public class AlertClick {
     private static final By alertBtn = By.id("alertButton");
     private static final By timerAlertBtn = By.id("timerAlertButton");
     private static final By confirmBtn = By.id("confirmButton");
+    private static final By cancelText = By.xpath("//span[contains(., 'Cancel')]");
 
     public AlertClick(ChromeDriver chromeDriver) {
         this.chromeDriver = chromeDriver;
@@ -40,7 +41,7 @@ public class AlertClick {
     }
 
     public void cancelIsSelected() {
-        boolean cancelSelected = !chromeDriver.findElements(By.xpath("//span[contains(., 'Cancel')]")).isEmpty();
+        boolean cancelSelected = !chromeDriver.findElements(cancelText).isEmpty();
         if (cancelSelected) {
             System.out.println("Тест пройден");
         } else {
