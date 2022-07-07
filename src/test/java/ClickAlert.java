@@ -36,7 +36,8 @@ public class ClickAlert {
     }
 
     public void isHaveText() {
-        if (driver.findElements(By.id("confirmResult"))==null) {
+        boolean isHaveText = !driver.findElements(confirmButtonXpath).isEmpty();
+        if (isHaveText) {
             throw new AssertionError("Тест не пройден");
         } else {
             System.out.println("Тест пройден");
