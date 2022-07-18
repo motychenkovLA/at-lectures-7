@@ -16,6 +16,7 @@ public class ClickOnAlert {
     private static final By alertButtonXpath = By.id("alertButton");
     private static final By timerAlertButtonXpath = By.id("timerAlertButton");
     private static final By confirmButtonXpath = By.id("confirmButton");
+    private final By textAlertCancelXpath = By.xpath("//span[text()='You selected ' and text()='Cancel'] ");
 
     public ClickOnAlert(WebDriver driver) {
         this.driver = driver;
@@ -40,12 +41,9 @@ public class ClickOnAlert {
         driver.switchTo().alert().dismiss();
     }
 
-    public void isHaveText() {
-        if (driver.findElements(By.id("confirmResult"))==null) {
-            throw new AssertionError("Тест не пройден");
-        } else {
-            System.out.println("Тест пройден");
-        }
+    public String isHaveAlertText() {
+        return driver.findElement(textAlertCancelXpath).getText();
     }
+
 }
 
