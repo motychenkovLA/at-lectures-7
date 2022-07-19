@@ -1,7 +1,7 @@
 package demoqa;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
+import org.junit.rules.Timeout;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.TransitionWindows;
@@ -12,6 +12,9 @@ public class TransitionWindowsTest {
     static WebDriver webDriver;
     static TransitionWindows transitionWindows;
 
+    @Rule
+    public Timeout transitionTimeOut = Timeout.seconds(180);
+
     @BeforeClass
     public static void setUp() {
         webDriver = new ChromeDriver();
@@ -20,16 +23,15 @@ public class TransitionWindowsTest {
     }
 
     @Test
-    public void shouldPageWindows() throws InterruptedException {
+    public void shouldBePageWindows() throws InterruptedException {
         transitionWindows.openDemoqaWindows();
         transitionWindows.clickTabButton();
         transitionWindows.transitionWindows();
-        boolean atPage = webDriver.getTitle().equals("ToolsQA");
-        if (atPage) {
-            System.out.println("Тест пройден");
-        } else {
-            throw new AssertionError();
-        }
+        Assert.assertTrue(transitionWindows.isPage());
+    }
+
+    @AfterClass
+    public static void endUp() {
         webDriver.quit();
     }
 }

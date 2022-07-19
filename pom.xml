@@ -14,6 +14,14 @@
         <selenium.version>4.1.1</selenium.version>
     </properties>
 
+    <!--
+    <packaging>war</packaging> - по умолчанию упаковка в jar файл, если нужно изменить пишем тег
+    -->
+
+    <!--
+    mvn name_plugin:compile - вызов конкретного плагина (mvn compile - вызов всех плагинов)
+    -->
+
     <dependencyManagement>
         <dependencies>
             <dependency>

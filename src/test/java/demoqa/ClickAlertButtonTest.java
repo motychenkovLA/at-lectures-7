@@ -1,7 +1,10 @@
 package demoqa;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.Timeout;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.ClickAlertButton;
@@ -11,6 +14,9 @@ import java.time.Duration;
 public class ClickAlertButtonTest {
     static WebDriver webDriver;
     static ClickAlertButton clickAlertButton;
+
+    @Rule
+    public Timeout clickAlertTimeOut = Timeout.seconds(180);
 
     @BeforeClass
     public static void setUp() {
@@ -23,14 +29,11 @@ public class ClickAlertButtonTest {
     public void shouldText() {
         clickAlertButton.openAlertDemoqa();
         clickAlertButton.clickAlertAll();
+        assert clickAlertButton.isAlertText();
+    }
 
-//        assert clickButton.isAlertText();
-
-        if (clickAlertButton.isAlertText()) {
-            System.out.println("Тест пройден");
-        } else {
-            throw new AssertionError();
-        }
+    @AfterClass
+    public  static void endUp() {
         webDriver.quit();
     }
 }

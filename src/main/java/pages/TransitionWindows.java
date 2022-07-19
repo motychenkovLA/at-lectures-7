@@ -40,4 +40,8 @@ public class TransitionWindows {
         Thread.sleep(2000);
         webDriver.switchTo().window(description.get(0));
     }
+
+    public boolean isPage() {
+        return webDriver.getTitle().equals("ToolsQA");
+    }
 }
