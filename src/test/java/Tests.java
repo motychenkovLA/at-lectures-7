@@ -1,9 +1,6 @@
 import Page.AlertPage;
 import Page.ButtonsPage;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.rules.Timeout;
 import org.openqa.selenium.WebDriver;
@@ -21,6 +18,11 @@ public class Tests {
     public void driverCall() {
         System.setProperty("webdriver.chrome.driver", "src/test/chromedriver/chromedriver.exe");
         driver = new ChromeDriver();
+    }
+
+    @After
+    public void closeDriver(){
+        driver.quit();
     }
 
     @DisplayName("Тест для кнопок")
@@ -42,8 +44,6 @@ public class Tests {
                 expectedRightClickMeText, buttonsPage.isHaveRightClickText());
         Assert.assertEquals("Тест Нажми меня не пройден",
                 expectedClickMeText, buttonsPage.isHaveClickText());
-
-        driver.quit();
     }
 
     @DisplayName("Тест для алерта")
@@ -58,7 +58,5 @@ public class Tests {
         String expectedAlertCancelText = "You selected " + "Cancel";
         Assert.assertEquals("Тексты сообщений не совпадают",
                 expectedAlertCancelText, alertPage.isHaveAlertText());
-
-        driver.quit();
     }
 }
