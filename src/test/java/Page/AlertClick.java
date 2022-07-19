@@ -40,12 +40,7 @@ public class AlertClick {
                 .dismiss();
     }
 
-    public void cancelIsSelected() {
-        boolean cancelSelected = !chromeDriver.findElements(cancelText).isEmpty();
-        if (cancelSelected) {
-            System.out.println("Тест пройден");
-        } else {
-            System.out.println("Тест не пройден");
-        }
+    public boolean cancelIsSelected() {
+        return !chromeDriver.findElements(cancelText).isEmpty();
     }
 }

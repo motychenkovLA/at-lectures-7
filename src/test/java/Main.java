@@ -24,7 +24,11 @@ public class Main {
 
         ButtonClick buttonClick = new ButtonClick(chromeDriver);
         buttonClick.clickOnButtons();
-        buttonClick.doneClick();
+        if (buttonClick.doneClick()) {
+            System.out.println("Тест пройден");
+        } else {
+            System.out.println("Тест не пройден");
+        }
         chromeDriver.quit();
     }
 
@@ -36,7 +40,11 @@ public class Main {
 
         AlertClick alertClick = new AlertClick(chromeDriver);
         alertClick.clickOnAlerts();
-        alertClick.cancelIsSelected();
+        if (alertClick.cancelIsSelected()) {
+            System.out.println("Тест пройден");
+        } else {
+            System.out.println("Тест не пройден");
+        }
         chromeDriver.quit();
     }
 }

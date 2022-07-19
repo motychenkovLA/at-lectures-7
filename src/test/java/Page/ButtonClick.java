@@ -30,15 +30,11 @@ public class ButtonClick {
                 .perform();
     }
 
-    public void doneClick() {
+    public boolean doneClick() {
         boolean doneDoubleClick = !chromeDriver.findElements(doubleClickText).isEmpty();
         boolean doneRightClick = !chromeDriver.findElements(rightClickText).isEmpty();
         boolean doneClickMe = !chromeDriver.findElements(clickText).isEmpty();
-        if (doneDoubleClick && doneRightClick && doneClickMe) {
-            System.out.println("Тест пройден");
-        } else {
-            System.out.println("Тест не пройден");
-        }
+        return doneDoubleClick && doneRightClick && doneClickMe;
     }
 
 
