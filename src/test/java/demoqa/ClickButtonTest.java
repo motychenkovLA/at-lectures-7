@@ -14,7 +14,7 @@ import java.time.Duration;
 
 public class ClickButtonTest {
     static WebDriver webDriver;
-    static ClickButton clickButton;
+    ClickButton clickButton;
 
     @Rule
     public Timeout clickTimeOut = Timeout.seconds(180);
@@ -22,12 +22,12 @@ public class ClickButtonTest {
     @BeforeClass
     public static void setUp() {
         webDriver = new ChromeDriver();
-        clickButton = new ClickButton(webDriver);
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
     @Test
-    public void souldText() {
+    public void shouldText() {
+        clickButton = new ClickButton(webDriver);
         clickButton.openDemoqa();
         clickButton.clickAll();
         assert clickButton.isText();

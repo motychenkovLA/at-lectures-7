@@ -10,7 +10,7 @@ import java.time.Duration;
 
 public class TransitionWindowsTest {
     static WebDriver webDriver;
-    static TransitionWindows transitionWindows;
+    TransitionWindows transitionWindows;
 
     @Rule
     public Timeout transitionTimeOut = Timeout.seconds(180);
@@ -18,12 +18,12 @@ public class TransitionWindowsTest {
     @BeforeClass
     public static void setUp() {
         webDriver = new ChromeDriver();
-        transitionWindows = new TransitionWindows(webDriver);
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
     @Test
     public void shouldBePageWindows() throws InterruptedException {
+        transitionWindows = new TransitionWindows(webDriver);
         transitionWindows.openDemoqaWindows();
         transitionWindows.clickTabButton();
         transitionWindows.transitionWindows();

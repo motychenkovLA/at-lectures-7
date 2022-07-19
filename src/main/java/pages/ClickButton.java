@@ -12,9 +12,9 @@ public class ClickButton {
     private By contextClickText = By.xpath("//button[.='Right Click Me']");
     private By clickText = By.xpath("//button[.='Click Me']");
 
-    private By shouldDoubleClickText = By.xpath("//p[text()='You have done a double click']");
-    private By shouldRightClickText = By.xpath("//p[text()='You have done a right click']");
-    private By shouldClickText = By.xpath("//p[text()='You have done a dynamic click']");
+    private By shouldDoubleClick = By.xpath("//p[text()='You have done a double click']");
+    private By shouldRightClick = By.xpath("//p[text()='You have done a right click']");
+    private By shouldClick = By.xpath("//p[text()='You have done a dynamic click']");
 
     public ClickButton(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -38,9 +38,9 @@ public class ClickButton {
     }
 
         public boolean isText() {
-            boolean shouldDoubleClickText = !webDriver.findElements(By.xpath("//p[text()='You have done a double click']")).isEmpty();
-            boolean shouldRightClickText = !webDriver.findElements(By.xpath("//p[text()='You have done a right click']")).isEmpty();
-            boolean shouldClickText = !webDriver.findElements(By.xpath("//p[text()='You have done a dynamic click']")).isEmpty();
+            boolean shouldDoubleClickText = !webDriver.findElements(shouldDoubleClick).isEmpty();
+            boolean shouldRightClickText = !webDriver.findElements(shouldRightClick).isEmpty();
+            boolean shouldClickText = !webDriver.findElements(shouldClick).isEmpty();
 
             return shouldDoubleClickText && shouldRightClickText && shouldClickText;
         }

@@ -13,7 +13,7 @@ import java.time.Duration;
 
 public class ClickAlertButtonTest {
     static WebDriver webDriver;
-    static ClickAlertButton clickAlertButton;
+    ClickAlertButton clickAlertButton;
 
     @Rule
     public Timeout clickAlertTimeOut = Timeout.seconds(180);
@@ -21,12 +21,12 @@ public class ClickAlertButtonTest {
     @BeforeClass
     public static void setUp() {
         webDriver = new ChromeDriver();
-        clickAlertButton = new ClickAlertButton(webDriver);
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
     @Test
     public void shouldText() {
+        clickAlertButton = new ClickAlertButton(webDriver);
         clickAlertButton.openAlertDemoqa();
         clickAlertButton.clickAlertAll();
         assert clickAlertButton.isAlertText();
