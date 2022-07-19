@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-public class ClickOnButtons {
+public class ButtonsPage {
 
     private final WebDriver driver;
 
@@ -18,7 +18,7 @@ public class ClickOnButtons {
     private static final By clickTextXpath = By.xpath("//p[text()='You have done a dynamic click']");
 
 
-    public ClickOnButtons(WebDriver driver) {
+    public ButtonsPage(WebDriver driver) {
         this.driver = driver;
     }
 

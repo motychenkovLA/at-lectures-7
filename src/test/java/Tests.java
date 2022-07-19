@@ -1,5 +1,5 @@
-import Page.ClickOnAlert;
-import Page.ClickOnButtons;
+import Page.AlertPage;
+import Page.ButtonsPage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -28,20 +28,20 @@ public class Tests {
     public void clickOnButtons() {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
         driver.get("https://demoqa.com/buttons");
-        ClickOnButtons clickOnButtons = new ClickOnButtons(driver);
-        clickOnButtons.clickDoubleButton();
-        clickOnButtons.clickRightButton();
-        clickOnButtons.clickMe();
+        ButtonsPage buttonsPage = new ButtonsPage(driver);
+        buttonsPage.clickDoubleButton();
+        buttonsPage.clickRightButton();
+        buttonsPage.clickMe();
         String expectedDoubleClickMeText = "You have done a double click";
         String expectedRightClickMeText = "You have done a right click";
         String expectedClickMeText = "You have done a dynamic click";
 
         Assert.assertEquals("Тест Двойной клик не пройден",
-                expectedDoubleClickMeText, clickOnButtons.isHaveDoubleClickText());
+                expectedDoubleClickMeText, buttonsPage.isHaveDoubleClickText());
         Assert.assertEquals("Тест Правый клик не пройден",
-                expectedRightClickMeText, clickOnButtons.isHaveRightClickText());
+                expectedRightClickMeText, buttonsPage.isHaveRightClickText());
         Assert.assertEquals("Тест Нажми меня не пройден",
-                expectedClickMeText, clickOnButtons.isHaveClickText());
+                expectedClickMeText, buttonsPage.isHaveClickText());
 
         driver.quit();
     }
@@ -51,13 +51,13 @@ public class Tests {
     public void clickOnAlert() {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
         driver.get("https://demoqa.com/alerts");
-        ClickOnAlert clickOnAlert = new ClickOnAlert(driver);
-        clickOnAlert.clickAlertButton();
-        clickOnAlert.clickTimerAlertButton();
-        clickOnAlert.clickConfirmButton();
+        AlertPage alertPage = new AlertPage(driver);
+        alertPage.clickAlertButton();
+        alertPage.clickTimerAlertButton();
+        alertPage.clickConfirmButton();
         String expectedAlertCancelText = "You selected " + "Cancel";
         Assert.assertEquals("Тексты сообщений не совпадают",
-                expectedAlertCancelText, clickOnAlert.isHaveAlertText());
+                expectedAlertCancelText, alertPage.isHaveAlertText());
 
         driver.quit();
     }

@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class ClickOnAlert {
+public class AlertPage {
     private final WebDriver driver;
 
 
@@ -18,7 +18,7 @@ public class ClickOnAlert {
     private static final By confirmButtonXpath = By.id("confirmButton");
     private final By textAlertCancelXpath = By.xpath("//span[text()='You selected ' and text()='Cancel'] ");
 
-    public ClickOnAlert(WebDriver driver) {
+    public AlertPage(WebDriver driver) {
         this.driver = driver;
     }
 
