@@ -37,6 +37,7 @@ public class ButtonPage {
     }
 
     public boolean pageIsHaveText(String text) {
+//        webDriver.findElements();
         return (!webDriver.findElements(By.xpath("//p[text()='" + text + "']")).isEmpty());
     }
 
