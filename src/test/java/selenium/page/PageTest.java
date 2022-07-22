@@ -11,9 +11,11 @@ import java.util.Set;
 
 public class PageTest {
 
+    private WebDriver driver;
+
     @Rule
     public Timeout timeout = new Timeout(180000);
-    WebDriver driver;
+
 
     @BeforeClass
     public static void setProperties() {
@@ -59,7 +61,7 @@ public class PageTest {
         driver.switchTo().window(secondWindowDescriptor);
         driver.get("https://google.com");
         driver.switchTo().window(firstWindowDescriptor);
-        Assert.assertEquals("Тест 3 (windowPageTest) не пройден", firstWindowDescriptor,driver.getWindowHandle());
+        Assert.assertEquals("Тест 3 (windowPageTest) не пройден", firstWindowDescriptor, driver.getWindowHandle());
     }
 
 
