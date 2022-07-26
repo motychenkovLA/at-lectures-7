@@ -61,7 +61,7 @@ public class PageTest {
         driver.switchTo().window(secondWindowDescriptor);
         driver.get("https://google.com");
         driver.switchTo().window(firstWindowDescriptor);
-        Assert.assertEquals("Тест 3 (windowPageTest) не пройден", firstWindowDescriptor, driver.getWindowHandle());
+        Assert.assertTrue("Тест 3 (windowPageTest) не пройден", page.pageIsHaveBtn());
     }
 
 

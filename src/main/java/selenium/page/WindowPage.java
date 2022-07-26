@@ -20,4 +20,9 @@ public class WindowPage {
         webDriver.findElement(tabBtn).click();
 
     }
+
+    public boolean pageIsHaveBtn(){
+        return (!webDriver.findElements(tabBtn).isEmpty());
+
+    }
 }
