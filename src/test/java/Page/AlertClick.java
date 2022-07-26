@@ -1,5 +1,6 @@
 package Page;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -19,6 +20,7 @@ public class AlertClick {
         this.chromeDriver = chromeDriver;
     }
 
+    @Step("Нажать на кнопки для вызова алертов")
     public void clickOnAlerts() {
         WebDriverWait webDriverWait = new WebDriverWait(chromeDriver, Duration.ofSeconds(10));
         WebElement alertButton = chromeDriver.findElement(alertBtn);
@@ -40,6 +42,7 @@ public class AlertClick {
                 .dismiss();
     }
 
+    @Step("Проверка появления текста")
     public boolean cancelIsSelected() {
         return !chromeDriver.findElements(cancelText).isEmpty();
     }

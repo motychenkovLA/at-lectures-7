@@ -1,5 +1,6 @@
 package Page;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -18,6 +19,7 @@ public class ButtonClick {
         this.chromeDriver = chromeDriver;
     }
 
+    @Step("Нажать на кнопки")
     public void clickOnButtons() {
         WebElement doubleClickBtn = chromeDriver.findElement(doubleClick);
         WebElement rightClickBtn = chromeDriver.findElement(rightClick);
@@ -30,13 +32,11 @@ public class ButtonClick {
                 .perform();
     }
 
+    @Step("Проверка появления текста")
     public boolean doneClick() {
         boolean doneDoubleClick = !chromeDriver.findElements(doubleClickText).isEmpty();
         boolean doneRightClick = !chromeDriver.findElements(rightClickText).isEmpty();
         boolean doneClickMe = !chromeDriver.findElements(clickText).isEmpty();
         return doneDoubleClick && doneRightClick && doneClickMe;
     }
-
-
-
 }

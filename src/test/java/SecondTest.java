@@ -1,4 +1,5 @@
 import Page.AlertClick;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.*;
 import org.junit.rules.Timeout;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -7,6 +8,7 @@ import java.time.Duration;
 
 import static org.junit.Assert.*;
 
+@DisplayName("JUnit - второй тест")
 public class SecondTest {
     ChromeDriver chromeDriver;
 
@@ -26,6 +28,7 @@ public class SecondTest {
     public Timeout testTimeout = Timeout.seconds(180);
 
     @Test
+    @DisplayName("Тест: вызов алертов")
     public void exerciseSecond() {
         chromeDriver.get("https://demoqa.com/alerts");
 

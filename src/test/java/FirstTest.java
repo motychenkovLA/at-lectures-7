@@ -1,4 +1,5 @@
 import Page.ButtonClick;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.*;
 import org.junit.rules.Timeout;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -7,6 +8,7 @@ import java.time.Duration;
 
 import static org.junit.Assert.*;
 
+@DisplayName("JUnit - первый тест")
 public class FirstTest {
     ChromeDriver chromeDriver;
 
@@ -26,6 +28,7 @@ public class FirstTest {
     public Timeout testTimeout = Timeout.seconds(180);
 
     @Test
+    @DisplayName("Тест: нажатие кнопок")
     public void firstTest() {
         chromeDriver.get("https://demoqa.com/buttons");
 
