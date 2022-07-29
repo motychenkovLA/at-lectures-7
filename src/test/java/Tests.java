@@ -44,8 +44,6 @@ public class Tests {
                 expectedRightClickMeText, buttonsPage.isHaveRightClickText());
         Assert.assertEquals("Тест Нажми меня не пройден",
                 expectedClickMeText, buttonsPage.isHaveClickText());
-
-        driver.quit();
     }
 
     @DisplayName("Тест для алерта")
@@ -60,7 +58,5 @@ public class Tests {
         String expectedAlertCancelText = "You selected " + "Cancel";
         Assert.assertEquals("Тексты сообщений не совпадают",
                 expectedAlertCancelText, alertPage.isHaveAlertText());
-
-        driver.quit();
     }
 }
