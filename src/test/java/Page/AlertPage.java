@@ -13,6 +13,7 @@ public class AlertPage {
     private final WebDriver driver;
 
 
+    private final By cancelText = By.xpath("//span[contains(., 'Cancel')]");
     private static final By alertButtonXpath = By.id("alertButton");
     private static final By timerAlertButtonXpath = By.id("timerAlertButton");
     private static final By confirmButtonXpath = By.id("confirmButton");
@@ -40,11 +41,8 @@ public class AlertPage {
         driver.switchTo().alert().dismiss();
     }
 
-    public void isHaveText() {
-        if (driver.findElements(By.id("confirmResult"))==null) {
-            throw new AssertionError("Тест не пройден");
-        } else {
-            System.out.println("Тест пройден");
-        }
+    public boolean isEmpty() {
+        return !driver.findElements(cancelText)
+                .isEmpty();
     }
 }

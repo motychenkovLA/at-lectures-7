@@ -22,26 +22,14 @@ public class ClickPage {
         this.driver = driver;
     }
 
-    public void clickDoubleButton() {
-        WebElement doubleClickReal = driver.findElement(doubleClick);
+    public void AllClicks() {
+        WebElement doubleClickBtn = driver.findElement(doubleClick);
+        WebElement rightClickBtn = driver.findElement(rightClick);
+        WebElement clickMeBtn = driver.findElement(clickMe);
         new Actions(driver)
-                .doubleClick(doubleClickReal)
-                .build()
-                .perform();
-    }
-
-    public void clickRightButton() {
-        WebElement rightClickReal = driver.findElement(rightClick);
-        new Actions(driver)
-                .contextClick(rightClickReal)
-                .build()
-                .perform();
-    }
-
-    public void clickMe() {
-        WebElement clickMeReal = driver.findElement(clickMe);
-        new Actions(driver)
-                .click(clickMeReal)
+                .doubleClick(doubleClickBtn)
+                .contextClick(rightClickBtn)
+                .click(clickMeBtn)
                 .build()
                 .perform();
     }
@@ -58,3 +46,10 @@ public class ClickPage {
         return !driver.findElements(clickTextXpath).isEmpty();
     }
 }
+
+//репозиторий - хранилище зависимостей
+//плагины - делают этапы
+//пом надстройка над реальным помом
+/**
+ * пишешь комменты к методам и прочему - это джава док, ее делает site команда мавена
+ */
