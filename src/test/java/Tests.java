@@ -1,13 +1,15 @@
 import Page.AlertPage;
 import Page.ButtonsPage;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.*;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.rules.Timeout;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
 
+@DisplayName("Тесты для JUnit")
 public class Tests {
 
     @Rule
@@ -26,6 +28,7 @@ public class Tests {
     }
 
     @DisplayName("Тест для кнопок")
+    @Description("Здесь тесты для кнопок")
     @Test
     public void clickOnButtons() {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
@@ -47,7 +50,8 @@ public class Tests {
     }
 
     @DisplayName("Тест для алерта")
-    @Test
+    @Description("Здесь тесты для алерта")
+    @Test()
     public void clickOnAlert() {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
         driver.get("https://demoqa.com/alerts");
