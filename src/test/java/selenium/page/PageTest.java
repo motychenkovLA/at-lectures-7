@@ -31,12 +31,11 @@ public class PageTest {
     @DisplayName("Тест для кнопок")
     @Test
     public void clickTest() {
-        Click click = new Click(driver);
-        click.allBtnClick();
-        Assert.assertTrue("Тест кнопок не пройден", click.pageIsHaveText("You have done a double click")
-                && click.pageIsHaveText("You have done a right click")
-                && click.pageIsHaveText("You have done a dynamic click"));
-
+        ClickPage clickPage = new ClickPage(driver);
+        clickPage.allBtnClick();
+        Assert.assertTrue("Тест кнопок не пройден", clickPage.isHaveDoubleClickText());
+        Assert.assertTrue( "Тест кнопок не пройден", clickPage.isHaveRightClickText());
+        Assert.assertTrue ("Тест кнопок не пройден",  clickPage.isHaveClickText());
     }
 
 
