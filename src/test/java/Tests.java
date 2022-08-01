@@ -1,7 +1,6 @@
 import Page.Click;
 import Page.ClickAlert;
 import org.junit.*;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.rules.Timeout;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -25,7 +24,6 @@ public class Tests {
         driver.quit();
     }
 
-    @DisplayName("Тест для кнопок")
     @Test
     public void click() {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(8));
@@ -46,7 +44,6 @@ public class Tests {
                 expectedClickMeText, click.isHaveClickText());
     }
 
-    @DisplayName("Тест для алерта")
     @Test
     public void clickAlert() {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(8));
