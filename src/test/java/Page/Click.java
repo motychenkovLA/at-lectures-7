@@ -45,15 +45,15 @@ public class Click {
                 .perform();
     }
 
-    public boolean isHaveDoubleClickText() {
-        return !driver.findElements(doubleClickTextXpath).isEmpty();
+    public String isHaveDoubleClickText() {
+        return driver.findElement(doubleClickTextXpath).getText();
     }
 
-    public boolean isHaveRightClickText() {
-        return !driver.findElements(rightClickTextXpath).isEmpty();
+    public String isHaveRightClickText() {
+        return driver.findElement(rightClickTextXpath).getText();
     }
 
-    public boolean isHaveClickText() {
-        return !driver.findElements(clickTextXpath).isEmpty();
+    public String isHaveClickText() {
+        return driver.findElement(clickTextXpath).getText();
     }
 }

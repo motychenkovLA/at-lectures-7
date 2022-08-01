@@ -14,6 +14,7 @@ public class ClickAlert {
     private static final By alertButtonXpath = By.id("alertButton");
     private static final By timerAlertButtonXpath = By.id("timerAlertButton");
     private static final By confirmButtonXpath = By.id("confirmButton");
+    private final By textAlertCancelXpath = By.xpath("//span[text()='You selected ' and text()='Cancel'] ");
 
     public ClickAlert(WebDriver driver) {
         this.driver = driver;
@@ -28,7 +29,7 @@ public class ClickAlert {
     public void clickTimerAlertButton() {
         WebElement timerAlertButton = driver.findElement(timerAlertButtonXpath);
         timerAlertButton.click();
-        WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(8));
         webDriverWait.until(ExpectedConditions.alertIsPresent()).accept();
     }
 
@@ -38,11 +39,7 @@ public class ClickAlert {
         driver.switchTo().alert().dismiss();
     }
 
-    public void isHaveText() {
-        if (driver.findElements(By.id("confirmResult"))==null) {
-            throw new AssertionError("Тест не пройден");
-        } else {
-            System.out.println("Тест пройден");
-        }
+    public String isHaveText() {
+        return driver.findElement(textAlertCancelXpath).getText();
     }
 }
