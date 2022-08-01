@@ -7,11 +7,12 @@ import org.openqa.selenium.WebElement;
 import java.util.Iterator;
 import java.util.Set;
 
-public class NewPage {
+public class NewTabPage {
+
     private final WebDriver driver;
     private final By newTab = By.id("tabButton");
 
-    public NewPage(WebDriver driver) {
+    public NewTabPage(WebDriver driver) {
         this.driver = driver;
 }
     public void clickNewTab() {
