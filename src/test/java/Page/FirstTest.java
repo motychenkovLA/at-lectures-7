@@ -1,6 +1,8 @@
 package Page;
 
 
+import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.*;
 import org.junit.experimental.categories.Category;
 import org.junit.rules.Timeout;
@@ -15,6 +17,7 @@ public class FirstTest {
     @Rule
     public Timeout testTimeout = Timeout.seconds(180);
 
+    @Step("Пользователь открывает браузер")
     @Before
     public void BeforeMethod() {
         System.setProperty("webdriver.chrome.driver", "src/test/chromedriver/chromedriver.exe");
@@ -22,11 +25,14 @@ public class FirstTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
     }
 
+    @Step("Пользователь закрывает браузер")
     @After
     public void afterMethod() {
         driver.quit();
     }
 
+    @DisplayName("Тест №1")
+    @Step("Происходит выполнение теста")
     @Category(TestLibrary.class)
     @Test
     public void firstTest() {

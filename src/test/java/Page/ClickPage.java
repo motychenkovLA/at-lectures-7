@@ -1,5 +1,7 @@
 package Page;
 
+import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,6 +24,7 @@ public class ClickPage {
         this.driver = driver;
     }
 
+    @Step("Пользователь кликает по кнопкам")
     public void AllClicks() {
         WebElement doubleClickBtn = driver.findElement(doubleClick);
         WebElement rightClickBtn = driver.findElement(rightClick);
@@ -34,6 +37,7 @@ public class ClickPage {
                 .perform();
     }
 
+    @Step("Осуществление проверок на наличие текста")
     public boolean isHaveDoubleClickText() {
         return !driver.findElements(doubleClickTextXpath).isEmpty();
     }
