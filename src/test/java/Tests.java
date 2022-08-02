@@ -1,5 +1,5 @@
-import Page.Click;
-import Page.ClickAlert;
+import Page.ButtonsPage;
+import Page.AlertPage;
 import org.junit.*;
 import org.junit.rules.Timeout;
 import org.openqa.selenium.WebDriver;
@@ -28,7 +28,7 @@ public class Tests {
     public void click() {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(8));
         driver.get("https://demoqa.com/buttons");
-        Click click = new Click(driver);
+        ButtonsPage click = new ButtonsPage(driver);
         click.clickDoubleButton();
         click.clickRightButton();
         click.clickMe();
@@ -48,7 +48,7 @@ public class Tests {
     public void clickAlert() {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(8));
         driver.get("https://demoqa.com/alerts");
-        ClickAlert clickOnAlert = new ClickAlert(driver);
+        AlertPage clickOnAlert = new AlertPage(driver);
         clickOnAlert.clickAlertButton();
         clickOnAlert.clickTimerAlertButton();
         clickOnAlert.clickConfirmButton();
