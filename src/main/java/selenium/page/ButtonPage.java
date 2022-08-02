@@ -1,5 +1,6 @@
 package selenium.page;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,8 +18,8 @@ public class ButtonPage {
     public ButtonPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        webDriver.get(url);
-
+        //webDriver.get(url);
+        CommonSteps.pageOpen(webDriver, url);
     }
 
     public WebElement webElement(By by) {
@@ -26,6 +27,7 @@ public class ButtonPage {
         return (webDriver.findElement(by));
     }
 
+    @Step("Нажать подряд три кнопки")
     public void allBtnClick() {
 
         new Actions(webDriver)
@@ -36,8 +38,8 @@ public class ButtonPage {
                 .perform();
     }
 
+    @Step("Найти на странице текст {text}")
     public boolean pageIsHaveText(String text) {
-//        webDriver.findElements();
         return (!webDriver.findElements(By.xpath("//p[text()='" + text + "']")).isEmpty());
     }
 

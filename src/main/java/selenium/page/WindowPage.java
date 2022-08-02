@@ -1,5 +1,6 @@
 package selenium.page;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -12,16 +13,21 @@ public class WindowPage {
 
     public WindowPage(WebDriver webDriver) {
         this.webDriver = webDriver;
-        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        webDriver.get(url);
+        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        //webDriver.get(url);
+        CommonSteps.pageOpen(webDriver,url);
     }
 
+
+
+@Step("Нажать tabButton")
     public void tabBtnClick() {
         webDriver.findElement(tabBtn).click();
 
     }
 
-    public boolean pageIsHaveBtn(){
+    @Step("Проверить, что открыта нужная страница")
+    public boolean pageIsHaveBtn() {
         return (!webDriver.findElements(tabBtn).isEmpty());
 
     }

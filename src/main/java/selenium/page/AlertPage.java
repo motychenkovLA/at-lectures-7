@@ -1,5 +1,6 @@
 package selenium.page;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -16,17 +17,22 @@ public class AlertPage {
     private static final String url = "https://demoqa.com/alerts";
     WebDriver webDriver;
 
+
     public AlertPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        webDriver.get(url);
+        //  webDriver.get(url);
+        CommonSteps.pageOpen(webDriver,url);
     }
 
+
+    @Step("Принять алерт")
     public void alertAccept(By by) {
         webDriver.findElement(by).click();
         webDriver.switchTo().alert().accept();
     }
 
+    @Step("Принять алерт с задержкой")
     public void alertAcceptWait(By by) {
         WebDriverWait webDriverWait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
         webDriver.findElement(by).click();
@@ -34,12 +40,14 @@ public class AlertPage {
 
     }
 
+    @Step("Отклонить алерт")
     public void alertDismiss(By by) {
         webDriver.findElement(by).click();
         webDriver.switchTo().alert().dismiss();
 
     }
 
+    @Step("Найти на странице текст Cancel")
     public boolean pageIsHaveText() {
         return (!webDriver.findElements(cancelText).isEmpty());
     }

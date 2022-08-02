@@ -1,21 +1,20 @@
 package selenium.page;
 
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.*;
 import org.junit.rules.Timeout;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.time.Duration;
 import java.util.Iterator;
 import java.util.Set;
 
+@DisplayName("Тест на JUnit")
 public class PageTest {
-
-    private WebDriver driver;
 
     @Rule
     public Timeout timeout = new Timeout(180000);
-
+    private WebDriver driver;
 
     @BeforeClass
     public static void setProperties() {
@@ -33,6 +32,7 @@ public class PageTest {
     }
 
     @Test
+    @DisplayName("Нажатие кнопок")
     public void buttonPageTest() {
         ButtonPage page = new ButtonPage(driver);
         page.allBtnClick();
@@ -42,15 +42,17 @@ public class PageTest {
     }
 
     @Test
+    @DisplayName("Работа с алертами")
     public void alertPageTest() {
         AlertPage page = new AlertPage(driver);
+        //page.siteOpen();
         page.allBtnClick();
         Assert.assertTrue("Тест 2 (alertPageTest) не пройден", page.pageIsHaveText());
     }
 
     @Test
+    @DisplayName("Работа с окнами")
     public void windowPageTest() {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         WindowPage page = new WindowPage(driver);
         String firstWindowDescriptor = driver.getWindowHandle();
         page.tabBtnClick();
@@ -58,9 +60,10 @@ public class PageTest {
         descriptors.remove(firstWindowDescriptor);
         Iterator<String> iterator = descriptors.iterator();
         String secondWindowDescriptor = iterator.next();
-        driver.switchTo().window(secondWindowDescriptor);
-        driver.get("https://google.com");
-        driver.switchTo().window(firstWindowDescriptor);
+
+        CommonSteps.focusTo(driver, secondWindowDescriptor);
+        CommonSteps.pageOpen(driver, "https://google.com");
+        CommonSteps.focusTo(driver, firstWindowDescriptor);
         Assert.assertTrue("Тест 3 (windowPageTest) не пройден", page.pageIsHaveBtn());
     }
 
