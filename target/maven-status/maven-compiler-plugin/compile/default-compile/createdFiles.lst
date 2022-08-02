@@ -1,0 +1,9 @@
+tracker\Attachment.class
+tracker\Repository.class
+tracker\DefectAttachment.class
+tracker\Main.class
+tracker\CommentAttachment.class
+tracker\Defect.class
+tracker\Status.class
+tracker\Transition.class
+tracker\Severity.class

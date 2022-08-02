@@ -39,7 +39,6 @@
             <artifactId>junit-jupiter</artifactId>
             <version>LATEST</version>
         </dependency>
-
 <!--        &lt;!&ndash; https://mvnrepository.com/artifact/io.qameta.allure/allure-maven &ndash;&gt;-->
 <!--        <dependency>-->
 <!--            <groupId>io.qameta.allure</groupId>-->
