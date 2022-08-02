@@ -1,5 +1,7 @@
-import Page.ButtonsPage;
 import Page.AlertPage;
+import Page.ButtonsPage;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.*;
 import org.junit.rules.Timeout;
 import org.openqa.selenium.WebDriver;
@@ -24,6 +26,8 @@ public class Tests {
         driver.quit();
     }
 
+    @DisplayName("Тест для кнопок")
+    @Description("Все тесты для кнопок")
     @Test
     public void click() {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(8));
@@ -44,6 +48,8 @@ public class Tests {
                 expectedClickMeText, click.isHaveClickText());
     }
 
+    @DisplayName("Тест для алерта")
+    @Description("Все тесты для алерта")
     @Test
     public void clickAlert() {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(8));
@@ -56,4 +62,5 @@ public class Tests {
         Assert.assertEquals("Тексты сообщений не совпадают",
                 expectedAlertCancelText, clickOnAlert.isHaveText());
     }
+
 }

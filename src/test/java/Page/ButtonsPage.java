@@ -1,5 +1,6 @@
 package Page;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,10 +18,12 @@ public class ButtonsPage {
     private static final By rightClickTextXpath = By.xpath("//p[text()='You have done a right click']");
     private static final By clickTextXpath = By.xpath("//p[text()='You have done a dynamic click']");
 
+
     public ButtonsPage(WebDriver driver) {
         this.driver = driver;
     }
 
+    @Step("Нажать кнопку Double Click me")
     public void clickDoubleButton() {
         WebElement doubleClickReal = driver.findElement(doubleClick);
         new Actions(driver)
@@ -29,6 +32,7 @@ public class ButtonsPage {
                 .perform();
     }
 
+    @Step("Нажать кнопку Right Click me")
     public void clickRightButton() {
         WebElement rightClickReal = driver.findElement(rightClick);
         new Actions(driver)
@@ -37,6 +41,7 @@ public class ButtonsPage {
                 .perform();
     }
 
+    @Step("Нажать кнопку Click me")
     public void clickMe() {
         WebElement clickMeReal = driver.findElement(clickMe);
         new Actions(driver)
@@ -56,4 +61,5 @@ public class ButtonsPage {
     public String isHaveClickText() {
         return driver.findElement(clickTextXpath).getText();
     }
+
 }
