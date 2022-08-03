@@ -32,6 +32,13 @@
 
     <dependencies>
         <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-junit4</artifactId>
+            <version>2.11.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
@@ -44,18 +51,12 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-junit4</artifactId>
-            <version>2.11.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-java-commons</artifactId>
-            <version>2.14.0</version>
-            <scope>compile</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.qameta.allure</groupId>-->
+<!--            <artifactId>allure-java-commons</artifactId>-->
+<!--            <version>2.14.0</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
@@ -65,7 +66,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.1</version>
                 <configuration>
-                    <testFailureIgnore>false</testFailureIgnore>
+                    <testFailureIgnore>true</testFailureIgnore>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
