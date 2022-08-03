@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,10 +23,12 @@ public class ClickAlertButton {
         this.webDriver = webDriver;
     }
 
+    @Step("Открытие страницы с Алертами")
     public void openAlertDemoqa() {
         webDriver.get("https://demoqa.com/alerts");
     }
 
+    @Step("Клик по кнопкам Алерта")
     public void clickAlertAll() {
         WebElement alertButton = webDriver.findElement(alertButtonElement);
         WebElement timerAlertButton = webDriver.findElement(timerAlertButtonElement);
@@ -42,6 +45,7 @@ public class ClickAlertButton {
         webDriver.switchTo().alert().dismiss();
     }
 
+    @Step("Проверка")
     public boolean isAlertText() {
         boolean isHaveText = !webDriver.findElements(shouldAlertText).isEmpty();
         return isHaveText;

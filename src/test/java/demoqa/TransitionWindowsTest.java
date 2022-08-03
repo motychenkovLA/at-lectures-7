@@ -1,5 +1,6 @@
 package demoqa;
 
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.*;
 import org.junit.rules.Timeout;
 import org.openqa.selenium.WebDriver;
@@ -8,6 +9,7 @@ import pages.TransitionWindows;
 
 import java.time.Duration;
 
+@DisplayName("Тест с JUnit3")
 public class TransitionWindowsTest {
     static WebDriver webDriver;
     TransitionWindows transitionWindows;
@@ -21,6 +23,7 @@ public class TransitionWindowsTest {
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
+    @DisplayName("Клик и переход на другую страницу")
     @Test
     public void shouldBePageWindows() throws InterruptedException {
         transitionWindows = new TransitionWindows(webDriver);

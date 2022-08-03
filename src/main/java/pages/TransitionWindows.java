@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,10 +20,12 @@ public class TransitionWindows {
         this.webDriver = webDriver;
     }
 
+    @Step("Открытие страницы 'Demoqa'")
     public void openDemoqaWindows() {
         webDriver.get("https://demoqa.com/browser-windows");
     }
 
+    @Step("Клик по кнопке")
     public void clickTabButton() {
 
         WebElement tabButton = webDriver.findElement(tabButtonElement);
@@ -32,6 +35,7 @@ public class TransitionWindows {
                 .perform();
     }
 
+    @Step("Преход на другую страницу")
     public void transitionWindows() throws InterruptedException {
         List<String> description = new ArrayList<>(webDriver.getWindowHandles());
         webDriver.switchTo().window(description.get(1));
@@ -41,6 +45,7 @@ public class TransitionWindows {
         webDriver.switchTo().window(description.get(0));
     }
 
+    @Step("Проверка")
     public boolean isPage() {
         return webDriver.getTitle().equals("ToolsQA");
     }

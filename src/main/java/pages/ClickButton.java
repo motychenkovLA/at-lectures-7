@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,28 +21,31 @@ public class ClickButton {
         this.webDriver = webDriver;
     }
 
+    @Step("Открытие страницы")
     public void openDemoqa() {
         webDriver.get("https://demoqa.com/buttons");
     }
 
+    @Step("Клик по кнопкам")
     public void clickAll() {
         WebElement doubleClick = webDriver.findElement(doubleClickText);
         WebElement contextClick = webDriver.findElement(contextClickText);
         WebElement click = webDriver.findElement(clickText);
 
         new Actions(webDriver)
-                .doubleClick(doubleClick)
-                .contextClick(contextClick)
+//                .doubleClick(doubleClick)
+//                .contextClick(contextClick)
                 .click(click)
                 .build()
                 .perform();
     }
 
-        public boolean isText() {
-            boolean shouldDoubleClickText = !webDriver.findElements(shouldDoubleClick).isEmpty();
-            boolean shouldRightClickText = !webDriver.findElements(shouldRightClick).isEmpty();
-            boolean shouldClickText = !webDriver.findElements(shouldClick).isEmpty();
+    @Step("Проверка")
+    public boolean isText() {
+        boolean shouldDoubleClickText = !webDriver.findElements(shouldDoubleClick).isEmpty();
+        boolean shouldRightClickText = !webDriver.findElements(shouldRightClick).isEmpty();
+        boolean shouldClickText = !webDriver.findElements(shouldClick).isEmpty();
 
-            return shouldDoubleClickText && shouldRightClickText && shouldClickText;
-        }
+        return shouldDoubleClickText && shouldRightClickText && shouldClickText;
+    }
 }

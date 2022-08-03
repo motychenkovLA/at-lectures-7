@@ -1,5 +1,6 @@
 package demoqa;
 
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -11,6 +12,7 @@ import pages.ClickAlertButton;
 
 import java.time.Duration;
 
+@DisplayName("Тест на JUnit1")
 public class ClickAlertButtonTest {
     static WebDriver webDriver;
     ClickAlertButton clickAlertButton;
@@ -24,6 +26,7 @@ public class ClickAlertButtonTest {
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
+    @DisplayName("Клик по кнопке Алерта")
     @Test
     public void shouldText() {
         clickAlertButton = new ClickAlertButton(webDriver);
