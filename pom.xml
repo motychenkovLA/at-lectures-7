@@ -35,7 +35,6 @@
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit4</artifactId>
             <version>2.11.0</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -47,8 +46,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-            <scope>test</scope>
+            <version>4.12</version>
         </dependency>
 
 <!--        <dependency>-->
@@ -99,7 +97,7 @@
                 </dependencies>
             </plugin>
 
-<!--            mvn allure:report-->
+<!--            тогда команда будет mvn allure:report-->
 <!--            <plugin>-->
 <!--                <groupId>io.qameta.allure</groupId>-->
 <!--                <artifactId>allure-maven</artifactId>-->
@@ -117,7 +115,7 @@
                 <artifactId>allure-maven</artifactId>
                 <version>2.10.0</version>
                 <configuration>
-                    <reportVersion>2.11.0</reportVersion>
+                    <reportVersion>2.6.0</reportVersion>
                 </configuration>
             </plugin>
         </plugins>
