@@ -40,7 +40,12 @@
             <version>RELEASE</version>
             <!--            <scope>test</scope>-->
         </dependency>
-
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.25</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -50,23 +55,20 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.20</version>
                 <configuration>
-                    <testFailureIgnore>true</testFailureIgnore>
+                    <testFailureIgnore>false</testFailureIgnore>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
                     <properties>
+                        <!--Правила для сбора информации Allure, на которые смотрит aspectj при работе-->
                         <property>
                             <name>listener</name>
                             <value>io.qameta.allure.junit4.AllureJunit4</value>
                         </property>
-                        <property>
-                            <name>allure.results.directory</name>
-                            <value>${project.build.directory}/target/allure-results</value>
-                        </property>
-                        <systemPropertyVariables>
-                            <allure.results.directory>${project.build.directory}/target/allure-results</allure.results.directory>
-                        </systemPropertyVariables>
                     </properties>
+                    <systemPropertyVariables>
+                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+                    </systemPropertyVariables>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -76,28 +78,14 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <!--               plugin <plugin>-->
-            <!--                    <groupId>io.qameta.allure</groupId>-->
-            <!--                    <artifactId>allure-maven</artifactId>-->
-            <!--                    <version>2.9</version>-->
-            <!--                    <configuration>-->
-            <!--                        <reportVersion>2.11.0</reportVersion>-->
-            <!--                    </configuration>-->
-            <!--                </plugin>-->
-        </plugins>
-    </build>
-
-    <reporting>
-        <excludeDefaults>true</excludeDefaults>
-        <plugins>
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>2.10.0</version>
                 <configuration>
-                    <reportVersion>2.11.0</reportVersion>
+                    <reportVersion>2.14.0</reportVersion>
                 </configuration>
             </plugin>
         </plugins>
-    </reporting>
+    </build>
 </project>
