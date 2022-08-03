@@ -1,14 +1,13 @@
 package selenium.page;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.*;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.rules.Timeout;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
-import java.util.Iterator;
-import java.util.Set;
 
 
 public class PageTest {
@@ -29,37 +28,34 @@ public class PageTest {
     }
 
     @DisplayName("Тест для кнопок")
+    @Description("Тесты для кнопок")
     @Test
     public void clickTest() {
-        ClickPage clickPage = new ClickPage(driver);
-        clickPage.allBtnClick();
-        Assert.assertTrue("Тест кнопок не пройден", clickPage.isHaveDoubleClickText());
-        Assert.assertTrue( "Тест кнопок не пройден", clickPage.isHaveRightClickText());
-        Assert.assertTrue ("Тест кнопок не пройден",  clickPage.isHaveClickText());
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(8));
+        driver.get("https://demoqa.com/buttons");
+        ClickPage click = new ClickPage(driver);
+        click.clickDoubleButton();
+        click.clickRightButton();
+        click.clickMe();
+
+        Assert.assertTrue("Тест Двойной клик не пройден", click.isHaveDoubleClickText());
+        Assert.assertTrue("Тест Правый клик не пройден", click.isHaveRightClickText());
+        Assert.assertTrue("Тест Нажми меня не пройден", click.isHaveClickText());
     }
 
 
     @DisplayName("Тест для алерта")
+    @Description("Все тесты для алерта")
     @Test
-    public void clickAlertTest() {
-        ClickAlert clickAlert = new ClickAlert(driver);
-        clickAlert.allBtnClickAlert();
-        Assert.assertTrue("Тест алерта не пройден", clickAlert.pageIsHaveText());
-    }
-
-    @Test
-    public void windowPageTest(){
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        WindowPage page = new WindowPage(driver);
-        String firstWindowDescriptor = driver.getWindowHandle();
-        page.tabBtnClick();
-        Set<String> descriptors = driver.getWindowHandles();
-        descriptors.remove(firstWindowDescriptor);
-        Iterator<String> iterator = descriptors.iterator();
-        String secondWindowDescriptor = iterator.next();
-        driver.switchTo().window(secondWindowDescriptor);
-        driver.get("https://google.com");
-        driver.switchTo().window(firstWindowDescriptor);
-        Assert.assertTrue("Тест 3 (windowPageTest) не пройден", page.pageIsHaveBtn());
+    public void ClickAlert() {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(8));
+        driver.get("https://demoqa.com/alerts");
+        AlertPage clickAlert = new AlertPage(driver);
+        clickAlert.clickAlertButton();
+        clickAlert.clickTimerAlertButton();
+        clickAlert.clickConfirmButton();
+        String expectedAlertCancelText = "You selected " + "Cancel";
+        Assert.assertEquals("Тексты сообщений не совпадают",
+                expectedAlertCancelText, clickAlert.isHaveText());
     }
 }
