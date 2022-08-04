@@ -1,0 +1,21 @@
+[ {
+  "uid" : "f665eb6f72706faa",
+  "name" : "Тест для кнопок",
+  "time" : {
+    "start" : 1659607536954,
+    "stop" : 1659607541820,
+    "duration" : 4866
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "561533ed6e701426",
+  "name" : "Тест для алерта",
+  "time" : {
+    "start" : 1659607524290,
+    "stop" : 1659607536727,
+    "duration" : 12437
+  },
+  "status" : "passed",
+  "severity" : "normal"
+} ]
