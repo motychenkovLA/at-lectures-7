@@ -1,3 +1,4 @@
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,18 +19,15 @@ public class AlertsPage {
         this.webDriver = webDriver;
     }
 
-//    public void open() {
-//        String urlPageWithAlerts = "https://demoqa.com/alerts";
-//        webDriver.get(urlPageWithAlerts);
-//    }
 
-
+    @Step("Принимаем алерт")
     public void ClickAlertAndAccept() {
         WebElement button = webDriver.findElement(alertButton);
         button.click();
         webDriver.switchTo().alert().accept();
     }
 
+    @Step("Принимаем алерт с ожиданием")
     public void ClickTimerAlertAndAccept() {
         WebElement button = webDriver.findElement(timerAlertButton);
         WebDriverWait webDriverWait = new WebDriverWait(webDriver, Duration.ofSeconds(7));
@@ -37,12 +35,14 @@ public class AlertsPage {
         webDriverWait.until(ExpectedConditions.alertIsPresent()).accept();
     }
 
+    @Step("Отказ от алерта")
     public void ClickConfirmAlertAndAccept() {
         WebElement button = webDriver.findElement(confirmButton);
         button.click();
         webDriver.switchTo().alert().dismiss();
     }
 
+    @Step("Проверка текстового сообщения после отказа от алерта")
     public boolean isEmpty() {
         return !webDriver.findElements(textCancel)
                 .isEmpty();

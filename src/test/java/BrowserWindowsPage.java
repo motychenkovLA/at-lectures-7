@@ -1,3 +1,4 @@
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,11 +14,7 @@ public class BrowserWindowsPage {
         this.webDriver = webDriver;
     }
 
-//    public void open(){
-//        String urlPageWithWindows = "https://demoqa.com/browser-windows";
-//        webDriver.get(urlPageWithWindows);
-//    }
-
+    @Step("Переключение между страницами браузера")
     public void openOtherPageInNewTab(String newPage) {
 
         WebElement button = webDriver.findElement(newTabButton);
@@ -35,7 +32,7 @@ public class BrowserWindowsPage {
         webDriver.get(newPage);
 
     }
-
+    @Step("Проверка url-адреса страницы")
     public boolean atPage(String titleOfPage) {
         return webDriver.getTitle().equals(titleOfPage);
     }
