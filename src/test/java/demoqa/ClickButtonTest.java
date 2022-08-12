@@ -13,7 +13,7 @@ import pages.ClickButton;
 
 import java.time.Duration;
 
-@DisplayName("Тест JUnit2")
+@DisplayName("Тест на JUnit2")
 public class ClickButtonTest {
     static WebDriver webDriver;
     ClickButton clickButton;

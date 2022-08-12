@@ -9,7 +9,7 @@ import pages.TransitionWindows;
 
 import java.time.Duration;
 
-@DisplayName("Тест с JUnit3")
+@DisplayName("Тест на JUnit3")
 public class TransitionWindowsTest {
     static WebDriver webDriver;
     TransitionWindows transitionWindows;
