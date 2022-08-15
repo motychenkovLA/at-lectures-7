@@ -41,9 +41,85 @@ public class ClientDAO {
                 clients.add(new Client(id, age, firstName, lastName));
             }
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         } return clients;
+    }
+
+
+    public Client getClientById(int clientId){
+        Client client = new Client();
+        try {
+            Connection connection = DriverManager.getConnection(USER,LOGIN, PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM clients WHERE id = ?");
+            preparedStatement.setString(1, String.valueOf(clientId));
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                int id = rs.getInt("id");
+                int age = rs.getInt("age");
+                String firstName = rs.getString("first_Name");
+                String lastName = rs.getString("last_Name");
+                client = new Client(id, age, firstName, lastName);
+
+                rs.close();
+                preparedStatement.close();
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } return client;
+    }
+
+
+    public List<Client> getListOfClientsByFI(String clientLastName, String clientFirstName){
+        List<Client> clients = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection(USER,LOGIN, PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM clients WHERE " +
+                    "firstName = ? OR WHERE lastName = ?");
+            preparedStatement.setString(1, clientFirstName);
+            preparedStatement.setString(2, clientLastName);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                int id = rs.getInt("id");
+                int age = rs.getInt("age");
+                String firstName = rs.getString("first_Name");
+                String lastName = rs.getString("last_Name");
+                clients.add(new Client(id, age, firstName, lastName));
+
+                rs.close();
+                preparedStatement.close();
+                connection.close();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } return clients;
+
+    }
+
+
+    public int getClientById(Client client){
+        int result = 0;
+        try {
+            Connection connection = DriverManager.getConnection(USER,LOGIN, PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO clients (firstName, " +
+                    "lastName, age) Values (?, ?, ?)");
+            preparedStatement.setString(1, client.getFirstName());
+            preparedStatement.setString(2, client.getLastName());
+            preparedStatement.setString(3, client.getAge());
+
+            result = preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } return result;
+
+
     }
 
 }
