@@ -59,11 +59,12 @@ public class ClientDAO {
         int age = result.getInt("age");
         String firstName = result.getString("first_Name");
         String lastName = result.getString("last_Name");
+        Client client = new Client(id, age, firstName, lastName);
 
         pr.close();
         connection.close();
 
-        return new Client(id, age, firstName, lastName);
+        return client;
     }
 
     public List<Client> getFirstNameAndLastNameClients() {
@@ -91,21 +92,27 @@ public class ClientDAO {
         return cl;
     }
 
-    public int getCountRequest(int id, String firstName, String lastName, int age) throws SQLException {
+    public int getCountRequest(int id, String firstName, String lastName, int age) {
+        int count = 0;
 
-        Connection connection = DriverManager.getConnection(USER, LOGIN, PASS);
-        connection.setAutoCommit(false);
+        try {
+            Connection connection = DriverManager.getConnection(USER, LOGIN, PASS);
+            connection.setAutoCommit(false);
 
-        PreparedStatement preparedStatement = connection
-                .prepareStatement("UPDATE clients SET " + "first_name = ?, last_name = ?, age + ? " + "WHERE id = ?");
-        preparedStatement.setString(1,firstName);
-        preparedStatement.setString(2,lastName);
-        preparedStatement.setString(3,String.valueOf(id));
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("UPDATE clients SET " + "first_name = ?, last_name = ?, age = ? " + "WHERE id = ?");
+            preparedStatement.setString(1,firstName);
+            preparedStatement.setString(2,lastName);
+            preparedStatement.setString(3,String.valueOf(age);
+            preparedStatement.setString(4,String.valueOf(id));
+            count = preparedStatement.executeUpdate();
 
-        connection.commit();
-        preparedStatement.close();
-        connection.close();
-
-        return preparedStatement.executeUpdate();
+            connection.commit();
+            preparedStatement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
     }
 }
