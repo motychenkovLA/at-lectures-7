@@ -9,13 +9,14 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws SQLException {
 
         String URL = "jdbc:mysql://localhost:3306/users";
         String USER = "root";
         String PASS = "root";
 
-        //1 вариант регистрации драйвера
+
+        //1 вариант регистрации драйвера:
         try {
             Class.forName("com.mysql.cj.jdbc.Driver"); //дефолтная загрузка класса
 
@@ -23,7 +24,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        //2 вариант регистрации драйвера
+        //2 вариант регистрации драйвера:
 //        try {
 //            Driver driver = new com.mysql.cj.jdbc.Driver();
 //            DriverManager.registerDriver(driver);
@@ -31,25 +32,32 @@ public class Main {
 //            e.printStackTrace();
 //        }
 
-//        try {
-         //   Connection connection = DriverManager.getConnection(URL, USER, PASS);
+//-------------------------------------------------------------------
 
-//           Statement statement = connection.createStatement();
-//        //PrepareStatement совершает "прекомпил" запроса исключая скл-иньекций,
-//        //позволяет легко добавлять не самые удобные типы данных, такие как даты и тд
-//            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM clients " +
-//                    "WHERE first_name = ?");
-//            preparedStatement.setString(1, "Ivan");
-//
-//            CallableStatement callableStatement = connection.prepareCall("{call dbFunction}");
+        //Стейтманы:
 
+//        Connection connection = DriverManager.getConnection(URL, USER, PASS);
 
+//        Statement statement = connection.createStatement();
+//        PrepareStatement совершает "прекомпил" запроса исключая скл-иньекций,
+//        позволяет легко добавлять не самые удобные типы данных, такие как даты и тд
 
+//        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM clients " +
+//                "WHERE first_name = ?");
+//        preparedStatement.setString(1, "Ivan");
 
+//        CallableStatement callableStatement = connection.prepareCall("{call dbFunction}");
 
+//-------------------------------------------------------------------------------------------
 
-//           Statement statement = connection.createStatement();
-//
+        //Методы для обращения к БД
+
+//                - execute() возвращает true/fails
+//                - executeUpdate() возвращает количество count отработаных запросов
+//                - executeQuery() возвращает результат запроса из БД
+
+//            Statement statement = connection.createStatement();
+
 //            Boolean execBoo = statement.execute("");
 //            Integer execInt = statement.executeUpdate("");
 //            ResultSet rs = statement.executeQuery("SELECT * FROM clients");
@@ -66,8 +74,12 @@ public class Main {
 //
 //            System.out.println(sb.toString());
 
+//------------------------------------------------------------------------------------
+
+        //Отключение авто коммита и вклю в ручную:
+
 //            connection.setAutoCommit(false);
-//            Savepoint currentSavepoint = connection.setSavepoint();
+//            Savepoint currentSavepoint = connection.setSavepoint(); - откат до начала запроса, при вознекновении ошибки rollback(currentSavepoint)
 //            try {
 //                System.out.println(connection.createStatement().executeUpdate("INSERT INTO clients" +
 //                        "(first_name, last_name, age) VALUES ('Ivan', 'Ivanov', 35)"));
@@ -78,7 +90,9 @@ public class Main {
 //                e.printStackTrace();
 //            }
 
+//--------------------------------------------------------------
 
+        //Пакеты:
 
 //            connection.setAutoCommit(false);
 //            Statement statement = connection.createStatement();
@@ -97,14 +111,31 @@ public class Main {
 //            e.printStackTrace();
 //        }
 
+
+
         List<Client> clients = new ClientDAO().getAllClients();
-
-
         for (int i = 0; i < clients.size(); i++) {
             System.out.print("ID: " + clients.get(i).getId() + " ");
             System.out.print("AGE: " + clients.get(i).getAge() + " ");
             System.out.print("FIRST NAME: " + clients.get(i).getFirstName() + " ");
             System.out.print("LAST NAME : " + clients.get(i).getLastName() + '\n');
         }
+
+        Client client = new ClientDAO().getClientId(10);
+        System.out.print("ID: " + client.getId() + " ");
+        System.out.print("AGE: " + client.getAge() + " ");
+        System.out.print("FIRST NAME: " + client.getFirstName() + " ");
+        System.out.print("LAST NAME : " + client.getLastName() + '\n');
+
+
+        List<Client> cl = new ClientDAO().getFirstNameAndLastNameClients();
+        for (int i = 0; i < cl.size(); i++) {
+            System.out.print("ID: " + cl.get(i).getId() + " ");
+            System.out.print("AGE: " + cl.get(i).getAge() + " ");
+            System.out.print("FIRST NAME: " + cl.get(i).getFirstName() + " ");
+            System.out.print("LAST NAME : " + cl.get(i).getLastName() + '\n');
+        }
+
+        System.out.println(new ClientDAO().getCountRequest(11, "Ivanov", "Ivan", 35));
     }
 }

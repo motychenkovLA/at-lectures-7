@@ -35,6 +35,7 @@ public class JBDCExecutor {
             preparedStatement.close();
 
         } catch (SQLException e) {
+
             try {
                 connection.rollback(currentSavepoint);
             } catch (SQLException ex) {

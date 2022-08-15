@@ -1,5 +1,5 @@
 package JDBC.entities;
-//сущность клиента
+
 public class Client {
 
     private int id;
@@ -14,16 +14,9 @@ public class Client {
         this.lastName = lastName;
     }
 
-    public Client( int age, String firstName, String lastName){
-        this.age = age;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public int getId() {
+        return id;
     }
-
-    public Client(){
-    }
-
-    public int getId() { return id; }
 
     public void setId(int id) {
         this.id = id;
