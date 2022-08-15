@@ -103,7 +103,7 @@ public class ClientDAO {
                     .prepareStatement("UPDATE clients SET " + "first_name = ?, last_name = ?, age = ? " + "WHERE id = ?");
             preparedStatement.setString(1,firstName);
             preparedStatement.setString(2,lastName);
-            preparedStatement.setString(3,String.valueOf(age);
+            preparedStatement.setString(3,String.valueOf(age));
             preparedStatement.setString(4,String.valueOf(id));
             count = preparedStatement.executeUpdate();
 
