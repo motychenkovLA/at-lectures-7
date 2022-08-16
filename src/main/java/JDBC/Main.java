@@ -3,8 +3,6 @@ package JDBC;
 import JDBC.dao.ClientDAO;
 import JDBC.entities.Client;
 
-
-import java.sql.*;
 import java.util.List;
 
 public class Main {
@@ -32,7 +30,7 @@ public class Main {
 //        }
 
 //        try {
-         //   Connection connection = DriverManager.getConnection(URL, USER, PASS);
+        //   Connection connection = DriverManager.getConnection(URL, USER, PASS);
 
 //           Statement statement = connection.createStatement();
 //        //PrepareStatement совершает "прекомпил" запроса исключая скл-иньекций,
