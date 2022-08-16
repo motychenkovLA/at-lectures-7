@@ -51,8 +51,8 @@ public class ClientDAO {
         Connection connection = DriverManager.getConnection(USER, LOGIN, PASS);
         connection.setAutoCommit(false);
         Statement statement = connection.createStatement();
-        Integer execInt = statement.executeUpdate("INSERT INTO Clients (first_name, last_name, age, id) VALUES ('LAST_NAME='" + lastName + "', FIRST_NAME ='"
-                + firstName + "', " + "AGE ='" + age + "' WHERE ID='" + Id + "'");
+        Integer execInt = statement.executeUpdate("INSERT INTO Clients (first_name, last_name, age, id) VALUES ('" + lastName + "','"
+                + firstName + "', '" + age + "' ,'" + Id + "'");
         statement.close();
         connection.close();
         return execInt;
@@ -75,8 +75,7 @@ public class ClientDAO {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }
-        return clients;
+        } return clients;
     }
 
 }
