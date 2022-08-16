@@ -1,6 +1,6 @@
-package JDBC.dao;
+package jdbc.dao;
 
-import JDBC.entities.Client;
+import jdbc.entities.Client;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package JDBC.entities;
+package jdbc.entities;
 
 public class Client {
 

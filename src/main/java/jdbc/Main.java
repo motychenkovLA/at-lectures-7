@@ -1,7 +1,7 @@
-package JDBC;
+package jdbc;
 
-import JDBC.dao.ClientDAO;
-import JDBC.entities.Client;
+import jdbc.dao.ClientDAO;
+import jdbc.entities.Client;
 
 
 import java.sql.*;

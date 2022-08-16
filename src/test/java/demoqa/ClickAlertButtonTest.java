@@ -1,6 +1,7 @@
 package demoqa;
 
 import io.qameta.allure.junit4.DisplayName;
+import lombok.Getter;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;

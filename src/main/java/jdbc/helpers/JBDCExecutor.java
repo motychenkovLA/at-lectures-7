@@ -1,4 +1,4 @@
-package JDBC.helpers;
+package jdbc.helpers;
 
 import java.sql.*;
 
