@@ -1,7 +1,6 @@
-package demoqa;
+package pageObject.demoqa;
 
 import io.qameta.allure.junit4.DisplayName;
-import lombok.Getter;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -9,17 +8,18 @@ import org.junit.Test;
 import org.junit.rules.Timeout;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pages.ClickAlertButton;
+
+import pageObject.ClickButton;
 
 import java.time.Duration;
 
-@DisplayName("Тест на JUnit1")
-public class ClickAlertButtonTest {
+@DisplayName("Тест на JUnit2")
+public class ClickButtonTest {
     static WebDriver webDriver;
-    ClickAlertButton clickAlertButton;
+    ClickButton clickButton;
 
     @Rule
-    public Timeout clickAlertTimeOut = Timeout.seconds(180);
+    public Timeout clickTimeOut = Timeout.seconds(180);
 
     @BeforeClass
     public static void setUp() {
@@ -27,17 +27,17 @@ public class ClickAlertButtonTest {
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
-    @DisplayName("Клик по кнопке Алерта")
+    @DisplayName("Клик по кнопке")
     @Test
     public void shouldText() {
-        clickAlertButton = new ClickAlertButton(webDriver);
-        clickAlertButton.openAlertDemoqa();
-        clickAlertButton.clickAlertAll();
-        assert clickAlertButton.isAlertText();
+        clickButton = new ClickButton(webDriver);
+        clickButton.openDemoqa();
+        clickButton.clickAll();
+        assert clickButton.isText();
     }
 
     @AfterClass
-    public  static void endUp() {
+    public static void endUp() {
         webDriver.quit();
     }
 }

@@ -1,4 +1,4 @@
-package baseApiTest;
+package restApi;
 
 import io.restassured.RestAssured;
 import io.restassured.filter.log.LogDetail;

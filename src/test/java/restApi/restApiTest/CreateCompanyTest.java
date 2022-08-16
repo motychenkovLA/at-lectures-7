@@ -1,6 +1,6 @@
-package restApi;
+package restApi.restApiTest;
 
-import baseApiTest.BaseApiTest;
+import restApi.BaseApiTest;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;

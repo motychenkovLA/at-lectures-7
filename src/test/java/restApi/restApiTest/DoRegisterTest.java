@@ -1,6 +1,7 @@
-package restApi;
+package restApi.restApiTest;
 
-import baseApiTest.BaseApiTest;
+import io.restassured.RestAssured;
+import restApi.BaseApiTest;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -17,13 +18,25 @@ public class DoRegisterTest extends BaseApiTest {
     @Test
     public void successfulUserAdditionTest() {
         RootDoRegisterRequestPostModel model = RootDoRegisterRequestPostGenerator.randomEmailAndName("123456789");
-        RequestSpecification requestSpecification = BugredController.prepareDoRegister(model);
-        Response response = requestSpecification.post();
 
-        response.then()
+        RestAssured
+                .given()
+                .spec(BugredController.prepareDoRegister(model))
+                .when()
+                .post()
+                .then()
                 .statusCode(200)
                 .body("name", Matchers.equalTo(model.getName()))
                 .body("email", Matchers.equalTo(model.getEmail()));
+
+
+//        RequestSpecification requestSpecification = BugredController.prepareDoRegister(model);
+//        Response response = requestSpecification.post();
+//
+//        response.then()
+//                .statusCode(200)
+//                .body("name", Matchers.equalTo(model.getName()))
+//                .body("email", Matchers.equalTo(model.getEmail()));
     }
 
     @DisplayName("Тест №2 'Проверка повторной регистрации'")
