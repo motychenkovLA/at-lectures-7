@@ -15,11 +15,25 @@ public class Main {
         String USER = "root";
         String PASS = "root";
 
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+
         //1 вариант регистрации драйвера
         try {
             Class.forName("com.mysql.cj.jdbc.Driver"); //дефолтная загрузка класса
 
+            System.out.println("Подключение к базе");
+            connection = DriverManager.getConnection(URL, USER, PASS);
+            System.out.println("Подключение удалось");
+
+
+            ClientDAO.addClient(1, 15, "Ivanov", "Petr");
+
+
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -97,14 +111,14 @@ public class Main {
 //            e.printStackTrace();
 //        }
 
-        List<Client> clients = new ClientDAO().getAllClients();
-
-
-        for (int i = 0; i < clients.size(); i++) {
-            System.out.print("ID: " + clients.get(i).getId() + " ");
-            System.out.print("AGE: " + clients.get(i).getAge() + " ");
-            System.out.print("FIRST NAME: " + clients.get(i).getFirstName() + " ");
-            System.out.print("LAST NAME : " + clients.get(i).getLastName() + '\n');
-        }
+//        List<Client> clients = new ClientDAO().getAllClients();
+//
+//
+//        for (int i = 0; i < clients.size(); i++) {
+//            System.out.print("ID: " + clients.get(i).getId() + " ");
+//            System.out.print("AGE: " + clients.get(i).getAge() + " ");
+//            System.out.print("FIRST NAME: " + clients.get(i).getFirstName() + " ");
+//            System.out.print("LAST NAME : " + clients.get(i).getLastName() + '\n');
+//        }
     }
 }

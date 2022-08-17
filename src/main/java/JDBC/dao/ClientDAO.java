@@ -26,7 +26,68 @@ public class ClientDAO {
     }
 
 
-    public List<Client> getAllClients(){
+    public static int addClient(int id, int age, String firstname, String lastname) {
+        int rows = 0;
+        try {
+            Connection connection = DriverManager.getConnection(USER, LOGIN, PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users(id, age, " +
+                    "firstname, lastname) VALUES (?, ?, ?, ?)");
+            // Выполнение запроса
+            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, age);
+            preparedStatement.setString(3, firstname);
+            preparedStatement.setString(4, lastname);
+
+            rows = preparedStatement.executeUpdate();
+
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rows;
+    }
+
+
+    public ResultSet getClientById(int id) {
+        ResultSet resultSet = null;
+        try {
+            Connection connection = DriverManager.getConnection(USER, LOGIN, PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users where id = ?");
+            preparedStatement.setInt(1, id);
+
+            resultSet = preparedStatement.executeQuery();
+
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
+    public ResultSet getClientByNameAndSurname(String name, String surname) {
+        ResultSet resultSet = null;
+        try {
+            Connection connection = DriverManager.getConnection(USER, LOGIN, PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users" +
+                    "where first_name = ? " +
+                    "AND last_name = ?");
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(1, surname);
+
+            resultSet = preparedStatement.executeQuery();
+
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
+     public List<Client> getAllClients(){
         List<Client> clients = new ArrayList<>();
         try {
             Connection connection = DriverManager.getConnection( USER,LOGIN, PASS);
@@ -45,5 +106,4 @@ public class ClientDAO {
             throwables.printStackTrace();
         } return clients;
     }
-
 }
