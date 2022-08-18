@@ -46,4 +46,69 @@ public class ClientDAO {
         } return clients;
     }
 
+    public List<Client> getClientById(int clientId){
+        List<Client> clients = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection( USER,LOGIN, PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM clients WHERE id=?");
+            preparedStatement.setString(0, String.valueOf(clientId));
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                int id = rs.getInt("id");
+                int age = rs.getInt("age");
+                String firstName = rs.getString("first_Name");
+                String lastName = rs.getString("last_Name");
+                clients.add(new Client(id, age, firstName, lastName));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } return clients;
+    }
+
+    public List<Client> getClientByFirstName(String clientFirstName){
+        List<Client> clients = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection( USER,LOGIN, PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM clients WHERE first_name=?");
+            preparedStatement.setString(0, clientFirstName);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                int id = rs.getInt("id");
+                int age = rs.getInt("age");
+                String firstName = rs.getString("first_Name");
+                String lastName = rs.getString("last_Name");
+                clients.add(new Client(id, age, firstName, lastName));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } return clients;
+    }
+
+    public int addClient(String clientFirstName, String clientLastName, int clientAge){
+        int result=0;
+        try {
+            Connection connection = DriverManager.getConnection( USER,LOGIN, PASS);
+            connection.setAutoCommit(false);
+            Savepoint currentSavepoint = connection.setSavepoint();
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO clients" +
+                        "(first_name, last_name, age) VALUES (?, ?, ?)");
+                preparedStatement.setString(0, clientFirstName);
+                preparedStatement.setString(1,clientLastName);
+                preparedStatement.setString(2, String.valueOf(clientAge));
+                result = preparedStatement.executeUpdate();
+                connection.commit();
+
+            } catch (SQLException e) {
+                connection.rollback(currentSavepoint);
+                e.printStackTrace();
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } return result;
+    }
+
 }

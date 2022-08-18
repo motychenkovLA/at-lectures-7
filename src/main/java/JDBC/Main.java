@@ -31,8 +31,8 @@ public class Main {
 //            e.printStackTrace();
 //        }
 
-//        try {
-         //   Connection connection = DriverManager.getConnection(URL, USER, PASS);
+        try {
+            Connection connection = DriverManager.getConnection(URL, USER, PASS);
 
 //           Statement statement = connection.createStatement();
 //        //PrepareStatement совершает "прекомпил" запроса исключая скл-иньекций,
@@ -48,23 +48,23 @@ public class Main {
 
 
 
-//           Statement statement = connection.createStatement();
-//
-//            Boolean execBoo = statement.execute("");
-//            Integer execInt = statement.executeUpdate("");
-//            ResultSet rs = statement.executeQuery("SELECT * FROM clients");
-//
-//            StringBuilder sb = new StringBuilder();
-//
-//            while (rs.next()){
-//                sb.append("ID: ").append(rs.getInt("id")).append("; ")
-//                        .append("Age: ").append(rs.getInt("age")).append("; ")
-//                        .append("LastName: ").append(rs.getString("last_name")).append("; ")
-//                        .append("FirstName: ").append(rs.getString("first_name")).append("; ")
-//                        .append("\n");
-//            }
-//
-//            System.out.println(sb.toString());
+           Statement statement = connection.createStatement();
+
+            Boolean execBoo = statement.execute("");
+            Integer execInt = statement.executeUpdate("");
+            ResultSet rs = statement.executeQuery("SELECT * FROM clients");
+
+            StringBuilder sb = new StringBuilder();
+
+            while (rs.next()){
+                sb.append("ID: ").append(rs.getInt("id")).append("; ")
+                        .append("Age: ").append(rs.getInt("age")).append("; ")
+                        .append("LastName: ").append(rs.getString("last_name")).append("; ")
+                        .append("FirstName: ").append(rs.getString("first_name")).append("; ")
+                        .append("\n");
+            }
+
+            System.out.println(sb.toString());
 
 //            connection.setAutoCommit(false);
 //            Savepoint currentSavepoint = connection.setSavepoint();
@@ -92,19 +92,19 @@ public class Main {
 //
 //            statement.executeBatch();
 //            connection.commit();
-
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-
-        List<Client> clients = new ClientDAO().getAllClients();
-
-
-        for (int i = 0; i < clients.size(); i++) {
-            System.out.print("ID: " + clients.get(i).getId() + " ");
-            System.out.print("AGE: " + clients.get(i).getAge() + " ");
-            System.out.print("FIRST NAME: " + clients.get(i).getFirstName() + " ");
-            System.out.print("LAST NAME : " + clients.get(i).getLastName() + '\n');
+//
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
+//        List<Client> clients = new ClientDAO().getAllClients();
+//
+//
+//        for (int i = 0; i < clients.size(); i++) {
+//            System.out.print("ID: " + clients.get(i).getId() + " ");
+//            System.out.print("AGE: " + clients.get(i).getAge() + " ");
+//            System.out.print("FIRST NAME: " + clients.get(i).getFirstName() + " ");
+//            System.out.print("LAST NAME : " + clients.get(i).getLastName() + '\n');
+//        }
     }
 }
