@@ -51,8 +51,8 @@ public class ClientDAO {
         Connection connection = DriverManager.getConnection(USER, LOGIN, PASS);
         connection.setAutoCommit(false);
         Statement statement = connection.createStatement();
-        Integer execInt = statement.executeUpdate("INSERT INTO Clients (first_name, last_name, age, id) VALUES ('" + lastName + "','"
-                + firstName + "', '" + age + "' ,'" + Id + "'");
+        Integer execInt = statement.executeUpdate("INSERT INTO Clients (first_name, last_name, age, id) VALUES ('" + firstName + "','"
+                + lastName + "', '" + age + "' ,'" + Id + "'");
         statement.close();
         connection.close();
         return execInt;

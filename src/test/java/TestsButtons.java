@@ -10,7 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
 
 @DisplayName("Тесты для JUnit")
-public class Tests {
+public class TestsButtons {
 
     @Rule
     public Timeout durationsOfTests = Timeout.seconds(180);
