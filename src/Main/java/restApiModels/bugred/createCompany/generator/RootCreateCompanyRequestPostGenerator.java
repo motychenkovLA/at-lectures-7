@@ -5,7 +5,8 @@ import restApiModels.bugred.createCompany.request.RootCreateCompanyRequestPostMo
 
 public class RootCreateCompanyRequestPostGenerator {
 
-    public static RootCreateCompanyRequestPostModel randomCompany(String companyType, String emailOwner, String...companyUsers) {
+    public static RootCreateCompanyRequestPostModel randomCompany(String companyType, String emailOwner,
+                                                                  String...companyUsers) {
         Faker faker = Faker.instance();
         String companyName = faker.company().name();
 

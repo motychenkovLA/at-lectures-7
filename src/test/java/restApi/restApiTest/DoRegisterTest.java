@@ -17,7 +17,8 @@ public class DoRegisterTest extends BaseApiTest {
     @DisplayName("Тест №1 'Проверка успешной регистрации'")
     @Test
     public void successfulUserAdditionTest() {
-        RootDoRegisterRequestPostModel model = RootDoRegisterRequestPostGenerator.randomEmailAndName("123456789");
+        RootDoRegisterRequestPostModel model =
+                RootDoRegisterRequestPostGenerator.randomEmailAndName("123456789");
 
         RestAssured
                 .given()
@@ -42,7 +43,8 @@ public class DoRegisterTest extends BaseApiTest {
     @DisplayName("Тест №2 'Проверка повторной регистрации'")
     @Test
     public void userReplayRegisterTest() {
-        RootDoRegisterRequestPostModel model = RootDoRegisterRequestPostGenerator.randomEmailAndName("123456789");
+        RootDoRegisterRequestPostModel model =
+                RootDoRegisterRequestPostGenerator.randomEmailAndName("123456789");
         RequestSpecification requestSpecification = BugredController.prepareDoRegister(model);
 
         requestSpecification.post();

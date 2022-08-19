@@ -17,7 +17,8 @@ public class CreateCompanyTest extends BaseApiTest {
     @DisplayName("Тест №3 'Проверка успешной регистрации компании'")
     @Test
     public void successfulCompanyAdditionTest() {
-        RootDoRegisterRequestPostModel modelUser = RootDoRegisterRequestPostGenerator.randomEmailAndName("123456789");
+        RootDoRegisterRequestPostModel modelUser =
+                RootDoRegisterRequestPostGenerator.randomEmailAndName("123456789");
         RequestSpecification requestSpecification = BugredController.prepareDoRegister(modelUser);
         Response response = requestSpecification.post();
         response.then()
@@ -25,7 +26,9 @@ public class CreateCompanyTest extends BaseApiTest {
                 .body("name", Matchers.equalTo(modelUser.getName()))
                 .body("email", Matchers.equalTo(modelUser.getEmail()));
 
-        RootCreateCompanyRequestPostModel modelCompany = RootCreateCompanyRequestPostGenerator.randomCompany("ОАО", modelUser.getEmail(), modelUser.getEmail());
+        RootCreateCompanyRequestPostModel modelCompany =
+                RootCreateCompanyRequestPostGenerator.randomCompany("ОАО", modelUser.getEmail(),
+                        modelUser.getEmail());
         RequestSpecification requestSpecificationCompany = BugredController.prepareCreateCompany(modelCompany);
         Response responseCompany = requestSpecificationCompany.post();
         responseCompany.then()
