@@ -51,7 +51,7 @@ public class ClientDAO {
         try {
             Connection connection = DriverManager.getConnection( USER,LOGIN, PASS);
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM clients WHERE id=?");
-            preparedStatement.setString(0, String.valueOf(clientId));
+            preparedStatement.setString(1, String.valueOf(clientId));
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()){
                 int id = rs.getInt("id");
@@ -71,7 +71,7 @@ public class ClientDAO {
         try {
             Connection connection = DriverManager.getConnection( USER,LOGIN, PASS);
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM clients WHERE first_name=?");
-            preparedStatement.setString(0, clientFirstName);
+            preparedStatement.setString(1, clientFirstName);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()){
                 int id = rs.getInt("id");
@@ -95,9 +95,9 @@ public class ClientDAO {
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO clients" +
                         "(first_name, last_name, age) VALUES (?, ?, ?)");
-                preparedStatement.setString(0, clientFirstName);
-                preparedStatement.setString(1,clientLastName);
-                preparedStatement.setString(2, String.valueOf(clientAge));
+                preparedStatement.setString(1, clientFirstName);
+                preparedStatement.setString(2,clientLastName);
+                preparedStatement.setString(3, String.valueOf(clientAge));
                 result = preparedStatement.executeUpdate();
                 connection.commit();
 
