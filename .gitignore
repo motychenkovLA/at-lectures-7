@@ -1,2 +1,5 @@
+/target/
 /.idea/
+/.allure
+chromedriver.exe
 *.iml
