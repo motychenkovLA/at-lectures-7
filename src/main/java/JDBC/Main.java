@@ -31,8 +31,8 @@ public class Main {
 //            e.printStackTrace();
 //        }
 
-//        try {
-         //   Connection connection = DriverManager.getConnection(URL, USER, PASS);
+        try {
+            Connection connection = DriverManager.getConnection(URL, USER, PASS);
 
 //           Statement statement = connection.createStatement();
 //        //PrepareStatement совершает "прекомпил" запроса исключая скл-иньекций,
@@ -49,7 +49,7 @@ public class Main {
 
 
 //           Statement statement = connection.createStatement();
-//
+
 //            Boolean execBoo = statement.execute("");
 //            Integer execInt = statement.executeUpdate("");
 //            ResultSet rs = statement.executeQuery("SELECT * FROM clients");
@@ -81,21 +81,21 @@ public class Main {
 
 
 //            connection.setAutoCommit(false);
-//            Statement statement = connection.createStatement();
+            Statement statement = connection.createStatement();
+
+            String SQL = "INSERT INTO clients (first_name, last_name, age) VALUES ('test1', 'test1', 44)";
+            statement.addBatch(SQL);
+            SQL = "INSERT INTO clients (first_name, last_name, age) VALUES ('test2', 'test2', 44)";
+            statement.addBatch(SQL);
+            SQL = "INSERT INTO clients (first_name, last_name, age) VALUES ('test1', 'test3', 44)";
+            statement.addBatch(SQL);
 //
-//            String SQL = "INSERT INTO clients (first_name, last_name, age) VALUES ('test1', 'test1', 44)";
-//            statement.addBatch(SQL);
-//            SQL = "INSERT INTO clients (first_name, last_name, age) VALUES ('test2', 'test2', 44)";
-//            statement.addBatch(SQL);
-//            SQL = "INSERT INTO clients (first_name, last_name, age) VALUES ('test1', 'test3', 44)";
-//            statement.addBatch(SQL);
-//
-//            statement.executeBatch();
+            statement.executeBatch();
 //            connection.commit();
 
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         List<Client> clients = new ClientDAO().getAllClients();
 

@@ -108,7 +108,7 @@ public class ClientDAO {
                     "lastName, age) Values (?, ?, ?)");
             preparedStatement.setString(1, client.getFirstName());
             preparedStatement.setString(2, client.getLastName());
-            preparedStatement.setString(3, client.getAge());
+            preparedStatement.setInt(3, client.getAge());
 
             result = preparedStatement.executeUpdate();
 
