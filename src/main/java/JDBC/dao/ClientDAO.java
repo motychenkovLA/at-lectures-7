@@ -1,6 +1,7 @@
 package JDBC.dao;
 
 import JDBC.entities.Client;
+import sun.net.ConnectionResetException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -24,6 +25,40 @@ public class ClientDAO {
             e.printStackTrace();
         }
     }
+
+    public Client getClientById(int id) throws SQLException {
+        Client client = new Client();
+        Connection connection = DriverManager.getConnection(USER, LOGIN, PASS);
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM CLIENTS WHERE " +
+                "ID = " + id);
+        ResultSet rs = preparedStatement.executeQuery();
+        client.setId(rs.getInt("id"));
+        connection.close();
+        return client;
+    }
+
+    public Client getClientByFirstName (String firstName) throws SQLException {
+        Client client = new Client();
+        Connection connection = DriverManager.getConnection(USER, LOGIN, PASS);
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM CLIENTS WHERE " +
+                "FIRST_NAME = " + firstName);
+        ResultSet rs = preparedStatement.executeQuery();
+        client.setFirstName(rs.getString("firstName"));
+        connection.close();
+        return client;
+    }
+
+    public static int addNewClient (int Id, String lastName, String firstName, int age) throws SQLException {
+        Connection connection = DriverManager.getConnection(USER, LOGIN, PASS);
+        connection.setAutoCommit(false);
+        Statement statement = connection.createStatement();
+        Integer execInt = statement.executeUpdate("INSERT INTO Clients (first_name, last_name, age, id) VALUES ('" + lastName + "','"
+                + firstName + "', '" + age + "' ,'" + Id + "'");
+        statement.close();
+        connection.close();
+        return execInt;
+    }
+
 
 
     public List<Client> getAllClients(){

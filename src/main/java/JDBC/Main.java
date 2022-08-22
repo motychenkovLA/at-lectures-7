@@ -100,6 +100,7 @@ public class Main {
         List<Client> clients = new ClientDAO().getAllClients();
 
 
+
         for (int i = 0; i < clients.size(); i++) {
             System.out.print("ID: " + clients.get(i).getId() + " ");
             System.out.print("AGE: " + clients.get(i).getAge() + " ");
