@@ -28,8 +28,6 @@ public class Main {
             System.out.println("Подключение удалось");
 
 
-            ClientDAO.addClient(1, 15, "Ivanov", "Petr");
-
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

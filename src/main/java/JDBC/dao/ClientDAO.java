@@ -2,6 +2,7 @@ package JDBC.dao;
 
 import JDBC.entities.Client;
 
+import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,17 +27,17 @@ public class ClientDAO {
     }
 
 
-    public static int addClient(int id, int age, String firstname, String lastname) {
+    public static int addClient(Client client) {
         int rows = 0;
         try {
             Connection connection = DriverManager.getConnection(USER, LOGIN, PASS);
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users(id, age, " +
                     "firstname, lastname) VALUES (?, ?, ?, ?)");
             // Выполнение запроса
-            preparedStatement.setInt(1, id);
-            preparedStatement.setInt(2, age);
-            preparedStatement.setString(3, firstname);
-            preparedStatement.setString(4, lastname);
+            preparedStatement.setInt(1, client.getId());
+            preparedStatement.setInt(2, client.getAge());
+            preparedStatement.setString(3, client.getFirstName());
+            preparedStatement.setString(4, client.getLastName());
 
             rows = preparedStatement.executeUpdate();
 
@@ -45,30 +46,33 @@ public class ClientDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return rows;
     }
 
 
-    public ResultSet getClientById(int id) {
-        ResultSet resultSet = null;
+    public Client getClientById(int id) {
+        Client client = null;
         try {
             Connection connection = DriverManager.getConnection(USER, LOGIN, PASS);
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users where id = ?");
             preparedStatement.setInt(1, id);
 
-            resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
 
+            int userId = resultSet.getInt("id");
+            int userAge = resultSet.getInt("age");
+            String userFirstName = resultSet.getString("first_name");
+            String userLastName = resultSet.getString("last_name");
+            client = new Client(userId, userAge, userFirstName, userLastName);
             connection.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return resultSet;
+        return client;
     }
 
-    public ResultSet getClientByNameAndSurname(String name, String surname) {
-        ResultSet resultSet = null;
+    public Client getClientByNameAndSurname(String name, String surname) {
+        Client client = null;
         try {
             Connection connection = DriverManager.getConnection(USER, LOGIN, PASS);
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users" +
@@ -77,14 +81,18 @@ public class ClientDAO {
             preparedStatement.setString(1, name);
             preparedStatement.setString(1, surname);
 
-            resultSet = preparedStatement.executeQuery();
-
+            ResultSet resultSet = preparedStatement.executeQuery();
+            int userId = resultSet.getInt("id");
+            int userAge = resultSet.getInt("age");
+            String userFirstName = resultSet.getString("first_name");
+            String userLastName = resultSet.getString("last_name");
+            client = new Client(userId, userAge, userFirstName, userLastName);
             connection.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return resultSet;
+        return client;
     }
 
      public List<Client> getAllClients(){
