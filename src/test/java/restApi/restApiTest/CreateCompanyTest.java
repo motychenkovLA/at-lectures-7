@@ -21,20 +21,22 @@ public class CreateCompanyTest extends BaseApiTest {
                 RootDoRegisterRequestPostGenerator.randomEmailAndName("123456789");
         RequestSpecification requestSpecification = BugredController.prepareDoRegister(modelUser);
         Response response = requestSpecification.post();
-        response.then()
-                .statusCode(200)
-                .body("name", Matchers.equalTo(modelUser.getName()))
-                .body("email", Matchers.equalTo(modelUser.getEmail()));
+        response
+                .then()
+                    .statusCode(200)
+                    .body("name", Matchers.equalTo(modelUser.getName()))
+                    .body("email", Matchers.equalTo(modelUser.getEmail()));
 
         RootCreateCompanyRequestPostModel modelCompany =
                 RootCreateCompanyRequestPostGenerator.randomCompany("ОАО", modelUser.getEmail(),
                         modelUser.getEmail());
         RequestSpecification requestSpecificationCompany = BugredController.prepareCreateCompany(modelCompany);
         Response responseCompany = requestSpecificationCompany.post();
-        responseCompany.then()
-                .statusCode(200)
-                .body("type", Matchers.equalTo("success"))
-                .body("company.name", Matchers.equalTo(modelCompany.getCompany_name()))
-                .body("company.type", Matchers.equalTo(modelCompany.getCompany_type()));
+        responseCompany
+                .then()
+                    .statusCode(200)
+                    .body("type", Matchers.equalTo("success"))
+                    .body("company.name", Matchers.equalTo(modelCompany.getCompany_name()))
+                    .body("company.type", Matchers.equalTo(modelCompany.getCompany_type()));
     }
 }

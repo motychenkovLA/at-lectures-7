@@ -10,18 +10,20 @@ public class BugredController {
     private static final String HOST = "http://users.bugred.ru/";
 
     public static RequestSpecification prepareDoRegister(RootDoRegisterRequestPostModel model) {
-        return RestAssured.given()
-                .baseUri(HOST)
-                .basePath("tasks/rest/doregister")
-                .contentType(ContentType.JSON)
-                .body(model);
+        return RestAssured
+                .given()
+                    .baseUri(HOST)
+                    .basePath("tasks/rest/doregister")
+                    .contentType(ContentType.JSON)
+                    .body(model);
     }
 
     public static RequestSpecification prepareCreateCompany(RootCreateCompanyRequestPostModel model) {
-        return RestAssured.given()
-                .baseUri(HOST)
-                .basePath("tasks/rest/createcompany")
-                .contentType(ContentType.JSON)
-                .body(model);
+        return RestAssured
+                .given()
+                    .baseUri(HOST)
+                    .basePath("tasks/rest/createcompany")
+                    .contentType(ContentType.JSON)
+                    .body(model);
     }
 }

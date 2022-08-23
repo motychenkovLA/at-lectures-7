@@ -22,22 +22,23 @@ public class DoRegisterTest extends BaseApiTest {
 
         RestAssured
                 .given()
-                .spec(BugredController.prepareDoRegister(model))
+                    .spec(BugredController.prepareDoRegister(model))
                 .when()
-                .post()
+                    .post()
                 .then()
-                .statusCode(200)
-                .body("name", Matchers.equalTo(model.getName()))
-                .body("email", Matchers.equalTo(model.getEmail()));
+                    .statusCode(200)
+                    .body("name", Matchers.equalTo(model.getName()))
+                    .body("email", Matchers.equalTo(model.getEmail()));
 
 
 //        RequestSpecification requestSpecification = BugredController.prepareDoRegister(model);
 //        Response response = requestSpecification.post();
 //
-//        response.then()
-//                .statusCode(200)
-//                .body("name", Matchers.equalTo(model.getName()))
-//                .body("email", Matchers.equalTo(model.getEmail()));
+//        response
+//              .then()
+//                  .statusCode(200)
+//                  .body("name", Matchers.equalTo(model.getName()))
+//                  .body("email", Matchers.equalTo(model.getEmail()));
     }
 
     @DisplayName("Тест №2 'Проверка повторной регистрации'")
@@ -50,9 +51,10 @@ public class DoRegisterTest extends BaseApiTest {
         requestSpecification.post();
 
         Response response = requestSpecification.post();
-        response.then()
-                .statusCode(200)
-                .body("type", Matchers.equalTo("error"))
-                .body("message", Matchers.containsString(model.getEmail()));
+        response
+                .then()
+                    .statusCode(200)
+                    .body("type", Matchers.equalTo("error"))
+                    .body("message", Matchers.containsString(model.getEmail()));
     }
 }
