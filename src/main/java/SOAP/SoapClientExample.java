@@ -34,11 +34,11 @@ public class SoapClientExample {
 
     private void setSoapParams() {
 
-        namespaceURI = "http://www.webserviceX.NET";
-        soapUrl = "http://www.webservicex.net/uszip.asmx";
-        serviceName = "GetInfoByCity";
+        namespaceURI = "http://www.dataaccess.com/webservicesserver/";
+        soapUrl = "https://www.dataaccess.com/webservicesserver/numberconversion.wso";
+        serviceName = "NumberToWords";
 
-        namespace = "ns"; // Namespace";
+        namespace = "web"; // Namespace;
         soapAction = namespaceURI + "/" + serviceName;
     }
 
@@ -67,8 +67,8 @@ public class SoapClientExample {
         SOAPElement soapBodyElem1;
 
         soapBodyElem = soapBody.addChildElement(serviceName, namespace);
-        soapBodyElem1 = soapBodyElem.addChildElement("USCity", namespace);
-        soapBodyElem1.addTextNode("New York");
+        soapBodyElem1 = soapBodyElem.addChildElement("ubiNum", namespace);
+        soapBodyElem1.addTextNode("173");
 
     }
 
