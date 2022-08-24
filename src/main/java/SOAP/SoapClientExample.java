@@ -7,14 +7,14 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 
 /**
- * Задание:
- * 1. Раскатать WSDL в программе SOAPUI
+ * Р—Р°РґР°РЅРёРµ:
+ * 1. Р Р°СЃРєР°С‚Р°С‚СЊ WSDL РІ РїСЂРѕРіСЂР°РјРјРµ SOAPUI
  * WSDL: http://www.dataaccess.com/webservicesserver/numberconversion.wso?WSDL
- * 2.После раскатки возмите один из двух реквестов на выбор. Откройте его и ознакомтесь с запросом, и его параметрами
- * 3. В методе setSoapParams() ваша задача изменить параметры на те, что указаны в вашем запросе
- * Примечание: soapUrl - адрес куда отправлять запрос, он так же будет указан в soapui
- * 4. В методе createSoapEnvelope ваша задача сформировать  SOAP Body, пример того, что собирает код есть в аннотации внутри метода
- * 5. Запустить программу и получить верный ответ от сервиса
+ * 2.РџРѕСЃР»Рµ СЂР°СЃРєР°С‚РєРё РІРѕР·РјРёС‚Рµ РѕРґРёРЅ РёР· РґРІСѓС… СЂРµРєРІРµСЃС‚РѕРІ РЅР° РІС‹Р±РѕСЂ. РћС‚РєСЂРѕР№С‚Рµ РµРіРѕ Рё РѕР·РЅР°РєРѕРјС‚РµСЃСЊ СЃ Р·Р°РїСЂРѕСЃРѕРј, Рё РµРіРѕ РїР°СЂР°РјРµС‚СЂР°РјРё
+ * 3. Р’ РјРµС‚РѕРґРµ setSoapParams() РІР°С€Р° Р·Р°РґР°С‡Р° РёР·РјРµРЅРёС‚СЊ РїР°СЂР°РјРµС‚СЂС‹ РЅР° С‚Рµ, С‡С‚Рѕ СѓРєР°Р·Р°РЅС‹ РІ РІР°С€РµРј Р·Р°РїСЂРѕСЃРµ
+ * РџСЂРёРјРµС‡Р°РЅРёРµ: soapUrl - Р°РґСЂРµСЃ РєСѓРґР° РѕС‚РїСЂР°РІР»СЏС‚СЊ Р·Р°РїСЂРѕСЃ, РѕРЅ С‚Р°Рє Р¶Рµ Р±СѓРґРµС‚ СѓРєР°Р·Р°РЅ РІ soapui
+ * 4. Р’ РјРµС‚РѕРґРµ createSoapEnvelope РІР°С€Р° Р·Р°РґР°С‡Р° СЃС„РѕСЂРјРёСЂРѕРІР°С‚СЊ  SOAP Body, РїСЂРёРјРµСЂ С‚РѕРіРѕ, С‡С‚Рѕ СЃРѕР±РёСЂР°РµС‚ РєРѕРґ РµСЃС‚СЊ РІ Р°РЅРЅРѕС‚Р°С†РёРё РІРЅСѓС‚СЂРё РјРµС‚РѕРґР°
+ * 5. Р—Р°РїСѓСЃС‚РёС‚СЊ РїСЂРѕРіСЂР°РјРјСѓ Рё РїРѕР»СѓС‡РёС‚СЊ РІРµСЂРЅС‹Р№ РѕС‚РІРµС‚ РѕС‚ СЃРµСЂРІРёСЃР°
  */
 public class SoapClientExample {
 
@@ -83,7 +83,7 @@ public class SoapClientExample {
 
         soapMessage.saveChanges();
 
-        // Печать XML текста запроса
+        // РџРµС‡Р°С‚СЊ XML С‚РµРєСЃС‚Р° Р·Р°РїСЂРѕСЃР°
         System.out.println("Request SOAP Message:");
         soapMessage.writeTo(System.out);
         System.out.println('\n');
@@ -97,17 +97,17 @@ public class SoapClientExample {
         SOAPMessage soapRequest = null;
         SOAPMessage soapResponse = null;
         try {
-            // Создание SOAP Connection
+            // РЎРѕР·РґР°РЅРёРµ SOAP Connection
             soapFactory = SOAPConnectionFactory.newInstance();
             soapConnect = soapFactory.createConnection();
 
-            // Создание SOAP Message для отправки
+            // РЎРѕР·РґР°РЅРёРµ SOAP Message РґР»СЏ РѕС‚РїСЂР°РІРєРё
             soapRequest = createSOAPRequest(soapAction);
-            // Получение SOAP Message
+            // РџРѕР»СѓС‡РµРЅРёРµ SOAP Message
             soapResponse = soapConnect.call(soapRequest, destination);
 
             if (!useXSLT) {
-                // Печать SOAP Response
+                // РџРµС‡Р°С‚СЊ SOAP Response
                 System.out.println("Response SOAP Message:");
                 soapResponse.writeTo(System.out);
                 System.out.println();
@@ -127,13 +127,13 @@ public class SoapClientExample {
         TransformerFactory transformerFactory;
         Transformer transformer;
         try {
-            // Создание XSLT-процессора
+            // РЎРѕР·РґР°РЅРёРµ XSLT-РїСЂРѕС†РµСЃСЃРѕСЂР°
             transformerFactory = TransformerFactory.newInstance();
             transformer = transformerFactory.newTransformer();
-            // Получение содержимого ответа
+            // РџРѕР»СѓС‡РµРЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РѕС‚РІРµС‚Р°
             Source content;
             content = soapResponse.getSOAPPart().getContent();
-            // Определение выходного потока
+            // РћРїСЂРµРґРµР»РµРЅРёРµ РІС‹С…РѕРґРЅРѕРіРѕ РїРѕС‚РѕРєР°
             StreamResult result = new StreamResult(System.out);
             transformer.transform(content, result);
             System.out.println();
