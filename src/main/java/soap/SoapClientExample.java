@@ -7,21 +7,21 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 
 /**
- * ???????:
- * 1. ????????? WSDL ? ????????? SOAPUI
+ * Задание:
+ * 1. Раскатать WSDL в программе SOAPUI
  * WSDL: http://www.dataaccess.com/webservicesserver/numberconversion.wso?WSDL
- * 2.????? ???????? ??????? ???? ?? ???? ????????? ?? ?????. ???????? ??? ? ??????????? ? ????????, ? ??? ???????????
- * 3. ? ?????? setSoapParams() ???? ?????? ???????? ????????? ?? ??, ??? ??????? ? ????? ???????
- * ??????????: soapUrl - ????? ???? ?????????? ??????, ?? ??? ?? ????? ?????? ? soapui
- * 4. ? ?????? createSoapEnvelope ???? ?????? ????????????  SOAP Body, ?????? ????, ??? ???????? ??? ???? ? ????????? ?????? ??????
- * 5. ????????? ????????? ? ???????? ?????? ????? ?? ???????
+ * 2.После раскатки возмите один из двух реквестов на выбор. Откройте его и ознакомтесь с запросом, и его параметрами
+ * 3. В методе setSoapParams() ваша задача изменить параметры на те, что указаны в вашем запросе
+ * Примечание: soapUrl - адрес куда отправлять запрос, он так же будет указан в soapui
+ * 4. В методе createSoapEnvelope ваша задача сформировать  SOAP Body, пример того, что собирает код есть в аннотации внутри метода
+ * 5. Запустить программу и получить верный ответ от сервиса
  */
+
 public class SoapClientExample {
 
     private String namespaceURI = null;
     private String soapUrl = null;
     private String serviceName = null;
-
     private String namespace = null;
     private String soapAction = null;
 
@@ -34,11 +34,11 @@ public class SoapClientExample {
 
     private void setSoapParams() {
 
-        namespaceURI = "http://www.webserviceX.NET";
-        soapUrl = "http://www.webservicex.net/uszip.asmx";
-        serviceName = "GetInfoByCity";
+        soapUrl = "http://localhost:8088/mockNumberConversionSoapBinding";
+        namespaceURI = "http://www.dataaccess.com/webservicesserver/";
+        serviceName = "NumberToDollars";
 
-        namespace = "ns"; // Namespace";
+        namespace = "web"; // Namespace";
         soapAction = namespaceURI + "/" + serviceName;
     }
 
@@ -48,8 +48,17 @@ public class SoapClientExample {
         // SOAP Envelope
         SOAPEnvelope envelope = soapPart.getEnvelope();
         envelope.addNamespaceDeclaration(namespace, namespaceURI);
+
+        // SOAP Body
+        SOAPBody soapBody = envelope.getBody();
+        SOAPElement soapBodyElem;
+        SOAPElement soapBodyElem1;
+
+        soapBodyElem = soapBody.addChildElement(serviceName, namespace);
+        soapBodyElem1 = soapBodyElem.addChildElement("dNum", namespace);
+        soapBodyElem1.addTextNode("3");
 /*
-            Constructed SOAP Request Message:
+        // Constructed SOAP Request Message:
             <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
                                xmlns:myNamespace="http://www.webserviceX.NET">
                 <SOAP-ENV:Header/>
@@ -60,16 +69,6 @@ public class SoapClientExample {
                 </SOAP-ENV:Body>
             </SOAP-ENV:Envelope>
 */
-
-        // SOAP Body
-        SOAPBody soapBody = envelope.getBody();
-        SOAPElement soapBodyElem;
-        SOAPElement soapBodyElem1;
-
-        soapBodyElem = soapBody.addChildElement(serviceName, namespace);
-        soapBodyElem1 = soapBodyElem.addChildElement("USCity", namespace);
-        soapBodyElem1.addTextNode("New York");
-
     }
 
     private SOAPMessage createSOAPRequest(String soapAction) throws Exception {
@@ -83,7 +82,7 @@ public class SoapClientExample {
 
         soapMessage.saveChanges();
 
-        // ?????? XML ?????? ???????
+        // Печать XML текста запроса
         System.out.println("Request SOAP Message:");
         soapMessage.writeTo(System.out);
         System.out.println('\n');
@@ -97,17 +96,17 @@ public class SoapClientExample {
         SOAPMessage soapRequest = null;
         SOAPMessage soapResponse = null;
         try {
-            // ???????? SOAP Connection
+            // Создание SOAP Connection
             soapFactory = SOAPConnectionFactory.newInstance();
             soapConnect = soapFactory.createConnection();
 
-            // ???????? SOAP Message ??? ????????
+            // Создание SOAP Message для отправки
             soapRequest = createSOAPRequest(soapAction);
-            // ????????? SOAP Message
+            // Получение SOAP Message
             soapResponse = soapConnect.call(soapRequest, destination);
 
             if (!useXSLT) {
-                // ?????? SOAP Response
+                // Печать SOAP Response
                 System.out.println("Response SOAP Message:");
                 soapResponse.writeTo(System.out);
                 System.out.println();
@@ -127,13 +126,13 @@ public class SoapClientExample {
         TransformerFactory transformerFactory;
         Transformer transformer;
         try {
-            // ???????? XSLT-??????????
+            // Создание XSLT-процессора
             transformerFactory = TransformerFactory.newInstance();
             transformer = transformerFactory.newTransformer();
-            // ????????? ??????????? ??????
+            // Получение содержимого ответа
             Source content;
             content = soapResponse.getSOAPPart().getContent();
-            // ??????????? ????????? ??????
+            // Определение выходного потока
             StreamResult result = new StreamResult(System.out);
             transformer.transform(content, result);
             System.out.println();

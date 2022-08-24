@@ -6,8 +6,11 @@ import restApiModels.bugred.doRegister.request.RootDoRegisterRequestPostModel;
 public class RootDoRegisterRequestPostGenerator {
 
     public static RootDoRegisterRequestPostModel randomEmailAndName(String password) {
+//        Faker faker = new Faker();
+//        То же самое
         Faker faker = Faker.instance();
-        String email = faker.bothify("????###@gmail.com");
+
+        String email =faker.bothify("????###@gmail.com");
         String name = faker.name().nameWithMiddle();
 
         return new RootDoRegisterRequestPostModel()

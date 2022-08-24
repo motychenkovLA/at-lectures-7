@@ -19,24 +19,24 @@ public class DoRegisterTest extends BaseApiTest {
     public void successfulUserAdditionTest() {
         RootDoRegisterRequestPostModel model = RootDoRegisterRequestPostGenerator.randomEmailAndName("123456789");
 
-        RestAssured
-                .given()
-                .spec(BugredController.prepareDoRegister(model))
-                .when()
-                .post()
-                .then()
-                .statusCode(200)
-                .body("name", Matchers.equalTo(model.getName()))
-                .body("email", Matchers.equalTo(model.getEmail()));
-
-
-//        RequestSpecification requestSpecification = BugredController.prepareDoRegister(model);
-//        Response response = requestSpecification.post();
-//
-//        response.then()
+//        RestAssured
+//                .given()
+//                .spec(BugredController.prepareDoRegister(model))
+//                .when()
+//                .post()
+//                .then()
 //                .statusCode(200)
 //                .body("name", Matchers.equalTo(model.getName()))
 //                .body("email", Matchers.equalTo(model.getEmail()));
+
+
+        RequestSpecification requestSpecification = BugredController.prepareDoRegister(model);
+        Response response = requestSpecification.post();
+
+        response.then()
+                .statusCode(200)
+                .body("name", Matchers.equalTo(model.getName()))
+                .body("email", Matchers.equalTo(model.getEmail()));
     }
 
     @DisplayName("Тест №2 'Проверка повторной регистрации'")
