@@ -154,7 +154,6 @@ public class Tracker {
         long countDone = repository.getAllDefect().stream()
                 .filter(e -> e.getStatus().equals(Status.DONE)).count();
 
-
         int maxDay = repository.getAllDefect().stream()
                 .mapToInt(Defect ::getCountDay)
                 .max()
@@ -173,7 +172,6 @@ public class Tracker {
                 .mapToInt(Defect ::getCountDay)
                 .summaryStatistics()
                 .getAverage();
-
 
 //        int maxDay = repository.getCounterDay().stream()
 //                .max(Integer ::compareTo)

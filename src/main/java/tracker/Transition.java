@@ -15,7 +15,7 @@ public class Transition {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if(this.hashCode() != o.hashCode()) return false;
+        if (this.hashCode() != o.hashCode()) return false;
         Transition that = (Transition) o;
         return from == that.from && to == that.to;
     }
