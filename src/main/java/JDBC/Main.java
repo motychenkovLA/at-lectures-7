@@ -3,13 +3,12 @@ package JDBC;
 import JDBC.dao.ClientDAO;
 import JDBC.entities.Client;
 
-
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws SQLException {
 
         String URL = "jdbc:mysql://localhost:3306/users";
         String USER = "root";
@@ -106,5 +105,22 @@ public class Main {
             System.out.print("FIRST NAME: " + clients.get(i).getFirstName() + " ");
             System.out.print("LAST NAME : " + clients.get(i).getLastName() + '\n');
         }
+
+        Client client = new ClientDAO().getClientById(10);
+        System.out.print("ID: " + client.getId() + " ");
+        System.out.print("AGE: " + client.getAge() + " ");
+        System.out.print("FIRST NAME: " + client.getFirstName() + " ");
+        System.out.print("LAST NAME : " + client.getLastName() + '\n');
+
+
+        List<Client> cl = new ClientDAO().getFioClients();
+        for (int i = 0; i < cl.size(); i++) {
+            System.out.print("ID: " + cl.get(i).getId() + " ");
+            System.out.print("AGE: " + cl.get(i).getAge() + " ");
+            System.out.print("FIRST NAME: " + cl.get(i).getFirstName() + " ");
+            System.out.print("LAST NAME : " + cl.get(i).getLastName() + '\n');
+        }
+
+        System.out.println(new ClientDAO().getCountRequest(2, "Ivan", "Ivanov", 28));
     }
 }

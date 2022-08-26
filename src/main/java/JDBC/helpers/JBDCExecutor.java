@@ -3,9 +3,9 @@ package JDBC.helpers;
 import java.sql.*;
 
 public class JBDCExecutor {
-    private static String USER = "jdbc:mysql://localhost:3306/users";
-    private static String LOGIN = "root";
-    private static String PASS = "root";
+    private static final String URL = "jdbc:mysql://localhost:3306/users";
+    private static final String LOGIN = "root";
+    private static final String PASS = "root";
     private static final String driverClassName = "com.mysql.cj.jdbc.Driver";
 
     static {
@@ -23,7 +23,7 @@ public class JBDCExecutor {
         int returnInt = 0;
 
         try {
-            connection = DriverManager.getConnection(USER, LOGIN, PASS);
+            connection = DriverManager.getConnection(URL, LOGIN, PASS);
             preparedStatement = connection.prepareStatement(sqlQuery);
 
             connection.setAutoCommit(false);
