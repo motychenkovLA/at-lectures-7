@@ -62,8 +62,8 @@ public class RestTest extends BaseApiTest {
         createCompanyResponse.then()
                 .statusCode(200)
                 .body("type", Matchers.equalTo("success"))
-                .body("name", Matchers.equalTo(createCompanyModel.getCompany_name()))
-                .body("type", Matchers.containsString(createCompanyModel.getCompany_type()));
+                .body("company.name", Matchers.equalTo(createCompanyModel.getCompany_name()))
+                .body("company.type", Matchers.containsString(createCompanyModel.getCompany_type()));
     }
 
 
