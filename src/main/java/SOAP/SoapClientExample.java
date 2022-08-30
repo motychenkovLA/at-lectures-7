@@ -10,7 +10,7 @@ import javax.xml.transform.stream.StreamResult;
  * Задание:
  * 1. Раскатать WSDL в программе SOAPUI
  * WSDL: http://www.dataaccess.com/webservicesserver/numberconversion.wso?WSDL
- * 2.После раскатки возмите один из двух реквестов на выбор. Откройте его и ознакомтесь с запросом, и его параметрами
+ * 2.После раскатки возьмите один из двух реквестов на выбор. Откройте его и ознакомтесь с запросом, и его параметрами
  * 3. В методе setSoapParams() ваша задача изменить параметры на те, что указаны в вашем запросе
  * Примечание: soapUrl - адрес куда отправлять запрос, он так же будет указан в soapui
  * 4. В методе createSoapEnvelope ваша задача сформировать  SOAP Body, пример того, что собирает код есть в аннотации внутри метода
@@ -34,11 +34,11 @@ public class SoapClientExample {
 
     private void setSoapParams() {
 
-        namespaceURI = "http://www.webserviceX.NET";
-        soapUrl = "http://www.webservicex.net/uszip.asmx";
-        serviceName = "GetInfoByCity";
+        namespaceURI = "http://www.dataaccess.com/webservicesserver/";
+        soapUrl = "https://www.dataaccess.com/webservicesserver/numberconversion.wso";
+        serviceName = "NumberToWords";
 
-        namespace = "ns"; // Namespace";
+        namespace = "web"; // Namespace";
         soapAction = namespaceURI + "/" + serviceName;
     }
 
@@ -67,8 +67,8 @@ public class SoapClientExample {
         SOAPElement soapBodyElem1;
 
         soapBodyElem = soapBody.addChildElement(serviceName, namespace);
-        soapBodyElem1 = soapBodyElem.addChildElement("USCity", namespace);
-        soapBodyElem1.addTextNode("New York");
+        soapBodyElem1 = soapBodyElem.addChildElement("ubiNum", namespace);
+        soapBodyElem1.addTextNode("76");
 
     }
 
