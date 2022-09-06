@@ -16,12 +16,12 @@ import javax.xml.transform.stream.StreamResult;
  * 4. ¬ методе createSoapEnvelope ваша задача сформировать  SOAP Body, пример того, что собирает код есть в аннотации внутри метода
  * 5. «апустить программу и получить верный ответ от сервиса
  */
+
 public class SoapClientExample {
 
     private String namespaceURI = null;
     private String soapUrl = null;
     private String serviceName = null;
-
     private String namespace = null;
     private String soapAction = null;
 
@@ -34,11 +34,11 @@ public class SoapClientExample {
 
     private void setSoapParams() {
 
-        namespaceURI = "http://www.webserviceX.NET";
-        soapUrl = "http://www.webservicex.net/uszip.asmx";
-        serviceName = "GetInfoByCity";
+        soapUrl = "http://localhost:8088/mockNumberConversionSoapBinding";
+        namespaceURI = "http://www.dataaccess.com/webservicesserver/";
+        serviceName = "NumberToDollars";
 
-        namespace = "ns"; // Namespace";
+        namespace = "web"; // Namespace";
         soapAction = namespaceURI + "/" + serviceName;
     }
 
@@ -48,18 +48,6 @@ public class SoapClientExample {
         // SOAP Envelope
         SOAPEnvelope envelope = soapPart.getEnvelope();
         envelope.addNamespaceDeclaration(namespace, namespaceURI);
-/*
-            Constructed SOAP Request Message:
-            <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
-                               xmlns:myNamespace="http://www.webserviceX.NET">
-                <SOAP-ENV:Header/>
-                <SOAP-ENV:Body>
-                    <myNamespace:GetInfoByCity>
-                        <myNamespace:USCity>New York</myNamespace:USCity>
-                    </myNamespace:GetInfoByCity>
-                </SOAP-ENV:Body>
-            </SOAP-ENV:Envelope>
-*/
 
         // SOAP Body
         SOAPBody soapBody = envelope.getBody();
@@ -67,9 +55,20 @@ public class SoapClientExample {
         SOAPElement soapBodyElem1;
 
         soapBodyElem = soapBody.addChildElement(serviceName, namespace);
-        soapBodyElem1 = soapBodyElem.addChildElement("USCity", namespace);
-        soapBodyElem1.addTextNode("New York");
-
+        soapBodyElem1 = soapBodyElem.addChildElement("dNum", namespace);
+        soapBodyElem1.addTextNode("7");
+/*
+        // Constructed SOAP Request Message:
+            <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                               xmlns:myNamespace="http://www.webserviceX.NET">
+                <SOAP-ENV:Header/>
+                <SOAP-ENV:Body>
+                    <myNamespace:NumberToDollars>
+                        <myNamespace:dNum>7</myNamespace:dNum>
+                    </myNamespace:NumberToDollars>
+                </SOAP-ENV:Body>
+            </SOAP-ENV:Envelope>
+*/
     }
 
     private SOAPMessage createSOAPRequest(String soapAction) throws Exception {
