@@ -16,7 +16,7 @@ public class FirstTest {
     public void beforeMethod() {
         System.setProperty("webdriver.chrome.driver", "src/test/chromedriver/chromedriver.exe");
         chromeDriver = new ChromeDriver();
-        chromeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        chromeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
     }
 
     @After
@@ -25,7 +25,7 @@ public class FirstTest {
     }
 
     @Rule
-    public Timeout testTimeout = Timeout.seconds(180);
+    public Timeout testTimeout = Timeout.seconds(300);
 
     @Test
     @DisplayName("Тест: нажатие кнопок")
