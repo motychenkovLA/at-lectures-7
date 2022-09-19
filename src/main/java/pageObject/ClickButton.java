@@ -33,8 +33,8 @@ public class ClickButton {
         WebElement click = webDriver.findElement(clickText);
 
         new Actions(webDriver)
-//                .doubleClick(doubleClick)
-//                .contextClick(contextClick)
+                .doubleClick(doubleClick)
+                .contextClick(contextClick)
                 .click(click)
                 .build()
                 .perform();

@@ -86,7 +86,7 @@ public class Main {
 //                connection.commit();
 //
 //            } catch (SQLException e) {
-//                connection.rollback(currentSavepoint);
+//                connection.rollback(currentSavepoint); откат до начала транзакции
 //                e.printStackTrace();
 //            }
 

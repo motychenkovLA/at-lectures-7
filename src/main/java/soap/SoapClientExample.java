@@ -129,6 +129,7 @@ public class SoapClientExample {
             // Создание XSLT-процессора
             transformerFactory = TransformerFactory.newInstance();
             transformer = transformerFactory.newTransformer();
+
             // Получение содержимого ответа
             Source content;
             content = soapResponse.getSOAPPart().getContent();
