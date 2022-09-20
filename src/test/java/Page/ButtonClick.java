@@ -8,8 +8,8 @@ import org.openqa.selenium.interactions.Actions;
 
 public class ButtonClick {
     ChromeDriver chromeDriver;
-    private static final By doubleClick = By.xpath("//button[id='doubleClickBtn']");
-    private static final By rightClick = By.xpath("//button[id='rightClickBtn']");
+    private static final By doubleClick = By.xpath("//button[@id='doubleClickBtn']");
+    private static final By rightClick = By.xpath("//button[@id='rightClickBtn']");
     private static final By click = By.xpath("//button[text()='Click Me']");
     private static final By doubleClickText = By.xpath("//p[text()='You have done a double click']");
     private static final By rightClickText = By.xpath("//p[text()='You have done a right click']");
