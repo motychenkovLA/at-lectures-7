@@ -1,7 +1,8 @@
 package pageObject.demoqa;
 
-import io.qameta.allure.junit4.DisplayName;
 import org.junit.*;
+
+import org.junit.jupiter.api.DisplayName;
 import org.junit.rules.Timeout;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;

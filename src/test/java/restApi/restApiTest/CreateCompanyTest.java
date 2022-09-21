@@ -1,7 +1,7 @@
 package restApi.restApiTest;
 
+import org.junit.jupiter.api.DisplayName;
 import restApi.BaseApiTest;
-import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.hamcrest.Matchers;
